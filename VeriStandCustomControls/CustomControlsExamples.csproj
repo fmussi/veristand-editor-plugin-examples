@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>MUTATE2020;MUTATE2020R4</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -30,8 +30,8 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup>
-    <VeriStandDir>c:\Program Files\National Instruments\VeriStand 2021</VeriStandDir>
-    <DefineConstants>MUTATE2020;MUTATE2020R4;MUTATE2021</DefineConstants>
+    <VeriStandDir>c:\Program Files\National Instruments\VeriStand 2020</VeriStandDir>
+    <DefineConstants>MUTATE2020;MUTATE2020R4</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NationalInstruments.Controls">
@@ -129,7 +129,7 @@
     <Compile Include="CustomControlViewModelProvider.cs" />
     <Compile Include="ExamplePreferencePage.xaml.cs">
       <DependentUpon>ExamplePreferencePage.xaml</DependentUpon>
-    </Compile>	
+    </Compile>
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
     <Compile Include="KeySwitchControl.cs" />
@@ -176,6 +176,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(TargetPath)" "C:\Users\Public\Documents\National Instruments\NI VeriStand 2021\Custom UI Manager Controls\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /y "$(TargetPath)" "C:\Users\Public\Documents\National Instruments\NI VeriStand 2020\Custom UI Manager Controls\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
