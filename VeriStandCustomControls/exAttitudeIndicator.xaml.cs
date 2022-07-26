@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace testWPFapp
+namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for exAttitudeIndicator.xaml
     /// </summary>
-    public partial class MainWindow : UserControl
+    public partial class exAttitudeIndicator : UserControl
     {
-        public MainWindow()
+        public exAttitudeIndicator()
         {
             InitializeComponent();
-            pnlMainGrid.MouseUp += new MouseButtonEventHandler(pnlMainGrid_MouseUp);
-        }
-
-        private void pnlMainGrid_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
         }
     }
 }

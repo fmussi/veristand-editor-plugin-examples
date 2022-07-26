@@ -34,12 +34,18 @@
     <DefineConstants>MUTATE2020;MUTATE2020R4</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NationalInstruments.Common, Version=19.0.40.49152, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL" />
     <Reference Include="NationalInstruments.Controls">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VeriStandDir)\NationalInstruments.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="NationalInstruments.Controls.Booleans, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="NationalInstruments.Controls.Design">
       <HintPath>$(VeriStandDir)\NationalInstruments.Controls.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.Industry, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.Industry.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.MocControls">
       <HintPath>$(VeriStandDir)\NationalInstruments.Controls.MocControls.dll</HintPath>
@@ -47,6 +53,28 @@
     <Reference Include="NationalInstruments.Controls.Numerics">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VeriStandDir)\NationalInstruments.Controls.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.Booleans">
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Booleans.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.cache">
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.cache.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.Graphs">
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.Industry">
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Industry.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.MocControls">
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.MocControls.dll</HintPath>
+    </Reference>
+    <Reference Include="NationalInstruments.Controls.SkinProviders.Numerics">
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Core">
       <HintPath>$(VeriStandDir)\NationalInstruments.Core.dll</HintPath>
@@ -106,6 +134,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="exAttitudeIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="KeySwitchControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,6 +162,9 @@
     <Compile Include="ExamplePreferencePage.xaml.cs">
       <DependentUpon>ExamplePreferencePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="exAttitudeIndicator.xaml.cs">
+      <DependentUpon>exAttitudeIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
     <Compile Include="KeySwitchControl.cs" />
@@ -153,7 +188,9 @@
     <Compile Include="PWMControl.xaml.cs">
       <DependentUpon>PWMControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="exAttitudeIndicatorModel.cs" />
     <Compile Include="PWMControlModel.cs" />
+    <Compile Include="exAttitudeIndicatorViewModel.cs" />
     <Compile Include="PWMControlViewModel.cs" />
     <Compile Include="Resources\LocalizedStrings.Designer.cs" />
     <Compile Include="TwoChannelAdorner.xaml.cs">
