@@ -34,8 +34,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             // Register for channel value change events on the model.  The weak event manager is used here since it helps prevent memory leaks associated
             // with registering for events and lets us be less careful about unregistering for these events at a later time.
-            //WeakEventManager<PulseWidthModulationControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "DutyCycleChannelValueChangedEvent", DutyCycleValueChangedEventHandler);
-            //WeakEventManager<PulseWidthModulationControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "FrequencyChannelValueChangedEvent", FrequencyValueChangedEventHandler);
+            WeakEventManager<PulseWidthModulationControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "DutyCycleChannelValueChangedEvent", DutyCycleValueChangedEventHandler);
+            WeakEventManager<PulseWidthModulationControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "FrequencyChannelValueChangedEvent", FrequencyValueChangedEventHandler);
         }
 
         /// <summary>
@@ -88,8 +88,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <returns>pwmcontrol view</returns>
         public override object CreateView()
         {
-            //var view = new exAttitudeIndicator(this);
-            var view = new exAttitudeIndicator();
+            var view = new exAttitudeIndicator(this);
             WeakEventManager<exAttitudeIndicator, FaultStateChangeEventArgs>.AddHandler(view, "FaultStateChanged", FaultStateChanged);
             WeakEventManager<exAttitudeIndicator, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
             return view;

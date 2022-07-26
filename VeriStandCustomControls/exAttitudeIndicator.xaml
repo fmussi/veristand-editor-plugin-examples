@@ -16,5 +16,5 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <ni:AttitudeIndicator x:Name="AttitudeIndicator" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="275" Width="380" />
+    <ni:AttitudeIndicator x:Name="AttitudeIndicator" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="275" Width="380" ni:ValueControlsAttachedProperties.UpdateValueOnValueChanging="True"/>
 </UserControl>

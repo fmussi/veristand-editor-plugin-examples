@@ -87,7 +87,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         private const string exAttitudeIndicatorModelErrorString = "exAttitudeIndicatorModelErrors";
 
         /// <summary>
-        /// Specifies the name of the frequency channel - kept it
+        /// Specifies the name of the frequency channel
         /// </summary>
         public const string FrequencyChannelName = "FrequencyChannel";
 
@@ -95,7 +95,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
         public static readonly PropertySymbol FrequencyChannelSymbol =
-            ExposePropertySymbol<PulseWidthModulationControlModel>(FrequencyChannelName, string.Empty);
+            ExposePropertySymbol<exAttitudeIndicatorModel>(FrequencyChannelName, string.Empty);
 
         /// <summary>
         /// Specifies the name of the duty cycle channel property
@@ -106,7 +106,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Specifies the PropertySymbol for the duty cycle channel
         /// </summary>
         public static readonly PropertySymbol DutyCycleChannelSymbol =
-            ExposePropertySymbol<PulseWidthModulationControlModel>(DutyCycleChannelName, string.Empty);
+            ExposePropertySymbol<exAttitudeIndicatorModel>(DutyCycleChannelName, string.Empty);
 
         /// <summary>
         /// Provide a xaml generation helper. This is used to help generate xaml for the properties on this control.
