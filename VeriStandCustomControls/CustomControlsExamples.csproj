@@ -134,9 +134,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="exAttitudeIndicator.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="exAttitudeIndicatorTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="KeySwitchControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -162,11 +162,9 @@
     <Compile Include="ExamplePreferencePage.xaml.cs">
       <DependentUpon>ExamplePreferencePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="exAttitudeIndicator.xaml.cs">
-      <DependentUpon>exAttitudeIndicator.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
+    <Compile Include="exAttitudeIndicator.cs" />
     <Compile Include="KeySwitchControl.cs" />
     <Compile Include="KeySwitchControlModel.cs" />
     <Compile Include="KeySwitchControlViewModel.cs" />

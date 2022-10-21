@@ -68,52 +68,5 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 channelValueChangedSubscribers(this, new CustomChannelValueChangedEventArgs(channelValue, channelName));
             }
         }
-
-        /// <summary>
-        /// The value of the duty cycle of this control
-        /// </summary>
-        public double DutyCycleValue
-        {
-            get { return (double)GetValue(DutyCycleValueProperty); }
-            set { SetValue(DutyCycleValueProperty, value); }
-        }
-
-        /// <summary>
-        /// Dependency property for Duty Cycle for the slider
-        /// </summary>
-        public static readonly DependencyProperty SliderDutyCycleValueProperty = DependencyProperty.Register(
-          "SliderDutyCycleValue", typeof(double), typeof(exAttitudeIndicator), new FrameworkPropertyMetadata(0.0));
-
-        /// <summary>
-        /// The value of the duty cycle for the slider. The only reason this has a separate property is becase we supress updates from the gateway to the slider
-        /// control when the slider is being draggged to keep it from jumping around
-        /// </summary>
-        public double SliderDutyCycleValue
-        {
-            get { return (double)GetValue(SliderDutyCycleValueProperty); }
-            set { SetValue(SliderDutyCycleValueProperty, value); }
-        }
-
-        /// <summary>
-        /// Dependency property for Duty Cycle
-        /// </summary>
-        public static readonly DependencyProperty DutyCycleValueProperty = DependencyProperty.Register(
-          "DutyCycleValue", typeof(double), typeof(exAttitudeIndicator), new FrameworkPropertyMetadata(0.0));
-
-        /// <summary>
-        /// The value of the frequency of this control
-        /// </summary>
-        public double FrequencyValue
-        {
-            get { return (double)GetValue(FrequencyValueProperty); }
-            set { SetValue(FrequencyValueProperty, value); }
-        }
-
-        /// <summary>
-        /// Dependency property for Frequency
-        /// </summary>
-        public static readonly DependencyProperty FrequencyValueProperty = DependencyProperty.Register(
-          "FrequencyValue", typeof(double), typeof(exAttitudeIndicator), new FrameworkPropertyMetadata(0.0));
-
     }
 }

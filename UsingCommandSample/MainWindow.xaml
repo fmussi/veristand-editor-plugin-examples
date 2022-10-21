@@ -1,0 +1,16 @@
+﻿<Window x:Class="UsingCommandSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="UsingCommandsSample" Height="100" Width="200">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed" CanExecute="NewCommand_CanExecute" />
+    </Window.CommandBindings>
+    <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <WrapPanel DockPanel.Dock="Top" Margin="3">
+            <Button Command="ApplicationCommands.New">New</Button>
+            <Button Command="ApplicationCommands.Cut" CommandTarget="{Binding ElementName=txtEditor}" Width="60">_Cut</Button>
+            <Button Command="ApplicationCommands.Paste" CommandTarget="{Binding ElementName=txtEditor}" Width="60" Margin="3,0">_Paste</Button>
+        </WrapPanel>
+       <TextBox AcceptsReturn="True" Name="txtEditor" />
+    </DockPanel>
+</Window>

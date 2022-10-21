@@ -7,7 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomControlsExamples", "V
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeriStand.CustomApplication", "VeriStand.CustomApplication\VeriStand.CustomApplication.csproj", "{FAEE9A43-2D93-4EDF-A2C6-379F75C775E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testWPFapp", "testWPFapp\testWPFapp\testWPFapp.csproj", "{2D3433DE-C79D-4995-8067-48C99BD8AD1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testWPFapp", "testWPFapp\testWPFapp\testWPFapp.csproj", "{2D3433DE-C79D-4995-8067-48C99BD8AD1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeNotificationSample", "ChangeNotificationSample\ChangeNotificationSample.csproj", "{11C38FA2-ADBC-4F50-A557-93309937E668}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{7E90D48A-561B-4704-9190-55ADB9EBEC18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsingCommandSample", "UsingCommandSample\UsingCommandSample.csproj", "{64FE0768-A7B8-4602-B476-A2FEEB382AC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomCommandSample", "CustomCommandSample\CustomCommandSample.csproj", "{89837227-26F7-47A6-8D9C-3C96A3B45896}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +35,27 @@ Global
 		{2D3433DE-C79D-4995-8067-48C99BD8AD1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D3433DE-C79D-4995-8067-48C99BD8AD1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D3433DE-C79D-4995-8067-48C99BD8AD1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11C38FA2-ADBC-4F50-A557-93309937E668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11C38FA2-ADBC-4F50-A557-93309937E668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11C38FA2-ADBC-4F50-A557-93309937E668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11C38FA2-ADBC-4F50-A557-93309937E668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FE0768-A7B8-4602-B476-A2FEEB382AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FE0768-A7B8-4602-B476-A2FEEB382AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FE0768-A7B8-4602-B476-A2FEEB382AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FE0768-A7B8-4602-B476-A2FEEB382AC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89837227-26F7-47A6-8D9C-3C96A3B45896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89837227-26F7-47A6-8D9C-3C96A3B45896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89837227-26F7-47A6-8D9C-3C96A3B45896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89837227-26F7-47A6-8D9C-3C96A3B45896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2D3433DE-C79D-4995-8067-48C99BD8AD1A} = {7E90D48A-561B-4704-9190-55ADB9EBEC18}
+		{11C38FA2-ADBC-4F50-A557-93309937E668} = {7E90D48A-561B-4704-9190-55ADB9EBEC18}
+		{64FE0768-A7B8-4602-B476-A2FEEB382AC5} = {7E90D48A-561B-4704-9190-55ADB9EBEC18}
+		{89837227-26F7-47A6-8D9C-3C96A3B45896} = {7E90D48A-561B-4704-9190-55ADB9EBEC18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9DB6955D-4A42-4D96-B57D-F69CDF118FEA}

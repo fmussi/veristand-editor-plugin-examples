@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\VeriStand.CustomApplication\VeriStand.CustomApplication.csproj" />
+  </ItemGroup>
+
 </Project>
