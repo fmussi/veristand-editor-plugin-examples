@@ -27,7 +27,7 @@ namespace WpfApplication1
 
             Binding binding = new Binding("Text");
             binding.Source = txtValue;
-            lblValue.SetBinding(TextBlock.TextProperty, binding); 
+            //lblValue.SetBinding(TextBlock.TextProperty, binding); 
             //pnlMainGrid.MouseUp += new MouseButtonEventHandler(pnlMainGrid_MouseUp);
         }
 

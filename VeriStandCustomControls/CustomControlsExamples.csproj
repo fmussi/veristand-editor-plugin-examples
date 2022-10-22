@@ -138,6 +138,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="exCustomControlTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="exCustomUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="KeySwitchControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -162,11 +170,19 @@
     <Compile Include="ExamplePreferencePage.xaml.cs">
       <DependentUpon>ExamplePreferencePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="exCustomUserControl.xaml.cs">
+      <DependentUpon>exCustomUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="exCustomUserControlModel.cs" />
+    <Compile Include="exCustomUserControlViewModel.cs" />
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
     <Compile Include="exAttitudeIndicator.cs" />
+    <Compile Include="exCustomControl.cs" />
     <Compile Include="KeySwitchControl.cs" />
+    <Compile Include="exCustomControlModel.cs" />
     <Compile Include="KeySwitchControlModel.cs" />
+    <Compile Include="exCustomControlViewModel.cs" />
     <Compile Include="KeySwitchControlViewModel.cs" />
     <Compile Include="PluginNamespaceSchema.cs" />
     <Compile Include="PluginCommandContentProvider.cs" />
