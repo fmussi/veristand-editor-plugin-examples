@@ -10,9 +10,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// </summary>
     public partial class exCustomUserControl
     {
-        public exCustomUserControl()
+        private readonly exCustomUserControlViewModel _viewModel;
+        public exCustomUserControl(exCustomUserControlViewModel viewModel)
         {
             InitializeComponent();
+            _viewModel = viewModel;
         }
 
         public double CustomTankValue
