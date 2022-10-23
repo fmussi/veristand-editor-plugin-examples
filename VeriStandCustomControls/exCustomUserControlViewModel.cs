@@ -29,7 +29,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             WeakEventManager<exCustomUserControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "CustomUserControlChannelValueChangedEvent", CustomUserControlValueChangedEventHandler);
         }
-
+        // FM_note: could be disabled if control is not composite
         /// <summary>
         /// Override resize behavior so the control cannot be resized.  This is done because with composite controls it is a lot of work to get all the individual components
         /// to scale reasonably with respect to each other
@@ -116,8 +116,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public static readonly ISelectionCommand ControlChannelBrowseCommand = new ShellSelectionRelayCommand(LaunchControlChannelBrowser, CanLaunchChannelBrowser)
         {
             LabelTitle = "Custom User Control Channel",
-            LargeImageSource = ResourceHelpers.LoadImage(typeof(exCustomUserControlViewModel), "Resource/Browse.png"),
-            SmallImageSource = ResourceHelpers.LoadImage(typeof(exCustomUserControlViewModel), "Resource/Browse_16x16.png"),
+            LargeImageSource = ResourceHelpers.LoadImage(typeof(exCustomUserControlViewModel), "Resources/Browse.png"),
+            SmallImageSource = ResourceHelpers.LoadImage(typeof(exCustomUserControlViewModel), "Resources/Browse_16x16.png"),
             UniqueId = "NI.ChannelCommands:BrowseForCustomControlChannelCommand",
             UIType = UITypeForCommand.Button
         };
@@ -167,6 +167,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     using (var transaction = uiModel.TransactionManager.BeginTransaction("Set channel", TransactionPurpose.User))
                     {
                         var customUserControlModel = uiModel as exCustomUserControlModel;
+                        // loop on different channels
                         if (customUserControlModel != null)
                         {
                             customUserControlModel.CustomUserControlChannel = _uiSdfBrowsePopup.Channel;
@@ -176,6 +177,24 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 }
             }
         }
+
+        /// <summary>
+        /// Gets the adorners used with this control during a hard selection (left-click).
+        /// Currently used to create an adorner that allows browsing to two channel paths
+        /// </summary>
+        /// <returns>An enumerable collection of hard select adorners.</returns>
+        //public override IEnumerable<Adorner> GetHardSelectAdorners()
+        //{
+        //    var adorners = new Collection<Adorner>();
+        //    var toolbar = new FloatingToolBar();
+
+        //    if (Model == null) return adorners;
+        //    var control = new TwoChannelAdorner(DesignerNodeHelpers.GetVisualForViewModel(this));
+        //    toolbar.ToolBar = control;
+        //    adorners.Add(new ControlAdorner(DesignerNodeHelpers.GetVisualForViewModel(this), toolbar, Placement.BelowCenter));
+        //    return adorners;
+        //}
+
 
         /// <summary>
         /// Creates and returns a list of context menu commands for this view model

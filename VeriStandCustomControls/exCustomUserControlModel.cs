@@ -75,20 +75,24 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// The name to use for serialization of this model.  This name must match the name used in the Target xml in the ICustomVeriStandControl interface
         /// </summary>
         private const string CustomUserControlName = "CustomUserControl";
-
-        /// <summary>
+    /// <summary>
         /// String used to put errors from this control in their own bucket so code from this model doesn't interfere with the rest of the error
         /// reporting behavior in VeriStand
         /// </summary>
         private const string exCustomUserControlModelErrorString = "exCustomUserControlModelErrors";
 
+    // Duplicate start for other channels
+        /// <summary>
+        /// Specifies the name of the frequency channel
+        /// </summary>
         public const string CustomUserControlChannelName = "CustomUserControlChannel";
 
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
         public static readonly PropertySymbol CustomUserControlChannelSymbol = ExposePropertySymbol<exCustomControlModel>(CustomUserControlChannelName, string.Empty);
-
+     // Duplicate end
+     // Xaml generation
         /// <summary>
         /// Provide a xaml generation helper. This is used to help generate xaml for the properties on this control.
         /// </summary>
@@ -103,15 +107,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             public override Type ControlType => typeof(exCustomUserControl);
         }
-
-        /// <summary>
+   /// <summary>
         /// XML element name, including full namespace, for universal persistence.
         /// </summary>
         public override XName XmlElementName
         {
             get { return XName.Get(CustomUserControlName,PluginNamespaceSchema.ParsableNamespaceName); }
         }
-
 
         /// <summary>
         /// Factory method for creating a new CustomUserControl
@@ -148,13 +150,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
             
         }
-
-        /// <summary>
+     /// <summary>
         /// Gets the default value of the specified property.  This must be implemented for any new properties that get added that need to be serialized.
         /// </summary>
         /// <param name="identifier">The property to get the default value of.</param>
         /// <returns>The default value of the specified property.</returns>
-
         public override object DefaultValue(PropertySymbol identifier)
         {
             switch (identifier.Name)
@@ -265,8 +265,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             return Task.CompletedTask;
         }
-
-        /// <summary>
+     /// <summary>
         /// Called when the view model observes a change in a model property.
         /// Used to reflect model property changes on the VeriStand gateway (when necessary).
         /// </summary>
@@ -275,8 +274,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="transactionItem">The transaction item associated with the property change.</param>
         public void PropertyChanged(Element modelElement, string propertyName, TransactionItem transactionItem)
         {
-            ScreenModel owningScree = ScreenModel.GetScreen(this);
-
+            ScreenModel owningScreen = ScreenModel.GetScreen(this);
+            // Loop on channel names, if multiple
+            HandleChannelChangeAsync(transactionItem, owningScreen, OnCustomUserControlChannelValueChange).IgnoreAwait();
         }
 
         /// <summary>
