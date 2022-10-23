@@ -105,11 +105,20 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         }
 
         /// <summary>
+        /// XML element name, including full namespace, for universal persistence.
+        /// </summary>
+        public override XName XmlElementName
+        {
+            get { return XName.Get(CustomUserControlName,PluginNamespaceSchema.ParsableNamespaceName); }
+        }
+
+
+        /// <summary>
         /// Factory method for creating a new CustomUserControl
         /// </summary>
         /// <param name="info">Information required to create the model, such as the parser.</param>
         /// <returns>A constructed and initialized exCustomUserControlModel instance.</returns>
-        
+
         [XmlParserFactoryMethod(CustomUserControlName,PluginNamespaceSchema.ParsableNamespaceName)]
         public static exCustomUserControlModel Create(IElementCreateInfo info)
         {

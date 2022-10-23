@@ -141,7 +141,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <returns>The default value of the specified property.</returns>
         public override object DefaultValue(PropertySymbol identifier)
         {
-            switch (identifier.Name)
+             switch (identifier.Name)
             {
                 case FrequencyChannelName:
                     return string.Empty;

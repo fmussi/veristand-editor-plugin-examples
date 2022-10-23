@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SourceFile Checksum="C3CB050B1BFD18C1AAB12987BCEB368CA5F03C7CB29949A50E40896E2988A996EEE665D5B55A7166D8275D6FE8FEEB2B8D3024123149C20713CBB5A3ACB86ABA" Timestamp="1D8E550D0C58DE0" xmlns="http://www.ni.com/PlatformFramework">
+<SourceFile Checksum="FCFE87CA6FF075F9791C4D6AF5E45FC1C3E27E7C245B5F27EE6789BCFBFC08CC69E87A33C0396CDA30823BD647818953FA341BDE2302C366CF37D3381C1FB772" Timestamp="1D8E6F78C100B33" xmlns="http://www.ni.com/PlatformFramework">
 	<SourceModelFeatureSet>
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Configuration Based Software Core" Name="http://www.ni.com/ConfigurationBasedSoftware.Core" OldestCompatibleVersion="6.3.0.49152" Version="6.3.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
@@ -19,8 +19,6 @@
 			<Label Height="[float]16" Id="a44fe6f77be546f0a969e5bc97bf7721" LabelOwner="[UIModel]3bdbf54c59ff480c8479c7fe31a8b64a" Left="[float]373" Text="[string]User Channel" Top="[float]178" Width="[float]70" xmlns="http://www.ni.com/PanelCommon" />
 			<ChannelNumericText BaseName="[string]Numeric" Channel="[string]Targets/Controller/User Channels/User Channel" Height="[float]24" Id="51c34cf81a354470bf7162c63b2fecc6" Label="[UIModel]42f290d067354779be75f715e5bf9e8c" Left="[float]109" Top="[float]259" UnitAnnotation="[string]" ValueFormatter="[string]LV:G5" ValueType="[Type]Double" Width="[float]70" />
 			<Label Height="[float]16" Id="42f290d067354779be75f715e5bf9e8c" LabelOwner="[UIModel]51c34cf81a354470bf7162c63b2fecc6" Left="[float]109" Text="[string]User Channel" Top="[float]239" Width="[float]70" xmlns="http://www.ni.com/PanelCommon" />
-			<PWMControl DutyCycleChannel="[string]Targets/Controller/User Channels/User Channel" FrequencyChannel="[string]Targets/Controller/User Channels/User Channel" Height="[float]175" Id="16afce5a709a4606abd14fe14f7a1de7" Label="[UIModel]49d4ea6de17e4fa4adb3e5ea418d08f1" Left="[float]97" Top="[float]389" Width="[float]220" xmlns="http://www.your-company.com/VeriStandExample" />
-			<Label Height="[float]16" Id="49d4ea6de17e4fa4adb3e5ea418d08f1" LabelOwner="[UIModel]16afce5a709a4606abd14fe14f7a1de7" Left="[float]97" Text="[string]PWMControl" Top="[float]369" Width="[float]68" xmlns="http://www.ni.com/PanelCommon" />
 			<ChannelNumericText BaseName="[string]Numeric" Channel="[string]Targets/Controller/User Channels/User Channel" Height="[float]24" Id="371f24562c0440f584d080e8332d4ee4" IsReadOnly="[bool]True" Label="[UIModel]86f704c44c4e469e82ef656d7309eb01" Left="[float]483" Top="[float]455" UnitAnnotation="[string]" ValueFormatter="[string]LV:G5" ValueType="[Type]Double" Width="[float]70" />
 			<Label Height="[float]16" Id="86f704c44c4e469e82ef656d7309eb01" LabelOwner="[UIModel]371f24562c0440f584d080e8332d4ee4" Left="[float]483" Text="[string]User Channel" Top="[float]435" Width="[float]70" xmlns="http://www.ni.com/PanelCommon" />
 		</ScreenSurface>

@@ -17,6 +17,6 @@
     </UserControl.Resources>
     <Grid>
         <TextBlock>Custom Control (%)</TextBlock>
-        <ni:TankDouble Margin="0,20,0,20" x:Name="CustomTank" ValueChanged="CustomTank_OnValueChanged" Value="{Binding CustomTankValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}"/>
+        <ni:TankDouble Margin="0,20,0,20" x:Name="CustomTank" MinWidth="100" MaxWidth="100" ValueChanged="CustomTank_OnValueChanged" Value="{Binding CustomTankValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}"/>
     </Grid>
 </UserControl>
