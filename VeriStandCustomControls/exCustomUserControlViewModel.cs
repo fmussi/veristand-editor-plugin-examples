@@ -153,7 +153,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // Show Popup window with Channels.
             _currentSelection = selection.ToList();
             _uiSdfBrowsePopup.PlacementTarget = (UIElement)parameter.AssociatedVisual;
-            _uiSdfBrowsePopup.Channel = ((exCustomUserControlModel)_currentSelection.First().Model).ControlChannel;
+            _uiSdfBrowsePopup.Channel = ((exCustomUserControlModel)_currentSelection.First().Model).CustomUserControlChannel;
             _uiSdfBrowsePopup.ShowSdfBrowser(host, true, false);
         }
         private static void ChannelNamePropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -169,7 +169,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                         var customUserControlModel = uiModel as exCustomUserControlModel;
                         if (customUserControlModel != null)
                         {
-                            customUserControlModel.ControlChannel = _uiSdfBrowsePopup.Channel;
+                            customUserControlModel.CustomUserControlChannel = _uiSdfBrowsePopup.Channel;
                         }
                         transaction.Commit();
                     }
@@ -219,7 +219,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             IEnumerable<string> controlChannels = selection.Select(item => item.Model)
                 .OfType<exCustomUserControlModel>()
-                .Select(model => model.ControlChannel)
+                .Select(model => model.CustomUserControlChannel)
                 .Where(channel => !string.IsNullOrEmpty(channel))
                 .ToList();
             var systemDefinitionPalette = SystemDefinitionPaletteControl.Activate(site);

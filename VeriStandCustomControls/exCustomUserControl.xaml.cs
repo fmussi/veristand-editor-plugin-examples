@@ -11,10 +11,34 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     public partial class exCustomUserControl
     {
         private readonly exCustomUserControlViewModel _viewModel;
+
+        /// <summary>
+        /// Constructor for exCustomUserControl
+        /// </summary>
+        /// <param name="viewModel">view model associated with this control</param>
         public exCustomUserControl(exCustomUserControlViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
+        }
+
+        /// <summary>
+        /// Event that is fired when the value on the control changes
+        /// </summary>
+        public event EventHandler<CustomChannelValueChangedEventArgs> ValueChanged;
+
+        /// <summary>
+        /// Raises the ChannelValueChanged event. Invoked when the channel value changes.
+        /// </summary>
+        /// <param name="channelValue">New channel value</param>
+        /// <param name="channelName">Name of the channel that changed</param>
+        protected virtual void OnValueChanged(double channelValue, string channelName)
+        {
+            var channelValueChangedSubscribers = ValueChanged;
+            if (channelValueChangedSubscribers != null)
+            {
+                channelValueChangedSubscribers(this, new CustomChannelValueChangedEventArgs(channelValue, channelName));
+            }
         }
 
         public double CustomTankValue
@@ -27,7 +51,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         private void CustomTank_OnValueChanged(object sender, Controls.ValueChangedEventArgs<double> e)
         {
-
+            OnValueChanged(e.NewValue, exCustomUserControlModel.CustomUserControlChannelName);
         }
     }
 }

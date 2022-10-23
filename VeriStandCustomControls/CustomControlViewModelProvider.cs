@@ -21,6 +21,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             AddSupportedModel<PulseWidthModulationControlModel>(e => new PulseWidthModulationControlViewModel(e));
             AddSupportedModel<KeySwitchControlModel>(e => new KeySwitchControlViewModel(e));
+            AddSupportedModel<exCustomUserControlModel>(e => new exCustomUserControlViewModel(e));
         }
     }
 }
