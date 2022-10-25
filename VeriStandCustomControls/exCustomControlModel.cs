@@ -58,7 +58,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// <summary>
     /// This model has the business logic for the keyswitch control.  Mostly it handles all of that in the base class ChannelKnobModel.
     /// </summary>
-    public class exCustomControlModel : ChannelKnobModel
+    public class exCustomControlModel : ChannelSpeedometerModel
     {
         /// <summary>
         /// The name of the control which will be used in XML.  This name in the mergescript in the Target property of the ICustomVeriStandControl interface must match this

@@ -15,9 +15,11 @@ using NationalInstruments.SourceModel;
 using NationalInstruments.VeriStand.ServiceModel;
 using NationalInstruments.VeriStand.Shell;
 using NationalInstruments.VeriStand.Tools;
+//using NationalInstruments.PanelCommon.Design;
 
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
+//    public class exCustomUserControlViewModel : PanelControlViewModel
     public class exCustomUserControlViewModel : VisualViewModel, IControlContextMenuHelper
     {
         /// <summary>

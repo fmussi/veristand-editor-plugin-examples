@@ -5,10 +5,11 @@
                     xmlns:customControlsExamples="clr-namespace:NationalInstruments.VeriStand.CustomControlsExamples">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/IDESkins/Numerics/BaseNumerics/BaseKnob.IDE.WPF.xaml" />
+        <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Industry;component/SystemSkins/Speedometer.System.WPF.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <!--This style inherits from the base style provided by the controls team.  If I needed to make more major changes we could also provide a new control template here but since
     we just need to change some colors and properties we leave the control template alone and just modify the pointer template and some other properties-->
-    <Style TargetType="customControlsExamples:exCustomControl" BasedOn="{StaticResource BaseKnob}">
+    <!--<Style TargetType="customControlsExamples:exCustomControl" BasedOn="{StaticResource  }">
         <Setter Property="Range" Value="0,5,Int32" />
         <Setter Property="ScaleArc">
             <Setter.Value>
@@ -16,5 +17,5 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Background" Value="Bisque"></Setter>
-    </Style>
+    </Style>-->
 </ResourceDictionary>
