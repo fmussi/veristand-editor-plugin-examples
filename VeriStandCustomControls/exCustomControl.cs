@@ -6,7 +6,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// This is the custom control we are styling.  We aren't changing any behaviors in this control, the main point of giving this a new type is so that we can control
     /// which styles are applied to it
     /// </summary>
-    public class exCustomControl : KnobInt32
+    public class exCustomControl : KnobDouble
     {
         /// <summary>
         /// Constructs a new instance of the KeySwitchControl class

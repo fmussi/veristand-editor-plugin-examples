@@ -11,15 +11,15 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
-                    Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/IDESkins/NumericTextBoxDouble.IDE.WPF.xaml" />
-
+                    Source="/NationalInstruments.Controls.SkinProviders.Industry;component/SystemSkins/Speedometer.System.WPF.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <TextBlock>Custom Control (%)</TextBlock>
-        <!--<ni:Compass x:Name="CustomControl"/>-->
-        <ni:AttitudeIndicator Margin="0,20,0,20" x:Name="CustomControl" Roll="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}" RollChanged="CustomControl_OnRollChanged"/>
+        <ni:Speedometer ValueChanged="CustomControl_OnValueChanged" Value="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}" DependentScaleBrush="LightCyan" ScaleType="Kph" />
+        <!--<TextBlock>Custom Control (%)</TextBlock>-->
+        <!--<ni:Compass x:Name="CustomControl" ValueChanged="CustomControl_OnValueChanged" Value="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}" />-->
+        <!--<ni:AttitudeIndicator Margin="0,20,0,20" x:Name="CustomControl" Roll="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}" RollChanged="CustomControl_OnRollChanged"/>-->
         <!--<ni:TankDouble Margin="0,20,0,20" x:Name="CustomControl" MinWidth="100" MaxWidth="100" ValueChanged="CustomControl_OnValueChanged" Value="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}"/>-->
     </Grid>
 </UserControl>
