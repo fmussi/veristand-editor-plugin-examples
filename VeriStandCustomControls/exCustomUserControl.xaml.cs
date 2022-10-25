@@ -41,15 +41,20 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
         }
 
-        public double CustomTankValue
+        public double CustomControlValue
         {
-            get { return (double)GetValue(CustomTankValueProperty); }
-            set { SetValue(CustomTankValueProperty, value); }
+            get { return (double)GetValue(CustomControlValueProperty); }
+            set { SetValue(CustomControlValueProperty, value); }
         }
 
-        public static readonly DependencyProperty CustomTankValueProperty = DependencyProperty.Register("CustomTankValue", typeof(double), typeof(exCustomUserControl), new FrameworkPropertyMetadata(0.0));
+        public static readonly DependencyProperty CustomControlValueProperty = DependencyProperty.Register("CustomControlValue", typeof(double), typeof(exCustomUserControl), new FrameworkPropertyMetadata(0.0));
 
-        private void CustomTank_OnValueChanged(object sender, Controls.ValueChangedEventArgs<double> e)
+        private void CustomControl_OnValueChanged(object sender, Controls.ValueChangedEventArgs<double> e)
+        {
+            OnValueChanged(e.NewValue, exCustomUserControlModel.CustomUserControlChannelName);
+        }
+
+        private void CustomControl_OnRollChanged(object sender, ValueChangedEventArgs<double> e)
         {
             OnValueChanged(e.NewValue, exCustomUserControlModel.CustomUserControlChannelName);
         }

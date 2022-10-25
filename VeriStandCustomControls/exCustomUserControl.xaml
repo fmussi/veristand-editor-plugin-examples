@@ -12,11 +12,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
                     Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/IDESkins/NumericTextBoxDouble.IDE.WPF.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <TextBlock>Custom Control (%)</TextBlock>
-        <ni:TankDouble Margin="0,20,0,20" x:Name="CustomTank" MinWidth="100" MaxWidth="100" ValueChanged="CustomTank_OnValueChanged" Value="{Binding CustomTankValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}"/>
+        <!--<ni:Compass x:Name="CustomControl"/>-->
+        <ni:AttitudeIndicator Margin="0,20,0,20" x:Name="CustomControl" Roll="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}" RollChanged="CustomControl_OnRollChanged"/>
+        <!--<ni:TankDouble Margin="0,20,0,20" x:Name="CustomControl" MinWidth="100" MaxWidth="100" ValueChanged="CustomControl_OnValueChanged" Value="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}"/>-->
     </Grid>
 </UserControl>

@@ -134,10 +134,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="exAttitudeIndicatorTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="exCustomControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -177,7 +173,6 @@
     <Compile Include="exCustomUserControlViewModel.cs" />
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
-    <Compile Include="exAttitudeIndicator.cs" />
     <Compile Include="exCustomControl.cs" />
     <Compile Include="KeySwitchControl.cs" />
     <Compile Include="exCustomControlModel.cs" />
@@ -202,9 +197,7 @@
     <Compile Include="PWMControl.xaml.cs">
       <DependentUpon>PWMControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="exAttitudeIndicatorModel.cs" />
     <Compile Include="PWMControlModel.cs" />
-    <Compile Include="exAttitudeIndicatorViewModel.cs" />
     <Compile Include="PWMControlViewModel.cs" />
     <Compile Include="Resources\LocalizedStrings.Designer.cs" />
     <Compile Include="TwoChannelAdorner.xaml.cs">

@@ -38,7 +38,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             get
             {
-                return ResizeDirections.None;
+                return ResizeDirections.All;
             }
         }
 
@@ -47,7 +47,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             var customUserControl = View.Children.FirstOrDefault().AsFrameworkElement as exCustomUserControl;
             if (customUserControl != null)
             {
-                customUserControl.CustomTankValue = (double)e.ChannelValue;
+                customUserControl.CustomControlValue = (double)e.ChannelValue;
             }
         }
 
