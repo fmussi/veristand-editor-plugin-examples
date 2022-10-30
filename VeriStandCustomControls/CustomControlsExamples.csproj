@@ -134,17 +134,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="exCustomControlTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="exCustomUserControl.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="KeySwitchControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="modCustomControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="modCustomControlTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PWMControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -173,12 +177,17 @@
     <Compile Include="exCustomUserControlViewModel.cs" />
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
-    <Compile Include="exCustomControl.cs" />
     <Compile Include="KeySwitchControl.cs" />
-    <Compile Include="exCustomControlModel.cs" />
+    <Compile Include="modCustomControlTpViewModel.cs" />
+    <Compile Include="modCustomControlTpModel.cs" />
     <Compile Include="KeySwitchControlModel.cs" />
-    <Compile Include="exCustomControlViewModel.cs" />
     <Compile Include="KeySwitchControlViewModel.cs" />
+    <Compile Include="modCustomControlModel.cs" />
+    <Compile Include="modCustomControlTp.cs" />
+    <Compile Include="modCustomControlViewModel.cs" />
+    <Compile Include="modCustomControl.xaml.cs">
+      <DependentUpon>modCustomControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PluginNamespaceSchema.cs" />
     <Compile Include="PluginCommandContentProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

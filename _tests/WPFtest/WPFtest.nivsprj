@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SourceFile Checksum="D92EC5A4EB6DBF2674FDD54C45F3263D6274935B4C94D5A1228E6F48BE16DC0C3F59126E2625733AC0AEB56E3732E31EE874888FF1AE5FC9F909BAB9605BECDD" xmlns="http://www.ni.com/PlatformFramework">
+<SourceFile Checksum="61313797B01ADC2943F6A07FE99404FB6184F3F1BD473454ACE57E3C7B7F73D590E67D5F3E26003437EE917D9A695F16DC871AE599EBC4ADBD6A6F56B05AFC17" xmlns="http://www.ni.com/PlatformFramework">
 	<SourceModelFeatureSet>
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="VeriStand Core Components" Name="http://www.ni.com/VeriStand" OldestCompatibleVersion="9.0.0.49152" Version="9.0.0.49152" />
@@ -16,13 +16,13 @@
 				<GatewayDefinition xmlns="http://www.ni.com/VeriStand" />
 			</EmbeddedDefinitionReference>
 			<FileReference Bindings=".nivscf" Id="eb9f2be4d8a84d6d8e6acc3408bebec3" ModelDefinitionType="{http://www.ni.com/PlatformFramework}ExternalFile" Name="WPFtest.nivscf" StoragePath="WPFtest.nivscf" />
-			<SourceFileReference Id="1d71febd75734b3cb34bc6ebc299dd27" ModelDefinitionType="{http://www.ni.com/VeriStand}Screen" Name="WPFtest.nivsscr" StoragePath="WPFtest.nivsscr" />
 			<FileReference Bindings=".nivsscreen" Id="ef87d57b949e456ab81b71b27b65f45d" ModelDefinitionType="{http://www.ni.com/PlatformFramework}ExternalFile" Name="WPFtest.nivsscreen" StoragePath="WPFtest.nivsscreen" />
 			<FileReference Bindings=".nivsproj" Id="43667a50b6834c7988a3aa54d6626b17" ModelDefinitionType="{http://www.ni.com/PlatformFramework}ExternalFile" Name="WPFtest.nivsproj" StoragePath="WPFtest.nivsproj" />
 			<SourceFileReference Bindings="EnvoyManager" Id="66491fa6a3b9404bb5e6d1f8c613a9ea" ModelDefinitionType="{http://www.ni.com/VeriStand}SystemDefinition" Name="WPFtest.nivssdf" StoragePath="WPFtest.nivssdf" />
 			<EmbeddedDefinitionReference Id="a789ee5fcb044c49b3eb63a5a547ab8a" ModelDefinitionType="SdfFilePath" Name="SdfPath" Reparentable="False">
 				<SdfFilePath SdfPath="WPFtest.nivssdf" xmlns="http://www.ni.com/VeriStand" />
 			</EmbeddedDefinitionReference>
+			<SourceFileReference Id="c2c6d60ea5d4649b746dfd0ac392412" ModelDefinitionType="{http://www.ni.com/VeriStand}Screen" Name="WPFtest.nivsscr" StoragePath="WPFtest.nivsscr" />
 		</NameScopingEnvoy>
 	</Project>
 	<ProjectInformation xmlns="http://www.ni.com/PlatformFramework" />

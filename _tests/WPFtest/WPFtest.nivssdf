@@ -10,7 +10,7 @@
 				<String>WPFtest</String>
 			</Property>
 			<Property Name="Version">
-				<String>1.0.0.6</String>
+				<String>1.0.0.7</String>
 			</Property>
 			<Property Name="Creator">
 				<String />
@@ -31,10 +31,10 @@
 				<Description />
 				<Properties>
 					<Property Name="OS">
-						<String>Linux_x64</String>
+						<String>Windows</String>
 					</Property>
 					<Property Name="IP Address">
-						<String>10.96.1.10</String>
+						<String>localhost</String>
 					</Property>
 					<Property Name="Control Loop Processor">
 						<I32>-2</I32>

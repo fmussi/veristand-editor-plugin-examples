@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:coreControls="clr-namespace:NationalInstruments.Controls;assembly=NationalInstruments.Core"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:niControls="clr-namespace:NationalInstruments.Controls;assembly=NationalInstruments.Controls"
+                    xmlns:niIndustry="clr-namespace:NationalInstruments.Controls;assembly=NationalInstruments.Controls.Industry"
+                    xmlns:niNumerics="clr-namespace:NationalInstruments.Controls;assembly=NationalInstruments.Controls.Numerics"
+                    xmlns:niConvertersIndustry="clr-namespace:NationalInstruments.Controls.Converters;assembly=NationalInstruments.Controls.Industry"
+                    xmlns:niPrimitivesControls="clr-namespace:NationalInstruments.Controls.Primitives;assembly=NationalInstruments.Controls"
+                    xmlns:niPrimitivesNumerics="clr-namespace:NationalInstruments.Controls.Primitives;assembly=NationalInstruments.Controls.Numerics"
+                    mc:Ignorable="d"
+                    xmlns:customControlsExamples="clr-namespace:NationalInstruments.VeriStand.CustomControlsExamples">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/IDESkins/Numerics/BaseNumerics/BaseKnob.IDE.WPF.xaml" />
+        <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/SystemSkins/Industry/Primitives/AviationControlResources.System.xaml" />
+        <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/SystemSkins/Industry/Primitives/AttitudeNumberStrip.System.WPF.xaml" />
+        <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/SystemSkins/Industry/Primitives/AutomotiveControlResources.System.xaml" />
+        <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/SystemSkins/Industry/Primitives/DigitWheel.System.xaml" />
+        <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/SystemSkins/Industry/Primitives/IndustryControlResources.System.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="customControlsExamples:modCustomControlTp" BasedOn="{StaticResource BaseKnob }" ></Style>
+</ResourceDictionary>

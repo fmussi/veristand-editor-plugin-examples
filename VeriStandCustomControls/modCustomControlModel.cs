@@ -25,7 +25,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// The interface implementation defines how the control should appear in the palette.
     /// </summary>
     [Export(typeof(ICustomVeriStandControl))]
-    public class exCustomUserControlModelExporter : ICustomVeriStandControl
+    public class modCustomControlModelExporter : ICustomVeriStandControl
     {
         /// <summary>
         /// MergeScript which defines what to drop on the screen from the palette.  Can be used to set default values on the control
@@ -33,7 +33,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public string Target =>
             "<pf:MergeScript xmlns:pf=\"http://www.ni.com/PlatformFramework\">" +
                 "<pf:MergeItem>" +
-                    "<CustomUserControl xmlns=\"http://www.your-company.com/VeriStandExample\" Width=\"[float]220\" Height=\"[float]175\"/>" +
+                    "<modCustomControl xmlns=\"http://www.your-company.com/VeriStandExample\" Width=\"[float]220\" Height=\"[float]175\"/>" +
                 "</pf:MergeItem>" +
             "</pf:MergeScript>";
 
@@ -56,7 +56,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Unique id for the control. The only requirement is that this doesn't overlap with existing controls or other custom controls.
         /// This is used for serialization and the context help system.
         /// </summary>
-        public string UniqueId => "CustomUserControl";
+        public string UniqueId => "modCustomControl";
 
         /// <summary>
         /// Returns the palette hierarchy for this element. Returning null tells VeriStand to put this in the top level custom controls directory.
@@ -64,7 +64,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public IList<PaletteElementCategory> PaletteHierarchy => null;
     }
 
-    public class exCustomUserControlModel : VisualModel,
+    public class modCustomControlModel : VisualModel,
 #if MUTATE2020R4
         IDataEngineStateChangeObserver
 #else
@@ -74,57 +74,57 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// The name to use for serialization of this model.  This name must match the name used in the Target xml in the ICustomVeriStandControl interface
         /// </summary>
-        private const string CustomUserControlName = "CustomUserControl";
-    /// <summary>
+        private const string modCustomControlName = "modCustomControl";
+        /// <summary>
         /// String used to put errors from this control in their own bucket so code from this model doesn't interfere with the rest of the error
         /// reporting behavior in VeriStand
         /// </summary>
-        private const string exCustomUserControlModelErrorString = "exCustomUserControlModelErrors";
+        private const string modCustomControlModelErrorString = "modCustomControlModelErrors";
 
-    // Duplicate start for other channels
+        // Duplicate start for other channels
         /// <summary>
         /// Specifies the name of the frequency channel
         /// </summary>
-        public const string CustomUserControlChannelName = "CustomUserControlChannel";
+        public const string modCustomControlChannelName = "modCustomControlChannel";
 
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
-        public static readonly PropertySymbol CustomUserControlChannelSymbol = ExposePropertySymbol<modCustomControlModel>(CustomUserControlChannelName, string.Empty);
-     // Duplicate end
-     // Xaml generation
+        public static readonly PropertySymbol modCustomControlChannelSymbol = ExposePropertySymbol<modCustomControlModel>(modCustomControlChannelName, string.Empty);
+        // Duplicate end
+        // Xaml generation
         /// <summary>
         /// Provide a xaml generation helper. This is used to help generate xaml for the properties on this control.
         /// </summary>
         public override XamlGenerationHelper XamlGenerationHelper
         {
-            get { return new exCustomUserControlXamlHelper(); }
+            get { return new modCustomControlXamlHelper(); }
         }
         /// <summary>
         /// Private class which helps with xaml generation for this model.  For most custom models this should just need to override the control type from the generic XamlGenerationHelper
         /// </summary>
-        private class exCustomUserControlXamlHelper : XamlGenerationHelper
+        private class modCustomControlXamlHelper : XamlGenerationHelper
         {
-            public override Type ControlType => typeof(exCustomUserControl);
+            public override Type ControlType => typeof(modCustomControl);
         }
-   /// <summary>
+        /// <summary>
         /// XML element name, including full namespace, for universal persistence.
         /// </summary>
         public override XName XmlElementName
         {
-            get { return XName.Get(CustomUserControlName,PluginNamespaceSchema.ParsableNamespaceName); }
+            get { return XName.Get(modCustomControlName, PluginNamespaceSchema.ParsableNamespaceName); }
         }
 
         /// <summary>
-        /// Factory method for creating a new CustomUserControl
+        /// Factory method for creating a new modCustomControl
         /// </summary>
         /// <param name="info">Information required to create the model, such as the parser.</param>
-        /// <returns>A constructed and initialized exCustomUserControlModel instance.</returns>
+        /// <returns>A constructed and initialized modCustomControlModel instance.</returns>
 
-        [XmlParserFactoryMethod(CustomUserControlName,PluginNamespaceSchema.ParsableNamespaceName)]
-        public static exCustomUserControlModel Create(IElementCreateInfo info)
+        [XmlParserFactoryMethod(modCustomControlName, PluginNamespaceSchema.ParsableNamespaceName)]
+        public static modCustomControlModel Create(IElementCreateInfo info)
         {
-            var model = new exCustomUserControlModel();
+            var model = new modCustomControlModel();
 #if MUTATE2020
             model.Initialize(info);
 #else
@@ -143,14 +143,14 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             switch (identifier.Name)
             {
-                case CustomUserControlChannelName:
+                case modCustomControlChannelName:
                     return typeof(string);
                 default:
                     return base.GetPropertyType(identifier);
             }
-            
+
         }
-     /// <summary>
+        /// <summary>
         /// Gets the default value of the specified property.  This must be implemented for any new properties that get added that need to be serialized.
         /// </summary>
         /// <param name="identifier">The property to get the default value of.</param>
@@ -159,7 +159,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             switch (identifier.Name)
             {
-                case CustomUserControlChannelName:
+                case modCustomControlChannelName:
                     return string.Empty;
                 default:
                     return base.DefaultValue(identifier);
@@ -179,13 +179,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // which is why we must use BeginInvoke since OnConnectToGateway is not guaranteed to be called by the UI thread
             Host.BeginInvoke(AsyncTaskPriority.WorkerHigh, () =>
             {
-                MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(exCustomUserControlModelErrorString, this);
+                MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(modCustomControlModelErrorString, this);
             });
-            if (!string.IsNullOrEmpty(CustomUserControlChannel))
+            if (!string.IsNullOrEmpty(modCustomControlChannel))
             {
                 try
                 {
-                    await Host.GetRunTimeService<ITagService>().RegisterTagAsync(CustomUserControlChannel, OnCustomUserControlChannelValueChange);
+                    await Host.GetRunTimeService<ITagService>().RegisterTagAsync(modCustomControlChannel, OnModCustomControlChannelValueChange);
                 }
                 catch (Exception ex) when (ShouldExceptionBeCaught(ex))
                 {
@@ -200,12 +200,12 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             Host.BeginInvoke(AsyncTaskPriority.WorkerHigh, () =>
             {
                 MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(
-                    exCustomUserControlModelErrorString,
+                    modCustomControlModelErrorString,
                     this);
 #if MUTATE2021
                 this.SafeReportError(PwmControlModelErrorString, null, MessageDescriptor.Empty, ex);
 #else
-                this.ReportError(exCustomUserControlModelErrorString, null, MessageDescriptor.Empty, ex);
+                this.ReportError(modCustomControlModelErrorString, null, MessageDescriptor.Empty, ex);
 #endif
             });
         }
@@ -224,7 +224,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// The control should unregister from channel value change events when this happens.
         /// </summary>
         /// <returns>Task which can be awaited</returns>
-        
+
         public async Task OnDisconnectingAsync()
         {
             // use Host.BeginInvoke to clear error messages when connecting to the gateway.  The error message collection must be interacted with by the UI thread
@@ -233,13 +233,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 AsyncTaskPriority.WorkerHigh,
                 () =>
                     MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(
-                        exCustomUserControlModelErrorString,
+                        modCustomControlModelErrorString,
                         this));
-            if (!string.IsNullOrEmpty(CustomUserControlChannel))
+            if (!string.IsNullOrEmpty(modCustomControlChannel))
             {
                 try
                 {
-                    await Host.GetRunTimeService<ITagService>().UnregisterTagAsync(CustomUserControlChannel, OnCustomUserControlChannelValueChange);
+                    await Host.GetRunTimeService<ITagService>().UnregisterTagAsync(modCustomControlChannel, OnModCustomControlChannelValueChange);
                 }
                 catch (Exception ex) when (ShouldExceptionBeCaught(ex))
                 {
@@ -265,7 +265,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             return Task.CompletedTask;
         }
-     /// <summary>
+        /// <summary>
         /// Called when the view model observes a change in a model property.
         /// Used to reflect model property changes on the VeriStand gateway (when necessary).
         /// </summary>
@@ -276,7 +276,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             ScreenModel owningScreen = ScreenModel.GetScreen(this);
             // Loop on channel names, if multiple
-            HandleChannelChangeAsync(transactionItem, owningScreen, OnCustomUserControlChannelValueChange).IgnoreAwait();
+            HandleChannelChangeAsync(transactionItem, owningScreen, OnModCustomControlChannelValueChange).IgnoreAwait();
         }
 
         /// <summary>
@@ -376,7 +376,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
             if (channel != null && !(channel.RowDim == 1 && channel.ColDim == 1))
             {
-                ReportError(exCustomUserControlModelErrorString, null, MessageDescriptor.Empty, "Cannot Register Vector Channels");
+                ReportError(modCustomControlModelErrorString, null, MessageDescriptor.Empty, "Cannot Register Vector Channels");
                 return true;
             }
             return false;
@@ -386,18 +386,18 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Occurs when the model has been updated with a new channel value by the VeriStand gateway.
         /// </summary>
-        public event EventHandler<ChannelValueChangedEventArgs> CustomUserControlChannelValueChangedEvent;
+        public event EventHandler<ChannelValueChangedEventArgs> modCustomControlChannelValueChangedEvent;
 
         /// <summary>
         /// Raises the CustomControlChannelValueChangedEvent. Invoked when the channel value changes.
         /// </summary>
-        protected virtual void OnCustomUserControlChannelValueChangedEvent()
+        protected virtual void OnModCustomControlChannelValueChangedEvent()
         {
-            EventHandler<ChannelValueChangedEventArgs> channelValueChangeSubscribers = CustomUserControlChannelValueChangedEvent;
+            EventHandler<ChannelValueChangedEventArgs> channelValueChangeSubscribers = modCustomControlChannelValueChangedEvent;
             if (channelValueChangeSubscribers != null)
             {
-                channelValueChangeSubscribers(this, new ChannelValueChangedEventArgs(CustomUserControlChannelValue));
-            }    
+                channelValueChangeSubscribers(this, new ChannelValueChangedEventArgs(modCustomControlChannelValue));
+            }
         }
 
         /// <summary>
@@ -405,9 +405,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// is limit the rate at which things are sent/received from the gateway to avoid flooding the WCF pipe or falling behind in time.  Since this control has two buckets of things to collate against each other (frequency updates,
         /// and duty cycle updates, we need two owners to keep one controls updates from overwriting the others updates in the collator
         /// </summary>
-        private readonly object _customUserControlChannelCollatorOwner = new object();
+        private readonly object _modCustomControlChannelCollatorOwner = new object();
 
-        private void OnCustomUserControlChannelValueChange(ITagValue value)
+        private void OnModCustomControlChannelValueChange(ITagValue value)
         {
             double newChannelValue = (double)value.Value;
             using (AcquireReadLock())
@@ -422,7 +422,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 // add an action to the collator.  the collator will limit the number of actions coming from the gateway and only
                 // process the most recent action. This keeps us from falling behind in time if we can't process the gateway updates as fast as they are received.
                 screenModel.FromGatewayActionCollator.AddAction(
-                    _customUserControlChannelCollatorOwner,
+                    _modCustomControlChannelCollatorOwner,
                     () =>
                     {
                         using (AcquireReadLock())
@@ -430,10 +430,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                             // The item could get deleted after the action has been dispatched.
                             if (VisualParent != null)
                             {
-                                if (!Equals(CustomUserControlChannelValue, newChannelValue))
+                                if (!Equals(modCustomControlChannelValue, newChannelValue))
                                 {
-                                    CustomUserControlChannelValue = newChannelValue;
-                                              OnCustomUserControlChannelValueChangedEvent();
+                                    modCustomControlChannelValue = newChannelValue;
+                                    OnModCustomControlChannelValueChangedEvent();
                                 }
                             }
                         }
@@ -442,22 +442,22 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         }
 
         /// <summary>
-        /// Gets the CustomUserControlChannelValue value
+        /// Gets the modCustomControlChannelValue value
         /// </summary>
-        public double CustomUserControlChannelValue { get; protected set; }
+        public double modCustomControlChannelValue { get; protected set; }
         /// <summary>
         /// Gets or sets the path to the VeriStand channel associated with this control models duty cycle
         /// </summary>
-        public string CustomUserControlChannel
+        public string modCustomControlChannel
         {
-            get { return ImmediateValueOrDefault<string>(CustomUserControlChannelSymbol); }
-            set { SetOrReplaceImmediateValue(CustomUserControlChannelSymbol, value); }
+            get { return ImmediateValueOrDefault<string>(modCustomControlChannelSymbol); }
+            set { SetOrReplaceImmediateValue(modCustomControlChannelSymbol, value); }
         }
         public void SetChannelValue(string channelName, double channelValue)
         {
             // set the collator owner to be different for the different channel value change operations so a value change for one of the controls doesn't
             // erase the value change for the other one
-            var collatorOwner = _customUserControlChannelCollatorOwner;
+            var collatorOwner = _modCustomControlChannelCollatorOwner;
             if (Host.ActiveRunTimeServiceProvider().Status == RunTimeProviderStatus.Connected)
             {
                 ScreenModel screenModel = ScreenModel.GetScreen(this);
@@ -468,9 +468,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     {
                         try
                         {
-                                // set the channel value on the gateway, we are passing in empty labda expressions to the success and failure callbacks in this case
-                                // if we wanted to report errors to the user we could add some handling code for the failure case
-                                await Host.GetRunTimeService<ITagService>().SetTagValueAsync(CustomUserControlChannel, TagFactory.CreateTag(channelValue));
+                            // set the channel value on the gateway, we are passing in empty labda expressions to the success and failure callbacks in this case
+                            // if we wanted to report errors to the user we could add some handling code for the failure case
+                            await Host.GetRunTimeService<ITagService>().SetTagValueAsync(modCustomControlChannel, TagFactory.CreateTag(channelValue));
                         }
                         catch (VeriStandException e)
                         {
@@ -481,7 +481,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 #else
                                 () => this.ReportError(
 #endif
-                                    exCustomUserControlModelErrorString,
+                                    modCustomControlModelErrorString,
                                     null,
                                     MessageDescriptor.Empty,
                                     e));
