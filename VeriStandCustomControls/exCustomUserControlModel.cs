@@ -40,12 +40,12 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Name of the control as it will appear in the palette
         /// </summary>
-        public string Name => "Custom User Control";
+        public string Name => "Custom User Control (ex)";
 
         /// <summary>
         /// Path to the image to use in the palette
         /// </summary>
-        public string ImagePath => "/NationalInstruments.VeriStand.CustomControlsExamples;component/Resources/TestIcon_32x32.png";
+        public string ImagePath => "/NationalInstruments.VeriStand.CustomControlsExamples;component/Resources/ADG_32x32.png";
 
         /// <summary>
         /// Tool tip to display in the palette
@@ -61,7 +61,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Returns the palette hierarchy for this element. Returning null tells VeriStand to put this in the top level custom controls directory.
         /// </summary>
-        public IList<PaletteElementCategory> PaletteHierarchy => null;
+        public IList<PaletteElementCategory> PaletteHierarchy =>
+            new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "adgCustomControls", .1) };
     }
 
     public class exCustomUserControlModel : VisualModel,

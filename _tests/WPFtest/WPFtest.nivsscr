@@ -1,18 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SourceFile Checksum="E50782EBE963CBEDD32C45E25296D937B157111AADD78661B1D60FA77F255B5D5599AD19FBC5EA5B6AE1462E2A516894D93712F6F79D4F333983AD788A4471E0" Timestamp="1D8EC6375F6EB64" xmlns="http://www.ni.com/PlatformFramework">
+<SourceFile Checksum="34AC2A43C079A0822EEDA96A613397FA529B9B19778FCF0DAE562ED41E703AD0DB13FF10B8D4687F48F1815367A92AF8E2CE728B53898F98B75FD7525DECB786" Timestamp="1D8EC71440AABC3" xmlns="http://www.ni.com/PlatformFramework">
 	<SourceModelFeatureSet>
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Configuration Based Software Core" Name="http://www.ni.com/ConfigurationBasedSoftware.Core" OldestCompatibleVersion="6.3.0.49152" Version="6.3.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Editor" Name="http://www.ni.com/PanelCommon" OldestCompatibleVersion="6.1.0.0" Version="6.1.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="VeriStand Core Components" Name="http://www.ni.com/VeriStand" OldestCompatibleVersion="9.0.0.49152" Version="9.0.0.49152" />
-		<ParsableNamespace AssemblyFileVersion="1.0.0.0" FeatureSetName="VeriStand Example Plugin" Name="http://www.your-company.com/VeriStandExample" OldestCompatibleVersion="1.0.0.49152" Version="1.0.0.49152" />
 		<ApplicationVersionInfo Build="8.5.0.50070" Name="VeriStand" Version="9.0.0.50070" />
 	</SourceModelFeatureSet>
 	<Screen Id="f77a78563fbb441aba79107cf6453bd8" xmlns="http://www.ni.com/VeriStand">
 		<ScreenSurface Height="[float]1600" Id="7dd1d9d694ac4dfa9daa53559f19c286" Left="[float]0" PanelSizeMode="Fixed" Top="[float]0" Width="[float]2000" xmlns="http://www.ni.com/ConfigurationBasedSoftware.Core">
-			<modCustomControlTp Channel="[string]Targets/Controller/User Channels/User Channel" Height="[float]222" Id="58e5d1c8e5c2485badbddecd5aeb7d99" Label="[UIModel]e34b31278bbb4dee83ec3b4cc97fd25f" Left="[float]70" MaximumValue="[double]10" Top="[float]158" Width="[float]222" xmlns="http://www.your-company.com/VeriStandExample" />
-			<Label Height="[float]16" Id="e34b31278bbb4dee83ec3b4cc97fd25f" LabelOwner="[UIModel]58e5d1c8e5c2485badbddecd5aeb7d99" Left="[float]70" Text="[string]User Channel" Top="[float]138" Width="[float]70" xmlns="http://www.ni.com/PanelCommon" />
 			<ChannelNumericText BaseName="[string]Numeric" Channel="[string]Targets/Controller/User Channels/User Channel" Height="[float]24" Id="ac434f1c6c2b480bb6a6cc17d2b87527" Label="[UIModel]78ecfeac220240d285f38fdc33f5d3af" Left="[float]119" Top="[float]487" UnitAnnotation="[string]" ValueFormatter="[string]LV:G5" ValueType="[Type]Double" Width="[float]70" />
 			<Label Height="[float]16" Id="78ecfeac220240d285f38fdc33f5d3af" LabelOwner="[UIModel]ac434f1c6c2b480bb6a6cc17d2b87527" Left="[float]119" Text="[string]User Channel" Top="[float]467" Width="[float]70" xmlns="http://www.ni.com/PanelCommon" />
 		</ScreenSurface>

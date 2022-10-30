@@ -6,7 +6,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// The view model for the keyswitch control. The only thing this does different from the channelknobviewmodel is that we return a custom view.
     /// Since the view we have inherits from knob it will be compatible with the existing models and view models.
     /// </summary>
-    public class modCustomControlTpViewModel : ChannelFuelGaugeViewModel
+    public class modCustomControlTpViewModel : ChannelGaugeViewModel
     {
         /// <summary>
         /// Constructs a new instance of the KeySwitchControlViewModel class

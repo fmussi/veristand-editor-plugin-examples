@@ -227,6 +227,10 @@
     <Resource Include="Resources\Browse_16x16.png" />
     <Resource Include="Resources\TestIcon_32x32.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ADG_32x32.png" />
+    <Resource Include="Resources\Custom_32x32.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y "$(TargetPath)" "C:\Users\Public\Documents\National Instruments\NI VeriStand 2020\Custom UI Manager Controls\"</PostBuildEvent>

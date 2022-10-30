@@ -34,7 +34,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Path to the image to use in the palette
         /// </summary>
-        public string ImagePath => "/NationalInstruments.VeriStand.CustomControlsExamples;component/Resources/TestIcon_32x32.png";
+        public string ImagePath => "/NationalInstruments.VeriStand.CustomControlsExamples;component/Resources/ADG_32x32.png";
 
         /// <summary>
         /// Tool tip to display in the palette
@@ -52,13 +52,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// hierarchy list or use a category with the same unique id.  Unique IDs cannot be duplicated at different hierarchy levels.
         /// </summary>
         public IList<PaletteElementCategory> PaletteHierarchy =>
-            new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "FancySwitches", .1) };
+            new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "adgCustomControls", .1) };
     }
 
     /// <summary>
     /// This model has the business logic for the keyswitch control.  Mostly it handles all of that in the base class ChannelKnobModel.
     /// </summary>
-    public class modCustomControlTpModel : ChannelFuelGaugeModel
+    public class modCustomControlTpModel : ChannelGaugeModel
     {
         /// <summary>
         /// The name of the control which will be used in XML.  This name in the mergescript in the Target property of the ICustomVeriStandControl interface must match this
