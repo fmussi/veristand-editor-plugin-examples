@@ -6,16 +6,16 @@
              xmlns:ni="http://schemas.ni.com/controls/2009/xaml/presentation"
              xmlns:customControlsExamples="clr-namespace:NationalInstruments.VeriStand.CustomControlsExamples"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="200" d:DesignWidth="200">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary
-                    Source="/NationalInstruments.Controls.SkinProviders.Industry;component/SystemSkins/Speedometer.System.WPF.xaml" />
+                    Source="/NationalInstruments.Controls.SkinProviders.Industry;component/SystemSkins/AttitudeIndicator.System.WPF.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ni:Speedometer ValueChanged="CustomControl_OnValueChanged" Value="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:exCustomUserControl}}}" DependentScaleBrush="LightCyan" ScaleType="Kph" />
+        <ni:AttitudeIndicator RollChanged="CustomControl_OnValueChanged" Roll="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:modCustomControl}}}" />
     </Grid>
 </UserControl>

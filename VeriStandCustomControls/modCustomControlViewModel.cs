@@ -5,10 +5,14 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
 using NationalInstruments.Composition;
+using NationalInstruments.Controls;
+using NationalInstruments.Controls.Design;
 using NationalInstruments.Controls.Shell;
 using NationalInstruments.Core;
 using NationalInstruments.Design;
+using NationalInstruments.DynamicProperties;
 using NationalInstruments.Hmi.Core.Controls.Models;
+using NationalInstruments.Hmi.Core.Controls.ViewModels;
 using NationalInstruments.Hmi.Core.Screen;
 using NationalInstruments.Shell;
 using NationalInstruments.SourceModel;
@@ -20,7 +24,7 @@ using NationalInstruments.VeriStand.Tools;
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     //    public class modCustomControlViewModel : PanelControlViewModel
-    public class modCustomControlViewModel : VisualViewModel, IControlContextMenuHelper
+    public class modCustomControlViewModel : GaugeViewModel, IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
     {
         /// <summary>
         /// Constructs a new instance of the modCustomControlViewModel class
