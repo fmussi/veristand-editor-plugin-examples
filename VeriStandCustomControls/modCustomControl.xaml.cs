@@ -49,14 +49,14 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         public static readonly DependencyProperty CustomControlValueProperty = DependencyProperty.Register("CustomControlValue", typeof(double), typeof(modCustomControl), new FrameworkPropertyMetadata(0.0));
 
-        private void CustomControl_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
-        {
-            OnValueChanged(e.NewValue, modCustomControlModel.modCustomControlChannelName);
-        }
+        //private void CustomControl_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
+        //{
+        //    OnValueChanged(e.NewValue, modCustomControlModel.modCustomControlChannelName);
+        //}
 
-        private void CustomControl_OnRollChanged(object sender, ValueChangedEventArgs<double> e)
-        {
-            OnValueChanged(e.NewValue, modCustomControlModel.modCustomControlChannelName);
-        }
+        //private void CustomControl_OnRollChanged(object sender, ValueChangedEventArgs<double> e)
+        //{
+        //    OnValueChanged(e.NewValue, modCustomControlModel.modCustomControlChannelName);
+        //}
     }
 }
