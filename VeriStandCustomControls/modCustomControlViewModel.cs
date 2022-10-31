@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows;
 using NationalInstruments.Composition;
 using NationalInstruments.Controls;
 using NationalInstruments.Controls.Design;
@@ -27,8 +28,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     //    public class modCustomControlViewModel : PanelControlViewModel
     // IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
-    public class modCustomControlViewModel : VisualViewModel
+    public class modCustomControlViewModel : GaugeViewModel
     {
+        //private readonly NumericChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel> _channelControlViewModelImplementation;
         /// <summary>
         /// Constructs a new instance of the modCustomControlViewModel class
         /// </summary>
@@ -70,6 +72,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         internal bool SuppressValueChanges { get; set; }
 
+        protected override FrameworkElement CreateViewForType(Type numericType)
+        {
+
+            var view = new modCustomControl(this);
+            WeakEventManager<modCustomControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
+            return view;
+        }
         /// <summary>
         /// Creates the view associated with this view model by initializing a new instance of our custom control class modCustomControl
         /// This is an opportunity to provide callbacks to the view and to hook up event handlers.  In this case we add a value changed event handler so we can
@@ -82,6 +91,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             WeakEventManager<modCustomControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
             return view;
         }
+
 
         /// <summary>
         /// Called when a property of the model associated with this view model has changed.
@@ -269,5 +279,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             ((modCustomControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
         }
+
     }
 }

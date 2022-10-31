@@ -68,7 +68,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "adgCustomControls", .1) };
     }
 
-    public class modCustomControlModel : VisualModel,
+    public class modCustomControlModel : GaugeModel,
 #if MUTATE2020R4
         IDataEngineStateChangeObserver
 #else
