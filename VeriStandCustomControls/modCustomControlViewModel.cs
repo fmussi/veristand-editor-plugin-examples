@@ -26,85 +26,61 @@ using NationalInstruments.VeriStand.Tools;
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     //    public class modCustomControlViewModel : PanelControlViewModel
-    // VisualViewModel
-    public class modCustomControlViewModel : GaugeViewModel, IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
+    // IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
+    public class modCustomControlViewModel : VisualViewModel
     {
         /// <summary>
         /// Constructs a new instance of the modCustomControlViewModel class
         /// </summary>
         /// <param name="model">The modCustomControlModel associated with this view model.</param>
         // set implementation
-        private readonly NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel> _channelControlViewModelImplementation;
+       //private readonly NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel> _channelControlViewModelImplementation;
 
         public modCustomControlViewModel(modCustomControlModel model) : base(model)
         {
-            _channelControlViewModelImplementation = new NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel>(this);
-            //WeakEventManager<modCustomControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", modCustomControlValueChangedEventHandler);
+            //_channelControlViewModelImplementation = new NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel>(this);
+            WeakEventManager<modCustomControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", modCustomControlValueChangedEventHandler);
         }
 
+
+        // FM_note: could be disabled if control is not composite
         /// <summary>
-        /// Called when the view value has changed.
+        /// Override resize behavior so the control cannot be resized.  This is done because with composite controls it is a lot of work to get all the individual components
+        /// to scale reasonably with respect to each other
         /// </summary>
-        /// <param name="newValue">The view's new value.</param>
-
-        protected override void OnValueChanged(object newValue)
-        {
-            OnValueChanged(newValue, PropertyChangeSource.Interactive);
-        }
-
-        /// <summary>
-        /// Called when the view value has changed.
-        /// </summary>
-        /// <param name="newValue">The view's new value.</param>
-        /// <param name="source">The source of the value change.</param>
-        private void OnValueChanged(object newValue, PropertyChangeSource source)
-        {
-            _channelControlViewModelImplementation.OnValueChanged(newValue, source);
-        }
-
-        /// <summary>
-        ///  Creates ribbon content for the current selection when more than one item is selected.
-        ///  The returned list can be RibbonGroups or RibbonTabs.  The groups will be added to
-        ///  the default selection tab and the tabs will be added after this. See comments on
-        ///  <see cref="IProvideCommandContent"/> for more information about correct usage of this function.
-        /// </summary>
-        /// <param name="context">The current display context</param>
-        public override void CreateCommandContent(ICommandPresentationContext context)
-        {
-            base.CreateCommandContent(context);
-            _channelControlViewModelImplementation.CreateCommandContent(context);
-        }
-
-        protected override void OnCreateContextMenu(CreateContextMenuRoutedEventArgs args)
-        {
-            base.OnCreateContextMenu(args);
-            _channelControlViewModelImplementation.OnCreateContextMenu(args);
-        }
-
-        /// <summary>
-        /// Called when the model this instance was watching has gone to the detached state.
-        /// </summary>
-        /// <param name="modelElement">The removed model</param>
-        /// <returns>Return true to have your observer removed from watching this object</returns>
-        public override bool ModelDetached(Element modelElement)
-        {
-            _channelControlViewModelImplementation.ModelDetached(modelElement);
-            return base.ModelDetached(modelElement);
-        }
-
-        /// <summary>
-        /// Gets or sets the current value displayed in the view.
-        /// </summary>
-        public object ViewValue
+        public override ResizeDirections ResizeDirections
         {
             get
             {
-                return Helper.GetValue();
+                return ResizeDirections.All;
             }
-            set
+        }
+
+        private void modCustomControlValueChangedEventHandler(object sender, ChannelValueChangedEventArgs e)
+        {
+            var modCustomControl = View.Children.FirstOrDefault().AsFrameworkElement as modCustomControl;
+            if (modCustomControl != null)
             {
-                Helper.SetValue(value);
+                modCustomControl.CustomControlValue = (double)e.ChannelValue;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets if model value changes should be suppressed on the view.
+        /// </summary>
+        internal bool SuppressValueChanges { get; set; }
+
+        /// <summary>
+        /// Creates the view associated with this view model by initializing a new instance of our custom control class modCustomControl
+        /// This is an opportunity to provide callbacks to the view and to hook up event handlers.  In this case we add a value changed event handler so we can
+        /// react when the view changes value.
+        /// </summary>
+        /// <returns>modCustomControl view</returns>
+        public override object CreateView()
+        {
+            var view = new modCustomControl(this);
+            WeakEventManager<modCustomControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
+            return view;
         }
 
         /// <summary>
@@ -118,116 +94,180 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override void ModelPropertyChanged(Element modelElement, string propertyName, TransactionItem transactionItem)
         {
             base.ModelPropertyChanged(modelElement, propertyName, transactionItem);
-            _channelControlViewModelImplementation.ModelPropertyChanged(modelElement, propertyName, transactionItem);
+            ((modCustomControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
         }
 
         /// <summary>
-        /// Applies a property value to the view.
+        ///  Creates configuration pane content for this control. See comments on
+        ///  <see cref="IProvideCommandContent"/> for more information about correct usage of this function.
         /// </summary>
-        /// <param name="identifier">The property to set.</param>
-        /// <param name="value">The new value for the property.</param>
-        protected override void SetProperty(PropertySymbol identifier, object value)
+        /// <param name="context">The current display context</param>
+
+        public override void CreateCommandContent(ICommandPresentationContext context)
         {
-            bool handled = _channelControlViewModelImplementation.SetProperty(identifier, value);
-            if (!handled)
+            base.CreateCommandContent(context);
+            // specify that we are adding things to the configuration pane
+            using (context.AddConfigurationPaneContent())
             {
-                base.SetProperty(identifier, value);
+                // First add the group command which lets us know what top level configuration pane group to put the child commands in
+                using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
+                {
+                    // add child commands whose visuals will show up in the specified parent group.
+                    context.Add(ControlChannelBrowseCommand);
+                }
             }
         }
 
-        /// <inheritdoc />
-        public override void Placed(PlacementReleaseEventArgs args)
+        private static ChannelPopup _uiSdfBrowsePopup;
+
+        private static IEnumerable<IViewModel> _currentSelection;
+
+        private static bool _settingValue;
+
+        /// <summary>
+        /// Command to launch the channel browser.
+        /// </summary>
+        public static readonly ISelectionCommand ControlChannelBrowseCommand = new ShellSelectionRelayCommand(LaunchControlChannelBrowser, CanLaunchChannelBrowser)
         {
-            base.Placed(args);
-            _channelControlViewModelImplementation.Placed(args);
+            LabelTitle = "Custom User Control Channel",
+            LargeImageSource = ResourceHelpers.LoadImage(typeof(modCustomControlViewModel), "Resources/Browse.png"),
+            SmallImageSource = ResourceHelpers.LoadImage(typeof(modCustomControlViewModel), "Resources/Browse_16x16.png"),
+            UniqueId = "NI.ChannelCommands:BrowseForCustomControlChannelCommand",
+            UIType = UITypeForCommand.Button
+        };
+
+        /// <summary>
+        /// Command to launch the channel browser.
+        /// </summary>
+        private static void LaunchControlChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
+        {
+            _settingValue = false;
+            LaunchChannelBrowser(parameter, selection, host, site);
+        }
+
+        /// <summary>
+        /// This can execute method is run periodically by the command to determine whether it should be enabled or disabled.
+        /// </summary>
+        private static bool CanLaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
+        {
+            return selection.All(s => s.Model is modCustomControlModel);
+        }
+
+        private static void LaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
+        {
+            _uiSdfBrowsePopup = new ChannelPopup
+            {
+                ShowWaveforms = false,
+                Name = "UI_SDFBrowsePopup",
+                IsOpen = false,
+                Placement = Placement.BelowCenter
+            };
+            // Register the property changed callback for the popup window
+            WeakEventManager<ChannelPopup, PropertyChangedEventArgs>.AddHandler(_uiSdfBrowsePopup, "PropertyChanged", ChannelNamePropertyChanged);
+            // Show Popup window with Channels.
+            _currentSelection = selection.ToList();
+            _uiSdfBrowsePopup.PlacementTarget = (UIElement)parameter.AssociatedVisual;
+            _uiSdfBrowsePopup.Channel = ((modCustomControlModel)_currentSelection.First().Model).modCustomControlChannel;
+            _uiSdfBrowsePopup.ShowSdfBrowser(host, true, false);
+        }
+        private static void ChannelNamePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == ChannelControlModelPropertyNames.ChannelName)
+            {
+                foreach (IViewModel selectedViewModel in _currentSelection)
+                {
+                    var uiModel = (UIModel)selectedViewModel.Model;
+                    // we are setting values on the model so start a new transaction. set the purpose of the transaction to user so that it can be undone
+                    using (var transaction = uiModel.TransactionManager.BeginTransaction("Set channel", TransactionPurpose.User))
+                    {
+                        var modCustomControlModel = uiModel as modCustomControlModel;
+                        // loop on different channels
+                        if (modCustomControlModel != null)
+                        {
+                            modCustomControlModel.modCustomControlChannel = _uiSdfBrowsePopup.Channel;
+                        }
+                        transaction.Commit();
+                    }
+                }
+            }
         }
 
         /// <summary>
         /// Gets the adorners used with this control during a hard selection (left-click).
-        /// Currently used to create an adorner that allows browsing to a channel path in a VeriStand SDF.
+        /// Currently used to create an adorner that allows browsing to two channel paths
         /// </summary>
         /// <returns>An enumerable collection of hard select adorners.</returns>
-        public override IEnumerable<Adorner> GetHardSelectAdorners()
+        //public override IEnumerable<Adorner> GetHardSelectAdorners()
+        //{
+        //    var adorners = new Collection<Adorner>();
+        //    var toolbar = new FloatingToolBar();
+
+        //    if (Model == null) return adorners;
+        //    var control = new TwoChannelAdorner(DesignerNodeHelpers.GetVisualForViewModel(this));
+        //    toolbar.ToolBar = control;
+        //    adorners.Add(new ControlAdorner(DesignerNodeHelpers.GetVisualForViewModel(this), toolbar, Placement.BelowCenter));
+        //    return adorners;
+        //}
+
+
+        /// <summary>
+        /// Creates and returns a list of context menu commands for this view model
+        /// </summary>
+        /// <returns>List of context menu commands for this view model</returns>
+        public virtual IEnumerable<ShellCommandInstance> CreateContextMenuCommands()
         {
-            Collection<Adorner> adorners = _channelControlViewModelImplementation.GetHardSelectAdorners(base.GetHardSelectAdorners());
-            return adorners;
+            var commands = new List<ShellCommandInstance>();
+            commands.Add(
+                new ShellCommandInstance(SelectChannelsCommand)
+                {
+                    LabelTitle = "Select Channels In Tree"
+                });
+            return commands;
         }
 
-        /// <inheritdoc />
-        public override IEnumerable<Adorner> GetSoftSelectAdorners()
+        /// <summary>
+        /// Gets Unique IDs to be filtered from context menu commands
+        /// </summary>
+        public virtual IEnumerable<string> FilterContextMenuCommands()
         {
-            Collection<Adorner> adorners = _channelControlViewModelImplementation.GetSoftSelectAdorners(base.GetSoftSelectAdorners());
-            return adorners;
+            return Enumerable.Empty<string>();
         }
 
-        /// <inheritdoc />
-        public override QueryResult<T> QueryService<T>()
-            => QueryResult<T>.FromObject(_channelControlViewModelImplementation)
-                .AppendedWith(base.QueryService<T>());
-
-        #region ICommonConfigurationPaneControl
-
-        /// <inheritdoc/>
-        public virtual bool HasTextContent => true;
-
-        #endregion
-        public bool CanAddChildren(IEnumerable<ReparentingInformation> infos)
+        /// <summary>
+        /// Select the current control channel in the system definition tree
+        /// </summary>
+        public static readonly ShellSelectionRelayCommand SelectChannelsCommand = new ShellSelectionRelayCommand(SelectChannels, CanSelectChannel)
         {
-            throw new System.NotImplementedException();
+            LabelTitle = "Select Channels",
+            UniqueId = "NI.ChannelCommands:SelectChannelsInSystemDefinitionTree",
+            UIType = UITypeForCommand.Button
+        };
+
+        private static bool CanSelectChannel(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
+        {
+            return host.GetSharedExportedValue<VeriStandHelper>().IsSystemDefinitionValid;
         }
 
-        public bool CanRemoveChildren(IEnumerable<ReparentingInformation> infos)
+        private static void SelectChannels(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
-            throw new System.NotImplementedException();
+            IEnumerable<string> controlChannels = selection.Select(item => item.Model)
+                .OfType<modCustomControlModel>()
+                .Select(model => model.modCustomControlChannel)
+                .Where(channel => !string.IsNullOrEmpty(channel))
+                .ToList();
+            var systemDefinitionPalette = SystemDefinitionPaletteControl.Activate(site);
+            systemDefinitionPalette.SelectNodes(controlChannels);
         }
 
-        public void AddChildren(IEnumerable<ReparentingInformation> infos)
+        /// <summary>
+        /// Called by the view when a value change occurs.  The view fires this for both duty cycle and frequency value changes and the event args let us
+        /// tell which one was fired
+        /// </summary>
+        /// <param name="sender">sending object - not used</param>
+        /// <param name="eventArgs">custom event information telling us which channel changed and what its value is</param>
+        private void SetChannelValue(object sender, CustomChannelValueChangedEventArgs eventArgs)
         {
-            throw new System.NotImplementedException();
+            ((modCustomControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
         }
-
-        public void RemoveChildren(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdatePositions(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void FinishPlacement(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Adorner> GetDragOverAdorners(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Adorner> GetBoundsChangeAdorners(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void InvertScale(NumericPointerModel numericPointerModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override FrameworkElement CreateViewForType(Type numericType)
-        {
-            var view = new modCustomControl(this);
-            return view;
-        }
-        public ReparentingStyle ReparentingStyle => throw new System.NotImplementedException();
-
-        public SMPoint PastePositionOffset => throw new System.NotImplementedException();
-
-        public bool ShowHighlightRect => throw new System.NotImplementedException();
-
-        public SMRect SoftSelectionRectangle => throw new System.NotImplementedException();
-
     }
 }
