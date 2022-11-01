@@ -28,7 +28,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     //    public class modCustomControlViewModel : PanelControlViewModel
     // IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
-    public class modCustomControlViewModel : GaugeViewModel
+    public class ModCustomControlViewModel : GaugeViewModel
     {
         //private readonly NumericChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel> _channelControlViewModelImplementation;
         /// <summary>
@@ -38,10 +38,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         // set implementation
        //private readonly NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel> _channelControlViewModelImplementation;
 
-        public modCustomControlViewModel(modCustomControlModel model) : base(model)
+        public ModCustomControlViewModel(ModCustomControlModel model) : base(model)
         {
             //_channelControlViewModelImplementation = new NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel>(this);
-            WeakEventManager<modCustomControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", modCustomControlValueChangedEventHandler);
+            WeakEventManager<ModCustomControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", ModCustomControlValueChangedEventHandler);
         }
 
 
@@ -58,7 +58,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
         }
 
-        private void modCustomControlValueChangedEventHandler(object sender, ChannelValueChangedEventArgs e)
+        private void ModCustomControlValueChangedEventHandler(object sender, ChannelValueChangedEventArgs e)
         {
             var modCustomControl = View.Children.FirstOrDefault().AsFrameworkElement as modCustomControl;
             if (modCustomControl != null)
@@ -104,7 +104,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override void ModelPropertyChanged(Element modelElement, string propertyName, TransactionItem transactionItem)
         {
             base.ModelPropertyChanged(modelElement, propertyName, transactionItem);
-            ((modCustomControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
+            ((ModCustomControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
         }
 
         /// <summary>
@@ -140,8 +140,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public static readonly ISelectionCommand ControlChannelBrowseCommand = new ShellSelectionRelayCommand(LaunchControlChannelBrowser, CanLaunchChannelBrowser)
         {
             LabelTitle = "Custom User Control Channel",
-            LargeImageSource = ResourceHelpers.LoadImage(typeof(modCustomControlViewModel), "Resources/Browse.png"),
-            SmallImageSource = ResourceHelpers.LoadImage(typeof(modCustomControlViewModel), "Resources/Browse_16x16.png"),
+            LargeImageSource = ResourceHelpers.LoadImage(typeof(ModCustomControlViewModel), "Resources/Browse.png"),
+            SmallImageSource = ResourceHelpers.LoadImage(typeof(ModCustomControlViewModel), "Resources/Browse_16x16.png"),
             UniqueId = "NI.ChannelCommands:BrowseForCustomControlChannelCommand",
             UIType = UITypeForCommand.Button
         };
@@ -160,7 +160,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         private static bool CanLaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
-            return selection.All(s => s.Model is modCustomControlModel);
+            return selection.All(s => s.Model is ModCustomControlModel);
         }
 
         private static void LaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
@@ -177,7 +177,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // Show Popup window with Channels.
             _currentSelection = selection.ToList();
             _uiSdfBrowsePopup.PlacementTarget = (UIElement)parameter.AssociatedVisual;
-            _uiSdfBrowsePopup.Channel = ((modCustomControlModel)_currentSelection.First().Model).modCustomControlChannel;
+            _uiSdfBrowsePopup.Channel = ((ModCustomControlModel)_currentSelection.First().Model).modCustomControlChannel;
             _uiSdfBrowsePopup.ShowSdfBrowser(host, true, false);
         }
         private static void ChannelNamePropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -190,7 +190,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     // we are setting values on the model so start a new transaction. set the purpose of the transaction to user so that it can be undone
                     using (var transaction = uiModel.TransactionManager.BeginTransaction("Set channel", TransactionPurpose.User))
                     {
-                        var modCustomControlModel = uiModel as modCustomControlModel;
+                        var modCustomControlModel = uiModel as ModCustomControlModel;
                         // loop on different channels
                         if (modCustomControlModel != null)
                         {
@@ -261,7 +261,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         private static void SelectChannels(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
             IEnumerable<string> controlChannels = selection.Select(item => item.Model)
-                .OfType<modCustomControlModel>()
+                .OfType<ModCustomControlModel>()
                 .Select(model => model.modCustomControlChannel)
                 .Where(channel => !string.IsNullOrEmpty(channel))
                 .ToList();
@@ -277,7 +277,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="eventArgs">custom event information telling us which channel changed and what its value is</param>
         private void SetChannelValue(object sender, CustomChannelValueChangedEventArgs eventArgs)
         {
-            ((modCustomControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
+            ((ModCustomControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
         }
 
     }

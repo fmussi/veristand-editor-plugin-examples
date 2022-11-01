@@ -7,11 +7,11 @@ using NationalInstruments.Controls.Primitives;
 
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
-    public class modCustomControlTp : VehicleNumericControl
+    public class ModCustomControlTp : VehicleNumericControl
     {
-        public modCustomControlTp()
+        public ModCustomControlTp()
         {
-            DefaultStyleKey = typeof(modCustomControlTp);
+            DefaultStyleKey = typeof(ModCustomControlTp);
         }
     }
 }

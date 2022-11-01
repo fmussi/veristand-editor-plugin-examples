@@ -28,7 +28,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// The interface implementation defines how the control should appear in the palette.
     /// </summary>
     [Export(typeof(ICustomVeriStandControl))]
-    public class modCustomControlModelExporter : ICustomVeriStandControl
+    public class ModCustomControlModelExporter : ICustomVeriStandControl
     {
         /// <summary>
         /// MergeScript which defines what to drop on the screen from the palette.  Can be used to set default values on the control
@@ -68,7 +68,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "adgCustomControls", .1) };
     }
 
-    public class modCustomControlModel : GaugeModel,
+    public class ModCustomControlModel : GaugeModel,
 #if MUTATE2020R4
         IDataEngineStateChangeObserver
 #else
@@ -94,7 +94,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
-        public static readonly PropertySymbol modCustomControlChannelSymbol = ExposePropertySymbol<modCustomControlModel>(modCustomControlChannelName, string.Empty);
+        public static readonly PropertySymbol modCustomControlChannelSymbol = ExposePropertySymbol<ModCustomControlModel>(modCustomControlChannelName, string.Empty);
         // Duplicate end
         // Xaml generation
         /// <summary>
@@ -102,12 +102,12 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         public override XamlGenerationHelper XamlGenerationHelper
         {
-            get { return new modCustomControlXamlHelper(); }
+            get { return new ModCustomControlXamlHelper(); }
         }
         /// <summary>
         /// Private class which helps with xaml generation for this model.  For most custom models this should just need to override the control type from the generic XamlGenerationHelper
         /// </summary>
-        private class modCustomControlXamlHelper : XamlGenerationHelper
+        private class ModCustomControlXamlHelper : XamlGenerationHelper
         {
             public override Type ControlType => typeof(modCustomControl);
         }
@@ -126,9 +126,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <returns>A constructed and initialized modCustomControlModel instance.</returns>
 
         [XmlParserFactoryMethod(modCustomControlName, PluginNamespaceSchema.ParsableNamespaceName)]
-        public static modCustomControlModel Create(IElementCreateInfo info)
+        public static ModCustomControlModel CreateModCustomControlModel(IElementCreateInfo info)
         {
-            var model = new modCustomControlModel();
+            var model = new ModCustomControlModel();
 #if MUTATE2020
             model.Initialize(info);
 #else

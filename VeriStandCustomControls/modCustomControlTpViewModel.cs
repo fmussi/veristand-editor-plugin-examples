@@ -6,13 +6,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// The view model for the keyswitch control. The only thing this does different from the channelknobviewmodel is that we return a custom view.
     /// Since the view we have inherits from knob it will be compatible with the existing models and view models.
     /// </summary>
-    public class modCustomControlTpViewModel : ChannelGaugeViewModel
+    public class ModCustomControlTpViewModel : ChannelGaugeViewModel
     {
         /// <summary>
         /// Constructs a new instance of the KeySwitchControlViewModel class
         /// </summary>
         /// <param name="model">The modCustomControlTpModel assocaited with this view model.</param>
-        public modCustomControlTpViewModel(modCustomControlTpModel model) : base(model)
+        public ModCustomControlTpViewModel(ModCustomControlTpModel model) : base(model)
         {
         }
 
@@ -22,7 +22,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
        /// <returns>keyswitch view</returns>
         public override object CreateView()
         {
-            var view = new modCustomControlTp();
+            var view = new ModCustomControlTp();
             // numeric controls have a helper which needs to get attached to the view that helps setting values of different types to the control. Since we only have I32
             // for our control type we just hard code that when creating the helper
             Helper = CreateHelper(typeof(int), this, view);

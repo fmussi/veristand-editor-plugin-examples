@@ -14,7 +14,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// The interface implementation defines how the control should appear in the palette.
     /// </summary>
     [Export(typeof(ICustomVeriStandControl))]
-    public class modCustomControlTpModelExporter : ICustomVeriStandControl
+    public class ModCustomControlTpModelExporter : ICustomVeriStandControl
     {
         /// <summary>
         /// Mergescript which defines what to drop on the screen from the palette.  Can be used to set default values on the control
@@ -58,7 +58,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// <summary>
     /// This model has the business logic for the keyswitch control.  Mostly it handles all of that in the base class ChannelKnobModel.
     /// </summary>
-    public class modCustomControlTpModel : ChannelGaugeModel
+    public class ModCustomControlTpModel : ChannelGaugeModel
     {
         /// <summary>
         /// The name of the control which will be used in XML.  This name in the mergescript in the Target property of the ICustomVeriStandControl interface must match this
@@ -70,13 +70,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         public override XName XmlElementName => XName.Get(modCustomControlTpName, PluginNamespaceSchema.ParsableNamespaceName);
 
-        /// <summary>Creates a <see cref="modCustomControlTpModel"/>.</summary>
+        /// <summary>Creates a <see cref="ModCustomControlTpModel"/>.</summary>
         /// <param name="info">An <see cref="IElementCreateInfo"/> instance.</param>
-        /// <returns>A <see cref="modCustomControlTpModel"/>.</returns>
+        /// <returns>A <see cref="ModCustomControlTpModel"/>.</returns>
         [XmlParserFactoryMethod(modCustomControlTpName, PluginNamespaceSchema.ParsableNamespaceName)]
-        public static modCustomControlTpModel CreateModCustomControlTpModel(IElementCreateInfo info)
+        public static ModCustomControlTpModel CreateModCustomControlTpModel(IElementCreateInfo info)
         {
-            var model = new modCustomControlTpModel();
+            var model = new ModCustomControlTpModel();
 #if MUTATE2020
             model.Initialize(info);
 #else

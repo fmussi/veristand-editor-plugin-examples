@@ -10,13 +10,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// </summary>
     public partial class modCustomControl
     {
-        private readonly modCustomControlViewModel _viewModel;
+        private readonly ModCustomControlViewModel _viewModel;
 
         /// <summary>
         /// Constructor for exCustomUserControl
         /// </summary>
         /// <param name="viewModel">view model associated with this control</param>
-        public modCustomControl(modCustomControlViewModel viewModel)
+        public modCustomControl(ModCustomControlViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
@@ -51,12 +51,12 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         private void CustomControl_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
         {
-            OnValueChanged(e.NewValue, modCustomControlModel.modCustomControlChannelName);
+            OnValueChanged(e.NewValue, ModCustomControlModel.modCustomControlChannelName);
         }
 
         private void CustomControl_OnRollChanged(object sender, ValueChangedEventArgs<double> e)
         {
-            OnValueChanged(e.NewValue, modCustomControlModel.modCustomControlChannelName);
+            OnValueChanged(e.NewValue, ModCustomControlModel.modCustomControlChannelName);
         }
     }
 }

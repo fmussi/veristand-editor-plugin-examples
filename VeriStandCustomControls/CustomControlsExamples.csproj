@@ -142,11 +142,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="modCustomControl.xaml">
+    <Page Include="ModCustomControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="modCustomControlTemplate.xaml">
+    <Page Include="ModCustomControlTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,15 +178,15 @@
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
     <Compile Include="KeySwitchControl.cs" />
-    <Compile Include="modCustomControlTpViewModel.cs" />
-    <Compile Include="modCustomControlTpModel.cs" />
+    <Compile Include="ModCustomControlTpViewModel.cs" />
+    <Compile Include="ModCustomControlTpModel.cs" />
     <Compile Include="KeySwitchControlModel.cs" />
     <Compile Include="KeySwitchControlViewModel.cs" />
-    <Compile Include="modCustomControlModel.cs" />
-    <Compile Include="modCustomControlTp.cs" />
-    <Compile Include="modCustomControlViewModel.cs" />
-    <Compile Include="modCustomControl.xaml.cs">
-      <DependentUpon>modCustomControl.xaml</DependentUpon>
+    <Compile Include="ModCustomControlModel.cs" />
+    <Compile Include="ModCustomControlTp.cs" />
+    <Compile Include="ModCustomControlViewModel.cs" />
+    <Compile Include="ModCustomControl.xaml.cs">
+      <DependentUpon>ModCustomControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="PluginNamespaceSchema.cs" />
     <Compile Include="PluginCommandContentProvider.cs" />

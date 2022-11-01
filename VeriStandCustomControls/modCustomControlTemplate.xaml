@@ -19,5 +19,5 @@
         <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/SystemSkins/Industry/Primitives/DigitWheel.System.xaml" />
         <ResourceDictionary Source="/NationalInstruments.Controls.SkinProviders.Numerics;component/SystemSkins/Industry/Primitives/IndustryControlResources.System.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Style TargetType="customControlsExamples:modCustomControlTp" BasedOn="{StaticResource BaseKnob }" ></Style>
+    <Style TargetType="customControlsExamples:ModCustomControlTp" BasedOn="{StaticResource BaseKnob }" ></Style>
 </ResourceDictionary>
