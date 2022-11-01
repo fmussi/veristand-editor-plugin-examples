@@ -91,11 +91,20 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         public const string modCustomControlChannelName = "modCustomControlChannel";
 
+        private readonly NumericChannelControlModelImplementation<ModCustomControlModel> _channelControlModelImplementation;
+
+        protected ModCustomControlModel()
+        {
+            _channelControlModelImplementation = new NumericChannelControlModelImplementation<ModCustomControlModel>(this);
+        }
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
         public static readonly PropertySymbol modCustomControlChannelSymbol = ExposePropertySymbol<ModCustomControlModel>(modCustomControlChannelName, string.Empty);
         // Duplicate end
+
+    
+
         // Xaml generation
         /// <summary>
         /// Provide a xaml generation helper. This is used to help generate xaml for the properties on this control.
@@ -137,6 +146,36 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             return model;
         }
 
+        /// <inheritdoc/>
+        protected override void OnDeleting()
+        {
+            _channelControlModelImplementation.OnDeleting();
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            IPanelLabel label = this.ToPanelControl().Label;
+            return label == null ? base.ToString() : label.Text;
+        }
+
+        /// <inheritdoc />
+        public override QueryResult<T> QueryService<T>()
+        {
+            if (typeof(T) == typeof(ISearchable))
+            {
+                var searchableService = base.QueryService<ISearchable>().FirstOrDefault() ?? new DefaultSearchableService(this);
+                _channelControlModelImplementation.UpdateISearchable(searchableService);
+                return new QueryResult<T>(searchableService as T);
+            }
+            var result = QueryResult<T>.FromPair(null, _channelControlModelImplementation);
+            if (result.Any())
+            {
+                return result;
+            }
+            return base.QueryService<T>();
+        }
+
         /// <summary>
         /// Gets the type of the specified property.  This must be implemented for any new properties that get added that need to be serialized.
         /// </summary>
@@ -145,13 +184,15 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         public override Type GetPropertyType(PropertySymbol identifier)
         {
-            switch (identifier.Name)
-            {
-                case modCustomControlChannelName:
-                    return typeof(string);
-                default:
-                    return base.GetPropertyType(identifier);
-            }
+            //switch (identifier.Name)
+            //{
+            //    case modCustomControlChannelName:
+            //        return typeof(string);
+            //    default:
+            //        return base.GetPropertyType(identifier);
+            //}
+            Type type;
+            return _channelControlModelImplementation.GetPropertyType(identifier, out type) ? type : base.GetPropertyType(identifier);
 
         }
         /// <summary>
@@ -161,13 +202,15 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <returns>The default value of the specified property.</returns>
         public override object DefaultValue(PropertySymbol identifier)
         {
-            switch (identifier.Name)
-            {
-                case modCustomControlChannelName:
-                    return string.Empty;
-                default:
-                    return base.DefaultValue(identifier);
-            }
+            //switch (identifier.Name)
+            //{
+            //    case modCustomControlChannelName:
+            //        return string.Empty;
+            //    default:
+            //        return base.DefaultValue(identifier);
+            //}
+            object defaultValue;
+            return _channelControlModelImplementation.GetDefaultValue(identifier, out defaultValue) ? defaultValue : base.DefaultValue(identifier);
         }
 
         // INotifier must override

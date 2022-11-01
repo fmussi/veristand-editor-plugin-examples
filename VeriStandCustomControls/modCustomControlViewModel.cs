@@ -28,20 +28,38 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     //    public class modCustomControlViewModel : PanelControlViewModel
     // IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
-    public class ModCustomControlViewModel : GaugeViewModel
+    public class ModCustomControlViewModel : GaugeViewModel, IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
     {
-        //private readonly NumericChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel> _channelControlViewModelImplementation;
+        private readonly NumericPointerChannelControlViewModelImplementation<ModCustomControlViewModel, ModCustomControlModel> _channelControlViewModelImplementation;
         /// <summary>
         /// Constructs a new instance of the modCustomControlViewModel class
         /// </summary>
         /// <param name="model">The modCustomControlModel associated with this view model.</param>
         // set implementation
-       //private readonly NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel> _channelControlViewModelImplementation;
 
         public ModCustomControlViewModel(ModCustomControlModel model) : base(model)
         {
-            //_channelControlViewModelImplementation = new NumericPointerChannelControlViewModelImplementation<modCustomControlViewModel, modCustomControlModel>(this);
+            _channelControlViewModelImplementation = new NumericPointerChannelControlViewModelImplementation<ModCustomControlViewModel, ModCustomControlModel>(this);
+           // does the implementation handle value changes?
             WeakEventManager<ModCustomControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", ModCustomControlValueChangedEventHandler);
+        }
+
+        /// <summary>
+        /// Called when the view value has changed.
+        /// </summary>
+        /// <param name="newValue">The view's new value.</param>
+        protected override void OnValueChanged(object newValue)
+        {
+            OnValueChanged(newValue, PropertyChangeSource.Interactive);
+        }
+        /// <summary>
+        /// Called when the view value has changed.
+        /// </summary>
+        /// <param name="newValue">The view's new value.</param>
+        /// <param name="source">The source of the value change.</param>
+        private void OnValueChanged(object newValue, PropertyChangeSource source)
+        {
+            _channelControlViewModelImplementation.OnValueChanged(newValue, source);
         }
 
 
@@ -104,8 +122,53 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override void ModelPropertyChanged(Element modelElement, string propertyName, TransactionItem transactionItem)
         {
             base.ModelPropertyChanged(modelElement, propertyName, transactionItem);
-            ((ModCustomControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
+            _channelControlViewModelImplementation.ModelPropertyChanged(modelElement, propertyName, transactionItem);
+            //((ModCustomControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
         }
+
+        /// <summary>
+        /// Applies a property value to the view.
+        /// </summary>
+        /// <param name="identifier">The property to set.</param>
+        /// <param name="value">The new value for the property.</param>
+        protected override void SetProperty(PropertySymbol identifier, object value)
+        {
+            bool handled = false;
+            //handled = _channelControlViewModelImplementation.SetProperty(identifier, value);
+            if (!handled)
+            {
+                base.SetProperty(identifier, value);
+            }
+        }
+        /// <inheritdoc />
+        public override void Placed(PlacementReleaseEventArgs args)
+        {
+            base.Placed(args);
+            _channelControlViewModelImplementation.Placed(args);
+        }
+
+        /// <summary>
+        /// Gets the adorners used with this control during a hard selection (left-click).
+        /// Currently used to create an adorner that allows browsing to a channel path in a VeriStand SDF.
+        /// </summary>
+        /// <returns>An enumerable collection of hard select adorners.</returns>
+        public override IEnumerable<Adorner> GetHardSelectAdorners()
+        {
+            Collection<Adorner> adorners = _channelControlViewModelImplementation.GetHardSelectAdorners(base.GetHardSelectAdorners());
+            return adorners;
+        }
+
+        /// <inheritdoc />
+        public override IEnumerable<Adorner> GetSoftSelectAdorners()
+        {
+            Collection<Adorner> adorners = _channelControlViewModelImplementation.GetSoftSelectAdorners(base.GetSoftSelectAdorners());
+            return adorners;
+        }
+
+        /// <inheritdoc />
+        public override QueryResult<T> QueryService<T>()
+            => QueryResult<T>.FromObject(_channelControlViewModelImplementation)
+                .AppendedWith(base.QueryService<T>());
 
         /// <summary>
         ///  Creates configuration pane content for this control. See comments on
@@ -116,18 +179,39 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override void CreateCommandContent(ICommandPresentationContext context)
         {
             base.CreateCommandContent(context);
+            _channelControlViewModelImplementation.CreateCommandContent(context);
             // specify that we are adding things to the configuration pane
-            using (context.AddConfigurationPaneContent())
-            {
-                // First add the group command which lets us know what top level configuration pane group to put the child commands in
-                using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
-                {
-                    // add child commands whose visuals will show up in the specified parent group.
-                    context.Add(ControlChannelBrowseCommand);
-                }
-            }
+            //using (context.AddConfigurationPaneContent())
+            //{
+            //    // First add the group command which lets us know what top level configuration pane group to put the child commands in
+            //    using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
+            //    {
+            //        // add child commands whose visuals will show up in the specified parent group.
+            //        context.Add(ControlChannelBrowseCommand);
+            //    }
+            //}
         }
 
+        /// <inheritdoc/>
+        protected override void OnCreateContextMenu(CreateContextMenuRoutedEventArgs args)
+        {
+            base.OnCreateContextMenu(args);
+            _channelControlViewModelImplementation.OnCreateContextMenu(args);
+        }
+
+        /// <summary>
+        /// Called when the model this instance was watching has gone to the detached state.
+        /// </summary>
+        /// <param name="modelElement">The removed model</param>
+        /// <returns>Return true to have your observer removed from watching this object</returns>
+        public override bool ModelDetached(Element modelElement)
+        {
+            _channelControlViewModelImplementation.ModelDetached(modelElement);
+            return base.ModelDetached(modelElement);
+        }
+
+
+        // Methods for ConfigurationPane for VisualModel
         private static ChannelPopup _uiSdfBrowsePopup;
 
         private static IEnumerable<IViewModel> _currentSelection;
@@ -224,16 +308,16 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Creates and returns a list of context menu commands for this view model
         /// </summary>
         /// <returns>List of context menu commands for this view model</returns>
-        public virtual IEnumerable<ShellCommandInstance> CreateContextMenuCommands()
-        {
-            var commands = new List<ShellCommandInstance>();
-            commands.Add(
-                new ShellCommandInstance(SelectChannelsCommand)
-                {
-                    LabelTitle = "Select Channels In Tree"
-                });
-            return commands;
-        }
+        //public virtual IEnumerable<ShellCommandInstance> CreateContextMenuCommands()
+        //{
+        //    var commands = new List<ShellCommandInstance>();
+        //    commands.Add(
+        //        new ShellCommandInstance(SelectChannelsCommand)
+        //        {
+        //            LabelTitle = "Select Channels In Tree"
+        //        });
+        //    return commands;
+        //}
 
         /// <summary>
         /// Gets Unique IDs to be filtered from context menu commands
@@ -280,5 +364,78 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             ((ModCustomControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
         }
 
+        #region IChannelControlViewValueAccessor
+        public bool CanAddChildren(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanRemoveChildren(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddChildren(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveChildren(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePositions(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FinishPlacement(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Adorner> GetDragOverAdorners(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Adorner> GetBoundsChangeAdorners(IEnumerable<ReparentingInformation> infos)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        #endregion
+
+        #region ICommonConfigurationPaneControl
+
+        /// <inheritdoc/>
+        public virtual bool HasTextContent => true;
+
+        /// <summary>
+        /// Gets or sets the current value displayed in the view.
+        /// </summary>
+        public object ViewValue
+        {
+            get
+            {
+                return Helper.GetValue();
+            }
+            set
+            {
+                Helper.SetValue(value);
+            }
+        }
+
+        public ReparentingStyle ReparentingStyle => throw new NotImplementedException();
+
+        public SMPoint PastePositionOffset => throw new NotImplementedException();
+
+        public bool ShowHighlightRect => throw new NotImplementedException();
+
+        public SMRect SoftSelectionRectangle => throw new NotImplementedException();
+
+        #endregion
     }
 }
