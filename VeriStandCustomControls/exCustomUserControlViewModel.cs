@@ -15,6 +15,7 @@ using NationalInstruments.SourceModel;
 using NationalInstruments.VeriStand.ServiceModel;
 using NationalInstruments.VeriStand.Shell;
 using NationalInstruments.VeriStand.Tools;
+using NationalInstruments.Hmi.Core.Controls.ViewModels;
 //using NationalInstruments.PanelCommon.Design;
 
 namespace NationalInstruments.VeriStand.CustomControlsExamples

@@ -36,14 +36,14 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public string Target =>
             "<pf:MergeScript xmlns:pf=\"http://www.ni.com/PlatformFramework\">" +
                 "<pf:MergeItem>" +
-                    "<modCustomControl xmlns=\"http://www.your-company.com/VeriStandExample\" Width=\"[float]220\" Height=\"[float]175\"/>" +
+                    "<AttitudeIndicatorControl xmlns=\"http://www.your-company.com/VeriStandExample\" Width=\"[float]220\" Height=\"[float]175\"/>" +
                 "</pf:MergeItem>" +
             "</pf:MergeScript>";
 
         /// <summary>
         /// Name of the control as it will appear in the palette
         /// </summary>
-        public string Name => "Custom User Control (mod)";
+        public string Name => "AttitudeIndicator (Custom)";
 
         /// <summary>
         /// Path to the image to use in the palette
@@ -53,13 +53,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Tool tip to display in the palette
         /// </summary>
-        public string ToolTip => "Test user control.";
+        public string ToolTip => "Custom Control for Avionics.";
 
         /// <summary>
         /// Unique id for the control. The only requirement is that this doesn't overlap with existing controls or other custom controls.
         /// This is used for serialization and the context help system.
         /// </summary>
-        public string UniqueId => "modCustomControl";
+        public string UniqueId => "attitudeIndicatorControl";
 
         /// <summary>
         /// Returns the palette hierarchy for this element. Returning null tells VeriStand to put this in the top level custom controls directory.
@@ -68,7 +68,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "adgCustomControls", .1) };
     }
 
-    public class ModCustomControlModel : GaugeModel,
+    public class AttitudeIndicatorControlModel : VisualModel,
 #if MUTATE2020R4
         IDataEngineStateChangeObserver
 #else
@@ -78,29 +78,29 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// The name to use for serialization of this model.  This name must match the name used in the Target xml in the ICustomVeriStandControl interface
         /// </summary>
-        private const string modCustomControlName = "modCustomControl";
+        private const string attitudeIndicatorControlName = "AttitudeIndicatorControl";
         /// <summary>
         /// String used to put errors from this control in their own bucket so code from this model doesn't interfere with the rest of the error
         /// reporting behavior in VeriStand
         /// </summary>
-        private const string modCustomControlModelErrorString = "modCustomControlModelErrors";
+        private const string attitudeIndicatorControlModelErrorString = "AttitudeIndicatorControlModelErrors";
 
         // Duplicate start for other channels
         /// <summary>
         /// Specifies the name of the frequency channel
         /// </summary>
-        public const string modCustomControlChannelName = "modCustomControlChannel";
+        public const string attitudeIndicatorControlChannelName = "AttitudeIndicatorControlChannel";
 
-        private readonly NumericChannelControlModelImplementation<ModCustomControlModel> _channelControlModelImplementation;
+        //private readonly NumericChannelControlModelImplementation<AttitudeIndicatorControlModel> _channelControlModelImplementation;
 
-        protected ModCustomControlModel()
-        {
-            _channelControlModelImplementation = new NumericChannelControlModelImplementation<ModCustomControlModel>(this);
-        }
+        //protected AttitudeIndicatorControlModel()
+        //{
+        //    _channelControlModelImplementation = new NumericChannelControlModelImplementation<AttitudeIndicatorControlModel>(this);
+        //}
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
-        public static readonly PropertySymbol modCustomControlChannelSymbol = ExposePropertySymbol<ModCustomControlModel>(modCustomControlChannelName, string.Empty);
+        public static readonly PropertySymbol modCustomControlChannelSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(attitudeIndicatorControlChannelName, string.Empty);
         // Duplicate end
 
     
@@ -111,21 +111,21 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         public override XamlGenerationHelper XamlGenerationHelper
         {
-            get { return new ModCustomControlXamlHelper(); }
+            get { return new AttitudeIndicatorControlXamlHelper(); }
         }
         /// <summary>
         /// Private class which helps with xaml generation for this model.  For most custom models this should just need to override the control type from the generic XamlGenerationHelper
         /// </summary>
-        private class ModCustomControlXamlHelper : XamlGenerationHelper
+        private class AttitudeIndicatorControlXamlHelper : XamlGenerationHelper
         {
-            public override Type ControlType => typeof(modCustomControl);
+            public override Type ControlType => typeof(AttitudeIndicatorControl);
         }
         /// <summary>
         /// XML element name, including full namespace, for universal persistence.
         /// </summary>
         public override XName XmlElementName
         {
-            get { return XName.Get(modCustomControlName, PluginNamespaceSchema.ParsableNamespaceName); }
+            get { return XName.Get(attitudeIndicatorControlName, PluginNamespaceSchema.ParsableNamespaceName); }
         }
 
         /// <summary>
@@ -134,10 +134,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="info">Information required to create the model, such as the parser.</param>
         /// <returns>A constructed and initialized modCustomControlModel instance.</returns>
 
-        [XmlParserFactoryMethod(modCustomControlName, PluginNamespaceSchema.ParsableNamespaceName)]
-        public static ModCustomControlModel CreateModCustomControlModel(IElementCreateInfo info)
+        [XmlParserFactoryMethod(attitudeIndicatorControlName, PluginNamespaceSchema.ParsableNamespaceName)]
+        public static AttitudeIndicatorControlModel CreateAttitudeIndicatorControl(IElementCreateInfo info)
         {
-            var model = new ModCustomControlModel();
+            var model = new AttitudeIndicatorControlModel();
 #if MUTATE2020
             model.Initialize(info);
 #else
@@ -147,34 +147,34 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         }
 
         /// <inheritdoc/>
-        protected override void OnDeleting()
-        {
-            _channelControlModelImplementation.OnDeleting();
-        }
+        //protected override void OnDeleting()
+        //{
+        //    _channelControlModelImplementation.OnDeleting();
+        //}
 
         /// <inheritdoc/>
-        public override string ToString()
-        {
-            IPanelLabel label = this.ToPanelControl().Label;
-            return label == null ? base.ToString() : label.Text;
-        }
+        //public override string ToString()
+        //{
+        //    IPanelLabel label = this.ToPanelControl().Label;
+        //    return label == null ? base.ToString() : label.Text;
+        //}
 
         /// <inheritdoc />
-        public override QueryResult<T> QueryService<T>()
-        {
-            if (typeof(T) == typeof(ISearchable))
-            {
-                var searchableService = base.QueryService<ISearchable>().FirstOrDefault() ?? new DefaultSearchableService(this);
-                _channelControlModelImplementation.UpdateISearchable(searchableService);
-                return new QueryResult<T>(searchableService as T);
-            }
-            var result = QueryResult<T>.FromPair(null, _channelControlModelImplementation);
-            if (result.Any())
-            {
-                return result;
-            }
-            return base.QueryService<T>();
-        }
+        //public override QueryResult<T> QueryService<T>()
+        //{
+        //    if (typeof(T) == typeof(ISearchable))
+        //    {
+        //        var searchableService = base.QueryService<ISearchable>().FirstOrDefault() ?? new DefaultSearchableService(this);
+        //        _channelControlModelImplementation.UpdateISearchable(searchableService);
+        //        return new QueryResult<T>(searchableService as T);
+        //    }
+        //    var result = QueryResult<T>.FromPair(null, _channelControlModelImplementation);
+        //    if (result.Any())
+        //    {
+        //        return result;
+        //    }
+        //    return base.QueryService<T>();
+        //}
 
         /// <summary>
         /// Gets the type of the specified property.  This must be implemented for any new properties that get added that need to be serialized.
@@ -184,15 +184,15 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         public override Type GetPropertyType(PropertySymbol identifier)
         {
-            //switch (identifier.Name)
-            //{
-            //    case modCustomControlChannelName:
-            //        return typeof(string);
-            //    default:
-            //        return base.GetPropertyType(identifier);
-            //}
-            Type type;
-            return _channelControlModelImplementation.GetPropertyType(identifier, out type) ? type : base.GetPropertyType(identifier);
+            switch (identifier.Name)
+            {
+                case attitudeIndicatorControlChannelName:
+                    return typeof(string);
+                default:
+                    return base.GetPropertyType(identifier);
+            }
+            //Type type;
+            //return _channelControlModelImplementation.GetPropertyType(identifier, out type) ? type : base.GetPropertyType(identifier);
 
         }
         /// <summary>
@@ -202,15 +202,15 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <returns>The default value of the specified property.</returns>
         public override object DefaultValue(PropertySymbol identifier)
         {
-            //switch (identifier.Name)
-            //{
-            //    case modCustomControlChannelName:
-            //        return string.Empty;
-            //    default:
-            //        return base.DefaultValue(identifier);
-            //}
-            object defaultValue;
-            return _channelControlModelImplementation.GetDefaultValue(identifier, out defaultValue) ? defaultValue : base.DefaultValue(identifier);
+            switch (identifier.Name)
+            {
+                case attitudeIndicatorControlChannelName:
+                    return string.Empty;
+                default:
+                    return base.DefaultValue(identifier);
+            }
+            //object defaultValue;
+            //return _channelControlModelImplementation.GetDefaultValue(identifier, out defaultValue) ? defaultValue : base.DefaultValue(identifier);
         }
 
         // INotifier must override
@@ -226,7 +226,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // which is why we must use BeginInvoke since OnConnectToGateway is not guaranteed to be called by the UI thread
             Host.BeginInvoke(AsyncTaskPriority.WorkerHigh, () =>
             {
-                MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(modCustomControlModelErrorString, this);
+                MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(attitudeIndicatorControlModelErrorString, this);
             });
             if (!string.IsNullOrEmpty(modCustomControlChannel))
             {
@@ -247,12 +247,12 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             Host.BeginInvoke(AsyncTaskPriority.WorkerHigh, () =>
             {
                 MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(
-                    modCustomControlModelErrorString,
+                    attitudeIndicatorControlModelErrorString,
                     this);
 #if MUTATE2021
                 this.SafeReportError(PwmControlModelErrorString, null, MessageDescriptor.Empty, ex);
 #else
-                this.ReportError(modCustomControlModelErrorString, null, MessageDescriptor.Empty, ex);
+                this.ReportError(attitudeIndicatorControlModelErrorString, null, MessageDescriptor.Empty, ex);
 #endif
             });
         }
@@ -280,7 +280,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 AsyncTaskPriority.WorkerHigh,
                 () =>
                     MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(
-                        modCustomControlModelErrorString,
+                        attitudeIndicatorControlModelErrorString,
                         this));
             if (!string.IsNullOrEmpty(modCustomControlChannel))
             {
@@ -423,7 +423,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
             if (channel != null && !(channel.RowDim == 1 && channel.ColDim == 1))
             {
-                ReportError(modCustomControlModelErrorString, null, MessageDescriptor.Empty, "Cannot Register Vector Channels");
+                ReportError(attitudeIndicatorControlModelErrorString, null, MessageDescriptor.Empty, "Cannot Register Vector Channels");
                 return true;
             }
             return false;
@@ -528,7 +528,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 #else
                                 () => this.ReportError(
 #endif
-                                    modCustomControlModelErrorString,
+                                    attitudeIndicatorControlModelErrorString,
                                     null,
                                     MessageDescriptor.Empty,
                                     e));

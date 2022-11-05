@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="15E38BD0622F389D3FE11B42391AB50AF9FDD65999633DAA51B50F0771A196226158C336A7868F0C5C9E9AB43A96F529A3F339A1C68E0FFDA90ED5E98F6E528B" Timestamp="1D8F0791C058FCD" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Configuration Based Software Core" Name="http://www.ni.com/ConfigurationBasedSoftware.Core" OldestCompatibleVersion="6.3.0.49152" Version="6.3.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Editor" Name="http://www.ni.com/PanelCommon" OldestCompatibleVersion="6.1.0.0" Version="6.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="VeriStand Core Components" Name="http://www.ni.com/VeriStand" OldestCompatibleVersion="9.0.0.49152" Version="9.0.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="1.0.0.0" FeatureSetName="VeriStand Example Plugin" Name="http://www.your-company.com/VeriStandExample" OldestCompatibleVersion="1.0.0.49152" Version="1.0.0.49152" />
+		<ApplicationVersionInfo Build="8.5.0.50070" Name="VeriStand" Version="9.0.0.50070" />
+	</SourceModelFeatureSet>
+	<Screen Id="2" xmlns="http://www.ni.com/VeriStand">
+		<ScreenSurface Height="[float]1600" Id="1" Left="[float]0" PanelSizeMode="Fixed" Top="[float]0" Width="[float]2000" xmlns="http://www.ni.com/ConfigurationBasedSoftware.Core">
+			<modCustomControlTp Height="[float]172" Id="9e05c87166bd4640ae4e980761a1bcca" Label="[UIModel]86a0f3eda1ba4fdbba4a57900a6dcafd" Left="[float]452" Top="[float]158" Width="[float]172" xmlns="http://www.your-company.com/VeriStandExample" />
+			<Label Height="[float]16" Id="86a0f3eda1ba4fdbba4a57900a6dcafd" LabelOwner="[UIModel]9e05c87166bd4640ae4e980761a1bcca" Left="[float]452" Text="[string]modCustomControlTp" Top="[float]138" Width="[float]117" xmlns="http://www.ni.com/PanelCommon" />
+			<modCustomControlTp Height="[float]172" Id="ac3cc0b179504c809bbb1d436bf85f89" Label="[UIModel]2ed57a43a385493a8dd0e6711dc409b6" Left="[float]741" Top="[float]170" Width="[float]172" xmlns="http://www.your-company.com/VeriStandExample" />
+			<Label Height="[float]16" Id="2ed57a43a385493a8dd0e6711dc409b6" LabelOwner="[UIModel]ac3cc0b179504c809bbb1d436bf85f89" Left="[float]741" Text="[string]modCustomControlTp_2" Top="[float]150" Width="[float]128" xmlns="http://www.ni.com/PanelCommon" />
+			<CustomUserControl Height="[float]175" Id="d2157e05a93040f4a94154e14fe1c614" Label="[UIModel]4fcfb9d2c68347b999f2e4bac2626ae8" Left="[float]137" Top="[float]157" Width="[float]220" xmlns="http://www.your-company.com/VeriStandExample" />
+			<Label Height="[float]16" Id="4fcfb9d2c68347b999f2e4bac2626ae8" LabelOwner="[UIModel]d2157e05a93040f4a94154e14fe1c614" Left="[float]137" Text="[string]CustomUserControl" Top="[float]137" Width="[float]104" xmlns="http://www.ni.com/PanelCommon" />
+			<PWMControl Height="[float]175" Id="b6e0e8cccd794ecd80e6adb770fd4daf" Label="[UIModel]8065759a9fe34de4a7def15040262900" Left="[float]741" Top="[float]433" Width="[float]220" xmlns="http://www.your-company.com/VeriStandExample" />
+			<Label Height="[float]16" Id="8065759a9fe34de4a7def15040262900" LabelOwner="[UIModel]b6e0e8cccd794ecd80e6adb770fd4daf" Left="[float]741" Text="[string]PWMControl" Top="[float]413" Width="[float]68" xmlns="http://www.ni.com/PanelCommon" />
+			<ChannelKnob BaseName="[string]Knob" Height="[float]125" Id="eeca3ec55b03467e97f8d3e3e9f8a606" InteractionMode="[NumericPointerInteractionModes]EditRange" Label="[UIModel]c9114e6355124b25966b648de6d39ca8" Left="[float]215" Top="[float]531" ValueType="[Type]Double" Width="[float]125" />
+			<Label Height="[float]16" Id="c9114e6355124b25966b648de6d39ca8" LabelOwner="[UIModel]eeca3ec55b03467e97f8d3e3e9f8a606" Left="[float]215" Text="[string]Knob" Top="[float]511" Width="[float]28" xmlns="http://www.ni.com/PanelCommon" />
+		</ScreenSurface>
+	</Screen>
+</SourceFile>

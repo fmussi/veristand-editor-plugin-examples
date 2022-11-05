@@ -6,17 +6,17 @@ using NationalInstruments.Controls;
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     /// <summary>
-    /// Interaction logic for exCustomUserControl.xaml
+    /// Interaction logic for AttitudeIndicatorControl.xaml
     /// </summary>
-    public partial class modCustomControl
+    public partial class AttitudeIndicatorControl
     {
-        private readonly ModCustomControlViewModel _viewModel;
+        private readonly AttitudeIndicatorControlViewModel _viewModel;
 
         /// <summary>
-        /// Constructor for exCustomUserControl
+        /// Constructor for AttitudeIndicatorControl
         /// </summary>
         /// <param name="viewModel">view model associated with this control</param>
-        public modCustomControl(ModCustomControlViewModel viewModel)
+        public AttitudeIndicatorControl(AttitudeIndicatorControlViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
@@ -47,16 +47,16 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             set { SetValue(CustomControlValueProperty, value); }
         }
 
-        public static readonly DependencyProperty CustomControlValueProperty = DependencyProperty.Register("CustomControlValue", typeof(double), typeof(modCustomControl), new FrameworkPropertyMetadata(0.0));
+        public static readonly DependencyProperty CustomControlValueProperty = DependencyProperty.Register("CustomControlValue", typeof(double), typeof(AttitudeIndicatorControl), new FrameworkPropertyMetadata(0.0));
 
-        private void CustomControl_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
-        {
-            OnValueChanged(e.NewValue, ModCustomControlModel.modCustomControlChannelName);
-        }
+        //private void CustomControl_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
+        //{
+        //    OnValueChanged(e.NewValue, ModCustomControlModel.modCustomControlChannelName);
+        //}
 
-        private void CustomControl_OnRollChanged(object sender, ValueChangedEventArgs<double> e)
+        private void AttitudeIndicatorControl_OnRollChanged(object sender, ValueChangedEventArgs<double> e)
         {
-            OnValueChanged(e.NewValue, ModCustomControlModel.modCustomControlChannelName);
+            OnValueChanged(e.NewValue, AttitudeIndicatorControlModel.attitudeIndicatorControlChannelName);
         }
     }
 }

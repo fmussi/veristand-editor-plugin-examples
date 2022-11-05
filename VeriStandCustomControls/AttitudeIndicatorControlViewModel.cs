@@ -28,39 +28,38 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
     //    public class modCustomControlViewModel : PanelControlViewModel
     // IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
-    public class ModCustomControlViewModel : GaugeViewModel, IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
+    public class AttitudeIndicatorControlViewModel : VisualViewModel, IControlContextMenuHelper
     {
-        private readonly NumericPointerChannelControlViewModelImplementation<ModCustomControlViewModel, ModCustomControlModel> _channelControlViewModelImplementation;
+        //private readonly NumericPointerChannelControlViewModelImplementation<AttitudeIndicatorControlViewModel, AttitudeIndicatorControlModel> _channelControlViewModelImplementation;
         /// <summary>
         /// Constructs a new instance of the modCustomControlViewModel class
         /// </summary>
         /// <param name="model">The modCustomControlModel associated with this view model.</param>
         // set implementation
 
-        public ModCustomControlViewModel(ModCustomControlModel model) : base(model)
+        public AttitudeIndicatorControlViewModel(AttitudeIndicatorControlModel model) : base(model)
         {
-            _channelControlViewModelImplementation = new NumericPointerChannelControlViewModelImplementation<ModCustomControlViewModel, ModCustomControlModel>(this);
            // does the implementation handle value changes?
-            WeakEventManager<ModCustomControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", ModCustomControlValueChangedEventHandler);
+            WeakEventManager<AttitudeIndicatorControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", ModCustomControlValueChangedEventHandler);
         }
 
         /// <summary>
         /// Called when the view value has changed.
         /// </summary>
         /// <param name="newValue">The view's new value.</param>
-        protected override void OnValueChanged(object newValue)
-        {
-            OnValueChanged(newValue, PropertyChangeSource.Interactive);
-        }
+        //protected override void OnValueChanged(object newValue)
+        //{
+        //    OnValueChanged(newValue, PropertyChangeSource.Interactive);
+        //}
         /// <summary>
         /// Called when the view value has changed.
         /// </summary>
         /// <param name="newValue">The view's new value.</param>
         /// <param name="source">The source of the value change.</param>
-        private void OnValueChanged(object newValue, PropertyChangeSource source)
-        {
-            _channelControlViewModelImplementation.OnValueChanged(newValue, source);
-        }
+        //private void OnValueChanged(object newValue, PropertyChangeSource source)
+        //{
+        //    _channelControlViewModelImplementation.OnValueChanged(newValue, source);
+        //}
 
 
         // FM_note: could be disabled if control is not composite
@@ -78,10 +77,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         private void ModCustomControlValueChangedEventHandler(object sender, ChannelValueChangedEventArgs e)
         {
-            var modCustomControl = View.Children.FirstOrDefault().AsFrameworkElement as modCustomControl;
-            if (modCustomControl != null)
+            var attitudeIndicatorControl = View.Children.FirstOrDefault().AsFrameworkElement as AttitudeIndicatorControl;
+            if (attitudeIndicatorControl != null)
             {
-                modCustomControl.CustomControlValue = (double)e.ChannelValue;
+                //FM_note: CustomControlValue is defined in view.
+                attitudeIndicatorControl.CustomControlValue = (double)e.ChannelValue;
             }
         }
 
@@ -90,13 +90,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         internal bool SuppressValueChanges { get; set; }
 
-        protected override FrameworkElement CreateViewForType(Type numericType)
-        {
+        //protected override FrameworkElement CreateViewForType(Type numericType)
+        //{
 
-            var view = new modCustomControl(this);
-            WeakEventManager<modCustomControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
-            return view;
-        }
+        //    var view = new modCustomControl(this);
+        //    WeakEventManager<modCustomControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
+        //    return view;
+        //}
         /// <summary>
         /// Creates the view associated with this view model by initializing a new instance of our custom control class modCustomControl
         /// This is an opportunity to provide callbacks to the view and to hook up event handlers.  In this case we add a value changed event handler so we can
@@ -105,8 +105,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <returns>modCustomControl view</returns>
         public override object CreateView()
         {
-            var view = new modCustomControl(this);
-            WeakEventManager<modCustomControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
+            var view = new AttitudeIndicatorControl(this);
+            WeakEventManager<AttitudeIndicatorControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
             return view;
         }
 
@@ -122,8 +122,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override void ModelPropertyChanged(Element modelElement, string propertyName, TransactionItem transactionItem)
         {
             base.ModelPropertyChanged(modelElement, propertyName, transactionItem);
-            _channelControlViewModelImplementation.ModelPropertyChanged(modelElement, propertyName, transactionItem);
-            //((ModCustomControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
+            //_channelControlViewModelImplementation.ModelPropertyChanged(modelElement, propertyName, transactionItem);
+            ((AttitudeIndicatorControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
         }
 
         /// <summary>
@@ -141,34 +141,34 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
         }
         /// <inheritdoc />
-        public override void Placed(PlacementReleaseEventArgs args)
-        {
-            base.Placed(args);
-            _channelControlViewModelImplementation.Placed(args);
-        }
+        //public override void Placed(PlacementReleaseEventArgs args)
+        //{
+        //    base.Placed(args);
+        //    _channelControlViewModelImplementation.Placed(args);
+        //}
 
         /// <summary>
         /// Gets the adorners used with this control during a hard selection (left-click).
         /// Currently used to create an adorner that allows browsing to a channel path in a VeriStand SDF.
         /// </summary>
         /// <returns>An enumerable collection of hard select adorners.</returns>
-        public override IEnumerable<Adorner> GetHardSelectAdorners()
-        {
-            Collection<Adorner> adorners = _channelControlViewModelImplementation.GetHardSelectAdorners(base.GetHardSelectAdorners());
-            return adorners;
-        }
+        //public override IEnumerable<Adorner> GetHardSelectAdorners()
+        //{
+        //    Collection<Adorner> adorners = _channelControlViewModelImplementation.GetHardSelectAdorners(base.GetHardSelectAdorners());
+        //    return adorners;
+        //}
 
         /// <inheritdoc />
-        public override IEnumerable<Adorner> GetSoftSelectAdorners()
-        {
-            Collection<Adorner> adorners = _channelControlViewModelImplementation.GetSoftSelectAdorners(base.GetSoftSelectAdorners());
-            return adorners;
-        }
+        //public override IEnumerable<Adorner> GetSoftSelectAdorners()
+        //{
+        //    Collection<Adorner> adorners = _channelControlViewModelImplementation.GetSoftSelectAdorners(base.GetSoftSelectAdorners());
+        //    return adorners;
+        //}
 
         /// <inheritdoc />
-        public override QueryResult<T> QueryService<T>()
-            => QueryResult<T>.FromObject(_channelControlViewModelImplementation)
-                .AppendedWith(base.QueryService<T>());
+        //public override QueryResult<T> QueryService<T>()
+        //    => QueryResult<T>.FromObject(_channelControlViewModelImplementation)
+        //        .AppendedWith(base.QueryService<T>());
 
         /// <summary>
         ///  Creates configuration pane content for this control. See comments on
@@ -179,36 +179,36 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override void CreateCommandContent(ICommandPresentationContext context)
         {
             base.CreateCommandContent(context);
-            _channelControlViewModelImplementation.CreateCommandContent(context);
+            //_channelControlViewModelImplementation.CreateCommandContent(context);
             // specify that we are adding things to the configuration pane
-            //using (context.AddConfigurationPaneContent())
-            //{
-            //    // First add the group command which lets us know what top level configuration pane group to put the child commands in
-            //    using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
-            //    {
-            //        // add child commands whose visuals will show up in the specified parent group.
-            //        context.Add(ControlChannelBrowseCommand);
-            //    }
-            //}
+            using (context.AddConfigurationPaneContent())
+            {
+                // First add the group command which lets us know what top level configuration pane group to put the child commands in
+                using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
+                {
+                    // add child commands whose visuals will show up in the specified parent group.
+                    context.Add(ControlChannelBrowseCommand);
+                }
+            }
         }
 
         /// <inheritdoc/>
-        protected override void OnCreateContextMenu(CreateContextMenuRoutedEventArgs args)
-        {
-            base.OnCreateContextMenu(args);
-            _channelControlViewModelImplementation.OnCreateContextMenu(args);
-        }
+        //protected override void OnCreateContextMenu(CreateContextMenuRoutedEventArgs args)
+        //{
+        //    base.OnCreateContextMenu(args);
+        //    _channelControlViewModelImplementation.OnCreateContextMenu(args);
+        //}
 
         /// <summary>
         /// Called when the model this instance was watching has gone to the detached state.
         /// </summary>
         /// <param name="modelElement">The removed model</param>
         /// <returns>Return true to have your observer removed from watching this object</returns>
-        public override bool ModelDetached(Element modelElement)
-        {
-            _channelControlViewModelImplementation.ModelDetached(modelElement);
-            return base.ModelDetached(modelElement);
-        }
+        //public override bool ModelDetached(Element modelElement)
+        //{
+        //    _channelControlViewModelImplementation.ModelDetached(modelElement);
+        //    return base.ModelDetached(modelElement);
+        //}
 
 
         // Methods for ConfigurationPane for VisualModel
@@ -224,8 +224,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public static readonly ISelectionCommand ControlChannelBrowseCommand = new ShellSelectionRelayCommand(LaunchControlChannelBrowser, CanLaunchChannelBrowser)
         {
             LabelTitle = "Custom User Control Channel",
-            LargeImageSource = ResourceHelpers.LoadImage(typeof(ModCustomControlViewModel), "Resources/Browse.png"),
-            SmallImageSource = ResourceHelpers.LoadImage(typeof(ModCustomControlViewModel), "Resources/Browse_16x16.png"),
+            LargeImageSource = ResourceHelpers.LoadImage(typeof(AttitudeIndicatorControlViewModel), "Resources/Browse.png"),
+            SmallImageSource = ResourceHelpers.LoadImage(typeof(AttitudeIndicatorControlViewModel), "Resources/Browse_16x16.png"),
             UniqueId = "NI.ChannelCommands:BrowseForCustomControlChannelCommand",
             UIType = UITypeForCommand.Button
         };
@@ -244,7 +244,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         private static bool CanLaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
-            return selection.All(s => s.Model is ModCustomControlModel);
+            return selection.All(s => s.Model is AttitudeIndicatorControlModel);
         }
 
         private static void LaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
@@ -261,7 +261,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // Show Popup window with Channels.
             _currentSelection = selection.ToList();
             _uiSdfBrowsePopup.PlacementTarget = (UIElement)parameter.AssociatedVisual;
-            _uiSdfBrowsePopup.Channel = ((ModCustomControlModel)_currentSelection.First().Model).modCustomControlChannel;
+            _uiSdfBrowsePopup.Channel = ((AttitudeIndicatorControlModel)_currentSelection.First().Model).modCustomControlChannel;
             _uiSdfBrowsePopup.ShowSdfBrowser(host, true, false);
         }
         private static void ChannelNamePropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -274,7 +274,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     // we are setting values on the model so start a new transaction. set the purpose of the transaction to user so that it can be undone
                     using (var transaction = uiModel.TransactionManager.BeginTransaction("Set channel", TransactionPurpose.User))
                     {
-                        var modCustomControlModel = uiModel as ModCustomControlModel;
+                        var modCustomControlModel = uiModel as AttitudeIndicatorControlModel;
                         // loop on different channels
                         if (modCustomControlModel != null)
                         {
@@ -308,16 +308,16 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Creates and returns a list of context menu commands for this view model
         /// </summary>
         /// <returns>List of context menu commands for this view model</returns>
-        //public virtual IEnumerable<ShellCommandInstance> CreateContextMenuCommands()
-        //{
-        //    var commands = new List<ShellCommandInstance>();
-        //    commands.Add(
-        //        new ShellCommandInstance(SelectChannelsCommand)
-        //        {
-        //            LabelTitle = "Select Channels In Tree"
-        //        });
-        //    return commands;
-        //}
+        public virtual IEnumerable<ShellCommandInstance> CreateContextMenuCommands()
+        {
+            var commands = new List<ShellCommandInstance>();
+            commands.Add(
+                new ShellCommandInstance(SelectChannelsCommand)
+                {
+                    LabelTitle = "Select Channels In Tree"
+                });
+            return commands;
+        }
 
         /// <summary>
         /// Gets Unique IDs to be filtered from context menu commands
@@ -345,7 +345,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         private static void SelectChannels(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
             IEnumerable<string> controlChannels = selection.Select(item => item.Model)
-                .OfType<ModCustomControlModel>()
+                .OfType<AttitudeIndicatorControlModel>()
                 .Select(model => model.modCustomControlChannel)
                 .Where(channel => !string.IsNullOrEmpty(channel))
                 .ToList();
@@ -361,7 +361,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="eventArgs">custom event information telling us which channel changed and what its value is</param>
         private void SetChannelValue(object sender, CustomChannelValueChangedEventArgs eventArgs)
         {
-            ((ModCustomControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
+            ((AttitudeIndicatorControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
         }
 
         #region IChannelControlViewValueAccessor
@@ -416,17 +416,17 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Gets or sets the current value displayed in the view.
         /// </summary>
-        public object ViewValue
-        {
-            get
-            {
-                return Helper.GetValue();
-            }
-            set
-            {
-                Helper.SetValue(value);
-            }
-        }
+        //public object ViewValue
+        //{
+        //    get
+        //    {
+        //        return Helper.GetValue();
+        //    }
+        //    set
+        //    {
+        //        Helper.SetValue(value);
+        //    }
+        //}
 
         public ReparentingStyle ReparentingStyle => throw new NotImplementedException();
 

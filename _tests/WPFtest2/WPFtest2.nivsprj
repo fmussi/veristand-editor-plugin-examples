@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SourceFile Checksum="8F15E829E100D9ABCA4780BB28F87A761FF4410063027BE9A321449B489A085588579C0276E601693390C0360C31C0EA57A06E43C9E1EE8D137C344AC9C75912" xmlns="http://www.ni.com/PlatformFramework">
+	<SourceModelFeatureSet>
+		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Editor" Name="http://www.ni.com/PlatformFramework" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
+		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="VeriStand Core Components" Name="http://www.ni.com/VeriStand" OldestCompatibleVersion="9.0.0.49152" Version="9.0.0.49152" />
+		<ApplicationVersionInfo Build="8.5.0.50070" Name="VeriStand" Version="9.0.0.50070" />
+	</SourceModelFeatureSet>
+	<Project xmlns="http://www.ni.com/PlatformFramework">
+		<EnvoyManagerRootEnvoy Id="1" ModelDefinitionType="EnvoyManagerRootEnvoy" Name="RootEnvoy" />
+		<EmbeddedDefinitionReference Id="2" ModelDefinitionType="NationalInstruments.ProjectExplorer.Modeling.ProjectDataManager" Name="ProjectExplorer">
+			<ProjectExplorer />
+		</EmbeddedDefinitionReference>
+		<NameScopingEnvoy Id="4" ModelDefinitionType="DefaultTarget" Name="DefaultTarget">
+			<DefaultTarget />
+			<EmbeddedDefinitionReference Id="5" ModelDefinitionType="GatewayDefinition" Name="Gateway" Reparentable="False">
+				<GatewayDefinition xmlns="http://www.ni.com/VeriStand" />
+			</EmbeddedDefinitionReference>
+			<FileReference Bindings=".nivscf" Id="8ac801f52f544d779ed1b4e6253e9af7" ModelDefinitionType="{http://www.ni.com/PlatformFramework}ExternalFile" Name="WPFtest2.nivscf" StoragePath="WPFtest2.nivscf" />
+			<SourceFileReference Id="2c17f0142f1548ec97a31073a05656ae" ModelDefinitionType="{http://www.ni.com/VeriStand}Screen" Name="WPFtest2.nivsscr" StoragePath="WPFtest2.nivsscr" />
+			<FileReference Bindings=".nivsscreen" Id="bbd991d1eace46f0a9e30061ab9cdd5a" ModelDefinitionType="{http://www.ni.com/PlatformFramework}ExternalFile" Name="WPFtest2.nivsscreen" StoragePath="WPFtest2.nivsscreen" />
+			<FileReference Bindings=".nivsproj" Id="15abfae442db4d798f846a9fe3629f70" ModelDefinitionType="{http://www.ni.com/PlatformFramework}ExternalFile" Name="WPFtest2.nivsproj" StoragePath="WPFtest2.nivsproj" />
+			<SourceFileReference Bindings="EnvoyManager" Id="3f54fe98e8fd4528a7f94e863984f29d" ModelDefinitionType="{http://www.ni.com/VeriStand}SystemDefinition" Name="WPFtest2.nivssdf" StoragePath="WPFtest2.nivssdf" />
+			<EmbeddedDefinitionReference Id="31459dd2243f49e5b711b753a39dcb18" ModelDefinitionType="SdfFilePath" Name="SdfPath" Reparentable="False">
+				<SdfFilePath SdfPath="WPFtest2.nivssdf" xmlns="http://www.ni.com/VeriStand" />
+			</EmbeddedDefinitionReference>
+		</NameScopingEnvoy>
+	</Project>
+	<ProjectInformation xmlns="http://www.ni.com/PlatformFramework" />
+</SourceFile>

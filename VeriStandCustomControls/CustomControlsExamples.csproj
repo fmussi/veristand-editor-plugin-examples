@@ -142,7 +142,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ModCustomControl.xaml">
+    <Page Include="AttitudeIndicator.Custom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,6 +164,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdgChannelNumericTextModel.cs" />
+    <Compile Include="AdgChannelNumericTextViewModel.cs" />
     <Compile Include="CustomApplicationFeatureSet.cs" />
     <Compile Include="CustomChannelValueChangedEventArgs.cs" />
     <Compile Include="CustomControlViewModelProvider.cs" />
@@ -182,11 +184,11 @@
     <Compile Include="ModCustomControlTpModel.cs" />
     <Compile Include="KeySwitchControlModel.cs" />
     <Compile Include="KeySwitchControlViewModel.cs" />
-    <Compile Include="ModCustomControlModel.cs" />
+    <Compile Include="AttitudeIndicatorControlModel.cs" />
     <Compile Include="ModCustomControlTp.cs" />
-    <Compile Include="ModCustomControlViewModel.cs" />
-    <Compile Include="ModCustomControl.xaml.cs">
-      <DependentUpon>ModCustomControl.xaml</DependentUpon>
+    <Compile Include="AttitudeIndicatorControlViewModel.cs" />
+    <Compile Include="AttitudeIndicator.Custom.xaml.cs">
+      <DependentUpon>AttitudeIndicator.Custom.xaml</DependentUpon>
     </Compile>
     <Compile Include="PluginNamespaceSchema.cs" />
     <Compile Include="PluginCommandContentProvider.cs" />
