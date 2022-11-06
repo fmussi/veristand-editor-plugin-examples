@@ -10,6 +10,7 @@ using NationalInstruments.Controls.SourceModel;
 using NationalInstruments.Core;
 using NationalInstruments.DynamicProperties;
 using NationalInstruments.PanelCommon.SourceModel;
+using NationalInstruments.Hmi.Core.Screen;
 using NationalInstruments.Hmi.Core.Controls.Models;
 using NationalInstruments.Hmi.Core.Services;
 using NationalInstruments.SourceModel;
@@ -28,7 +29,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// The interface implementation defines how the control should appear in the palette.
     /// </summary>
     [Export(typeof(ICustomVeriStandControl))]
-    public class ModCustomControlModelExporter : ICustomVeriStandControl
+    public class AttitudeIndicatorControlModelExporter : ICustomVeriStandControl
     {
         /// <summary>
         /// MergeScript which defines what to drop on the screen from the palette.  Can be used to set default values on the control
@@ -68,6 +69,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "adgCustomControls", .1) };
     }
 
+    //NumericControlModel, ICommonConfigurationPaneControl
     public class AttitudeIndicatorControlModel : VisualModel,
 #if MUTATE2020R4
         IDataEngineStateChangeObserver
@@ -100,10 +102,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
-        public static readonly PropertySymbol modCustomControlChannelSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(attitudeIndicatorControlChannelName, string.Empty);
+        public static readonly PropertySymbol attitudeIndicatorControlChannelSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(attitudeIndicatorControlChannelName, string.Empty);
         // Duplicate end
 
-    
+  
 
         // Xaml generation
         /// <summary>
@@ -129,10 +131,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         }
 
         /// <summary>
-        /// Factory method for creating a new modCustomControl
+        /// Factory method for creating a new AttitudeIndicatorControl
         /// </summary>
         /// <param name="info">Information required to create the model, such as the parser.</param>
-        /// <returns>A constructed and initialized modCustomControlModel instance.</returns>
+        /// <returns>A constructed and initialized AttitudeIndicatorControlModel instance.</returns>
 
         [XmlParserFactoryMethod(attitudeIndicatorControlName, PluginNamespaceSchema.ParsableNamespaceName)]
         public static AttitudeIndicatorControlModel CreateAttitudeIndicatorControl(IElementCreateInfo info)
@@ -189,7 +191,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 case attitudeIndicatorControlChannelName:
                     return typeof(string);
                 default:
+                    Type type;
                     return base.GetPropertyType(identifier);
+                    //return _channelControlModelImplementation.GetPropertyType(identifier, out type) ? type : base.GetPropertyType(identifier);
             }
             //Type type;
             //return _channelControlModelImplementation.GetPropertyType(identifier, out type) ? type : base.GetPropertyType(identifier);
@@ -208,10 +212,18 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     return string.Empty;
                 default:
                     return base.DefaultValue(identifier);
+                    //return _channelControlModelImplementation.GetDefaultValue(identifier, out defaultValue) ? defaultValue : base.DefaultValue(identifier);
             }
             //object defaultValue;
             //return _channelControlModelImplementation.GetDefaultValue(identifier, out defaultValue) ? defaultValue : base.DefaultValue(identifier);
         }
+
+        #region ICommonConfigurationPaneControl
+
+        /// <inheritdoc/>
+        public virtual bool HasTextContent => true;
+
+        #endregion ICommonConfigurationPaneControl
 
         // INotifier must override
 
@@ -228,11 +240,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             {
                 MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(attitudeIndicatorControlModelErrorString, this);
             });
-            if (!string.IsNullOrEmpty(modCustomControlChannel))
+            if (!string.IsNullOrEmpty(attitudeIndicatorControlChannel))
             {
                 try
                 {
-                    await Host.GetRunTimeService<ITagService>().RegisterTagAsync(modCustomControlChannel, OnModCustomControlChannelValueChange);
+                    await Host.GetRunTimeService<ITagService>().RegisterTagAsync(attitudeIndicatorControlChannel, OnAttitudeIndicatorControlChannelValueChange);
                 }
                 catch (Exception ex) when (ShouldExceptionBeCaught(ex))
                 {
@@ -240,7 +252,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 }
             }
         }
-
         private void ReportErrorToModel(Exception ex)
         {
             // Clear any existing errors and then report a new error message.  Use Host.BeginInvoke here since this must occur on the UI thread
@@ -282,11 +293,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(
                         attitudeIndicatorControlModelErrorString,
                         this));
-            if (!string.IsNullOrEmpty(modCustomControlChannel))
+            if (!string.IsNullOrEmpty(attitudeIndicatorControlChannel))
             {
                 try
                 {
-                    await Host.GetRunTimeService<ITagService>().UnregisterTagAsync(modCustomControlChannel, OnModCustomControlChannelValueChange);
+                    await Host.GetRunTimeService<ITagService>().UnregisterTagAsync(attitudeIndicatorControlChannel, OnAttitudeIndicatorControlChannelValueChange);
                 }
                 catch (Exception ex) when (ShouldExceptionBeCaught(ex))
                 {
@@ -323,7 +334,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             ScreenModel owningScreen = ScreenModel.GetScreen(this);
             // Loop on channel names, if multiple
-            HandleChannelChangeAsync(transactionItem, owningScreen, OnModCustomControlChannelValueChange).IgnoreAwait();
+            HandleChannelChangeAsync(transactionItem, owningScreen, OnAttitudeIndicatorControlChannelValueChange).IgnoreAwait();
         }
 
         /// <summary>
@@ -433,17 +444,17 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Occurs when the model has been updated with a new channel value by the VeriStand gateway.
         /// </summary>
-        public event EventHandler<ChannelValueChangedEventArgs> modCustomControlChannelValueChangedEvent;
+        public event EventHandler<ChannelValueChangedEventArgs> attitudeIndicatorControlChannelValueChangedEvent;
 
         /// <summary>
         /// Raises the CustomControlChannelValueChangedEvent. Invoked when the channel value changes.
         /// </summary>
-        protected virtual void OnModCustomControlChannelValueChangedEvent()
+        protected virtual void OnAttitudeIndicatorControlChannelValueChangedEvent()
         {
-            EventHandler<ChannelValueChangedEventArgs> channelValueChangeSubscribers = modCustomControlChannelValueChangedEvent;
+            EventHandler<ChannelValueChangedEventArgs> channelValueChangeSubscribers = attitudeIndicatorControlChannelValueChangedEvent;
             if (channelValueChangeSubscribers != null)
             {
-                channelValueChangeSubscribers(this, new ChannelValueChangedEventArgs(modCustomControlChannelValue));
+                channelValueChangeSubscribers(this, new ChannelValueChangedEventArgs(attitudeIndicatorControlChannelValue));
             }
         }
 
@@ -452,9 +463,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// is limit the rate at which things are sent/received from the gateway to avoid flooding the WCF pipe or falling behind in time.  Since this control has two buckets of things to collate against each other (frequency updates,
         /// and duty cycle updates, we need two owners to keep one controls updates from overwriting the others updates in the collator
         /// </summary>
-        private readonly object _modCustomControlChannelCollatorOwner = new object();
+        private readonly object _attitudeIndicatorControlChannelCollatorOwner = new object();
 
-        private void OnModCustomControlChannelValueChange(ITagValue value)
+        private void OnAttitudeIndicatorControlChannelValueChange(ITagValue value)
         {
             double newChannelValue = (double)value.Value;
             using (AcquireReadLock())
@@ -469,7 +480,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 // add an action to the collator.  the collator will limit the number of actions coming from the gateway and only
                 // process the most recent action. This keeps us from falling behind in time if we can't process the gateway updates as fast as they are received.
                 screenModel.FromGatewayActionCollator.AddAction(
-                    _modCustomControlChannelCollatorOwner,
+                    _attitudeIndicatorControlChannelCollatorOwner,
                     () =>
                     {
                         using (AcquireReadLock())
@@ -477,10 +488,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                             // The item could get deleted after the action has been dispatched.
                             if (VisualParent != null)
                             {
-                                if (!Equals(modCustomControlChannelValue, newChannelValue))
+                                if (!Equals(attitudeIndicatorControlChannelValue, newChannelValue))
                                 {
-                                    modCustomControlChannelValue = newChannelValue;
-                                    OnModCustomControlChannelValueChangedEvent();
+                                    attitudeIndicatorControlChannelValue = newChannelValue;
+                                    OnAttitudeIndicatorControlChannelValueChangedEvent();
                                 }
                             }
                         }
@@ -489,22 +500,22 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         }
 
         /// <summary>
-        /// Gets the modCustomControlChannelValue value
+        /// Gets the attitudeIndicatorControlChannelValue value
         /// </summary>
-        public double modCustomControlChannelValue { get; protected set; }
+        public double attitudeIndicatorControlChannelValue { get; protected set; }
         /// <summary>
         /// Gets or sets the path to the VeriStand channel associated with this control models duty cycle
         /// </summary>
-        public string modCustomControlChannel
+        public string attitudeIndicatorControlChannel
         {
-            get { return ImmediateValueOrDefault<string>(modCustomControlChannelSymbol); }
-            set { SetOrReplaceImmediateValue(modCustomControlChannelSymbol, value); }
+            get { return ImmediateValueOrDefault<string>(attitudeIndicatorControlChannelSymbol); }
+            set { SetOrReplaceImmediateValue(attitudeIndicatorControlChannelSymbol, value); }
         }
         public void SetChannelValue(string channelName, double channelValue)
         {
             // set the collator owner to be different for the different channel value change operations so a value change for one of the controls doesn't
             // erase the value change for the other one
-            var collatorOwner = _modCustomControlChannelCollatorOwner;
+            var collatorOwner = _attitudeIndicatorControlChannelCollatorOwner;
             if (Host.ActiveRunTimeServiceProvider().Status == RunTimeProviderStatus.Connected)
             {
                 ScreenModel screenModel = ScreenModel.GetScreen(this);
@@ -517,7 +528,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                         {
                             // set the channel value on the gateway, we are passing in empty labda expressions to the success and failure callbacks in this case
                             // if we wanted to report errors to the user we could add some handling code for the failure case
-                            await Host.GetRunTimeService<ITagService>().SetTagValueAsync(modCustomControlChannel, TagFactory.CreateTag(channelValue));
+                            await Host.GetRunTimeService<ITagService>().SetTagValueAsync(attitudeIndicatorControlChannel, TagFactory.CreateTag(channelValue));
                         }
                         catch (VeriStandException e)
                         {

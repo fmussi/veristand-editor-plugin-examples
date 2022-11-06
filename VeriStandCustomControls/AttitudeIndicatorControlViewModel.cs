@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows;
+using NationalInstruments.Restricted;
 using NationalInstruments.Composition;
 using NationalInstruments.Controls;
 using NationalInstruments.Controls.Design;
@@ -26,11 +27,12 @@ using NationalInstruments.VeriStand.Tools;
 
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
-    //    public class modCustomControlViewModel : PanelControlViewModel
-    // IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
+    //  inherit options
+    // 
+    // NumericControlViewModel, IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
     public class AttitudeIndicatorControlViewModel : VisualViewModel, IControlContextMenuHelper
     {
-        //private readonly NumericPointerChannelControlViewModelImplementation<AttitudeIndicatorControlViewModel, AttitudeIndicatorControlModel> _channelControlViewModelImplementation;
+        //private readonly NumericChannelControlViewModelImplementation<AttitudeIndicatorControlViewModel,AttitudeIndicatorControlModel> _channelControlViewModelImplementation;
         /// <summary>
         /// Constructs a new instance of the modCustomControlViewModel class
         /// </summary>
@@ -39,8 +41,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         public AttitudeIndicatorControlViewModel(AttitudeIndicatorControlModel model) : base(model)
         {
-           // does the implementation handle value changes?
-            WeakEventManager<AttitudeIndicatorControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "modCustomControlChannelValueChangedEvent", ModCustomControlValueChangedEventHandler);
+            // does the implementation handle value changes?
+            //_channelControlViewModelImplementation = new NumericChannelControlViewModelImplementation<AttitudeIndicatorControlViewModel, AttitudeIndicatorControlModel>(this);
+            // bind to value change event on model
+            WeakEventManager<AttitudeIndicatorControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "attitudeIndicatorControlChannelValueChangedEvent", AttitudeIndicatorControlValueChangedEventHandler);
         }
 
         /// <summary>
@@ -75,7 +79,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
         }
 
-        private void ModCustomControlValueChangedEventHandler(object sender, ChannelValueChangedEventArgs e)
+        private void AttitudeIndicatorControlValueChangedEventHandler(object sender, ChannelValueChangedEventArgs e)
         {
             var attitudeIndicatorControl = View.Children.FirstOrDefault().AsFrameworkElement as AttitudeIndicatorControl;
             if (attitudeIndicatorControl != null)
@@ -93,8 +97,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         //protected override FrameworkElement CreateViewForType(Type numericType)
         //{
 
-        //    var view = new modCustomControl(this);
-        //    WeakEventManager<modCustomControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
+        //    var view = new AttitudeIndicatorControl(this);
+        //    WeakEventManager<AttitudeIndicatorControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
         //    return view;
         //}
         /// <summary>
@@ -106,6 +110,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override object CreateView()
         {
             var view = new AttitudeIndicatorControl(this);
+            // bind view event handler to viewModel
             WeakEventManager<AttitudeIndicatorControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
             return view;
         }
@@ -131,15 +136,15 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         /// <param name="identifier">The property to set.</param>
         /// <param name="value">The new value for the property.</param>
-        protected override void SetProperty(PropertySymbol identifier, object value)
-        {
-            bool handled = false;
-            //handled = _channelControlViewModelImplementation.SetProperty(identifier, value);
-            if (!handled)
-            {
-                base.SetProperty(identifier, value);
-            }
-        }
+        //protected override void SetProperty(PropertySymbol identifier, object value)
+        //{
+        //    bool handled = false;
+        //    handled = _channelControlViewModelImplementation.SetProperty(identifier, value);
+        //    if (!handled)
+        //    {
+        //        base.SetProperty(identifier, value);
+        //    }
+        //}
         /// <inheritdoc />
         //public override void Placed(PlacementReleaseEventArgs args)
         //{
@@ -179,6 +184,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public override void CreateCommandContent(ICommandPresentationContext context)
         {
             base.CreateCommandContent(context);
+
             //_channelControlViewModelImplementation.CreateCommandContent(context);
             // specify that we are adding things to the configuration pane
             using (context.AddConfigurationPaneContent())
@@ -209,7 +215,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         //    _channelControlViewModelImplementation.ModelDetached(modelElement);
         //    return base.ModelDetached(modelElement);
         //}
-
 
         // Methods for ConfigurationPane for VisualModel
         private static ChannelPopup _uiSdfBrowsePopup;
@@ -261,7 +266,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // Show Popup window with Channels.
             _currentSelection = selection.ToList();
             _uiSdfBrowsePopup.PlacementTarget = (UIElement)parameter.AssociatedVisual;
-            _uiSdfBrowsePopup.Channel = ((AttitudeIndicatorControlModel)_currentSelection.First().Model).modCustomControlChannel;
+            _uiSdfBrowsePopup.Channel = ((AttitudeIndicatorControlModel)_currentSelection.First().Model).attitudeIndicatorControlChannel;
             _uiSdfBrowsePopup.ShowSdfBrowser(host, true, false);
         }
         private static void ChannelNamePropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -278,7 +283,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                         // loop on different channels
                         if (modCustomControlModel != null)
                         {
-                            modCustomControlModel.modCustomControlChannel = _uiSdfBrowsePopup.Channel;
+                            modCustomControlModel.attitudeIndicatorControlChannel = _uiSdfBrowsePopup.Channel;
                         }
                         transaction.Commit();
                     }
@@ -346,7 +351,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             IEnumerable<string> controlChannels = selection.Select(item => item.Model)
                 .OfType<AttitudeIndicatorControlModel>()
-                .Select(model => model.modCustomControlChannel)
+                .Select(model => model.attitudeIndicatorControlChannel)
                 .Where(channel => !string.IsNullOrEmpty(channel))
                 .ToList();
             var systemDefinitionPalette = SystemDefinitionPaletteControl.Activate(site);
@@ -413,6 +418,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <inheritdoc/>
         public virtual bool HasTextContent => true;
 
+        #endregion
         /// <summary>
         /// Gets or sets the current value displayed in the view.
         /// </summary>
@@ -436,6 +442,22 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         public SMRect SoftSelectionRectangle => throw new NotImplementedException();
 
+        #region ancestorImplementation
+
+        protected override ResourceUri ForegroundUri
+        {
+            get
+            {
+                var directionality = (this.Model as IDirectionalControl).GetValueOrDefault(c => c.Directionality);
+                return new ResourceUri(typeof(AttitudeIndicatorControlViewModel), string.Format(CultureInfo.InvariantCulture, "Resources/FrontPanel/NeutralTimeStamp{0}", directionality));
+            }
+        }
+
+        //protected override NumericControlViewHelper CreateHelper(Type valueType, NumericControlViewModel viewModel, FrameworkElement view)
+        //{
+        //    //return (NumericControlViewHelper)Activator.CreateInstance(typeof())
+        //    return base.CreateHelper(valueType, viewModel, view);
+        //}
         #endregion
     }
 }
