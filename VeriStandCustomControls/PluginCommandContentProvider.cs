@@ -35,29 +35,83 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // This entrypoint can be used to add commands for any selectable item in the UI.
             // In this case, we own the ViewModel, so could do it in that class, but are showing
             // here as an example and to keep these commands separate.
-            if (context.IsSingleSelect<PulseWidthModulationControlViewModel>())
+            // assume to work work first element in the selection. Otherwise add guard to use the proper viewModel
+            // var selCount = context.Selection.Count();
+            var viewModelType = context.Selection.First().GetType().Name;
+            switch (viewModelType)
             {
-                using (context.AddConfigurationPaneContent())
-                {
-                    // These are for the individual expandable sections...can make your own or use ours.
-                    using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
+                case "PulseWidthModulationControlViewModel":
+                    using (context.AddConfigurationPaneContent())
                     {
-                        // Use a command with a UIType, or use/customize the factory yourself
-                        context.Add(CheckBoxCommand);
-                        ////context.Add(CheckBoxCommand, CheckBoxFactory.ForConfigurationPane);
-                        ////context.Add(CheckBoxCommand, ToggleButtonFactory.ForConfigurationPane);
-                        context.Add(TextBoxCommand);
-                        var filters = new FileDialogFilterCollection();
-                        filters.Add(new FileDialogFilter() { Extensions = new[] { "jpg", "png" }, Label = "Image Files" });
-                        context.Add(PathCommand, new PathSelectorFactory() { Filters = filters });
-                        ////context.Add(TextBoxCommand, TextBoxFactory.ForConfigurationPane);
-                        ////context.Add(TextBoxCommand, StaticTextFactory.ForConfigurationPane);
-                        context.Add(NumericCommand, new NumericTextBoxFactory(NITypes.Double));
-                        context.Add(ColorCommand, new ColorBoxFactory { ColorOnly = false, ShowMoreColors = true });
-                        context.AddContentFontEditor(null, true);
+                        // These are for the individual expandable sections...can make your own or use ours.
+                        using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
+                        {
+                            // Use a command with a UIType, or use/customize the factory yourself
+                            context.Add(CheckBoxCommand);
+                            ////context.Add(CheckBoxCommand, CheckBoxFactory.ForConfigurationPane);
+                            ////context.Add(CheckBoxCommand, ToggleButtonFactory.ForConfigurationPane);
+                            context.Add(TextBoxCommand);
+                            var filters = new FileDialogFilterCollection();
+                            filters.Add(new FileDialogFilter() { Extensions = new[] { "jpg", "png" }, Label = "Image Files" });
+                            context.Add(PathCommand, new PathSelectorFactory() { Filters = filters });
+                            ////context.Add(TextBoxCommand, TextBoxFactory.ForConfigurationPane);
+                            ////context.Add(TextBoxCommand, StaticTextFactory.ForConfigurationPane);
+                            context.Add(NumericCommand, new NumericTextBoxFactory(NITypes.Double));
+                            context.Add(ColorCommand, new ColorBoxFactory { ColorOnly = false, ShowMoreColors = true });
+                            context.AddContentFontEditor(null, true);
+                        }
                     }
-                }
+                    break;
+                case "AttitudeIndicatorControlViewModel":
+                    using (context.AddConfigurationPaneContent())
+                    {
+                        // These are for the individual expandable sections...can make your own or use ours.
+                        using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
+                        {
+                            // Use a command with a UIType, or use/customize the factory yourself
+                            context.Add(CheckBoxCommand);
+                            ////context.Add(CheckBoxCommand, CheckBoxFactory.ForConfigurationPane);
+                            ////context.Add(CheckBoxCommand, ToggleButtonFactory.ForConfigurationPane);
+                            context.Add(TextBoxCommand);
+                            var filters = new FileDialogFilterCollection();
+                            filters.Add(new FileDialogFilter() { Extensions = new[] { "jpg", "png" }, Label = "Image Files" });
+                            context.Add(PathCommand, new PathSelectorFactory() { Filters = filters });
+                            ////context.Add(TextBoxCommand, TextBoxFactory.ForConfigurationPane);
+                            ////context.Add(TextBoxCommand, StaticTextFactory.ForConfigurationPane);
+                            context.Add(NumericCommand, new NumericTextBoxFactory(NITypes.Double));
+                            context.Add(ColorCommand, new ColorBoxFactory { ColorOnly = false, ShowMoreColors = true });
+                            context.AddContentFontEditor(null, true);
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
+
+            // old filter for PWM control object
+            //if (context.IsSingleSelect<PulseWidthModulationControlViewModel>())
+            //{
+            //    using (context.AddConfigurationPaneContent())
+            //    {
+            //        // These are for the individual expandable sections...can make your own or use ours.
+            //        using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
+            //        {
+            //            // Use a command with a UIType, or use/customize the factory yourself
+            //            context.Add(CheckBoxCommand);
+            //            ////context.Add(CheckBoxCommand, CheckBoxFactory.ForConfigurationPane);
+            //            ////context.Add(CheckBoxCommand, ToggleButtonFactory.ForConfigurationPane);
+            //            context.Add(TextBoxCommand);
+            //            var filters = new FileDialogFilterCollection();
+            //            filters.Add(new FileDialogFilter() { Extensions = new[] { "jpg", "png" }, Label = "Image Files" });
+            //            context.Add(PathCommand, new PathSelectorFactory() { Filters = filters });
+            //            ////context.Add(TextBoxCommand, TextBoxFactory.ForConfigurationPane);
+            //            ////context.Add(TextBoxCommand, StaticTextFactory.ForConfigurationPane);
+            //            context.Add(NumericCommand, new NumericTextBoxFactory(NITypes.Double));
+            //            context.Add(ColorCommand, new ColorBoxFactory { ColorOnly = false, ShowMoreColors = true });
+            //            context.AddContentFontEditor(null, true);
+            //        }
+            //    }
+            //}
         }
 
         #region Commands
