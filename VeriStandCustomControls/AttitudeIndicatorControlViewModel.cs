@@ -279,19 +279,46 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     // we are setting values on the model so start a new transaction. set the purpose of the transaction to user so that it can be undone
                     using (var transaction = uiModel.TransactionManager.BeginTransaction("Set channel", TransactionPurpose.User))
                     {
-                        var modCustomControlModel = uiModel as AttitudeIndicatorControlModel;
+                        var attitudeIndicatorControlModel = uiModel as AttitudeIndicatorControlModel;
                         // loop on different channels
-                        if (modCustomControlModel != null)
+                        if (attitudeIndicatorControlModel != null)
                         {
-                            modCustomControlModel.attitudeIndicatorControlChannel = _uiSdfBrowsePopup.Channel;
+                            attitudeIndicatorControlModel.attitudeIndicatorControlChannel = _uiSdfBrowsePopup.Channel;
                         }
                         transaction.Commit();
                     }
                 }
             }
         }
+        /// <summary>
+        /// 1 Channels implementation
+        /// Gets the adorners used with this control during a hard selection (left-click).
+        /// Currently used to create an adorner that allows browsing to two channel paths
+        /// </summary>
+        /// <returns>An enumerable collection of hard select adorners.</returns>
+        public override IEnumerable<Adorner> GetHardSelectAdorners()
+        {
+            var adorners = new Collection<Adorner>();
+            var toolbar = new FloatingToolBar();
+
+            // if there is no model do not return adorners
+            if (Model == null)
+            {
+                return adorners;
+            }
+            // use class instance for the adorner
+            var control = new SingleChannelAdorner(DesignerNodeHelpers.GetVisualForViewModel(this));
+            toolbar.ToolBar = control;
+
+            adorners.Add(new ControlAdorner(DesignerNodeHelpers.GetVisualForViewModel(this), toolbar, Placement.BelowBottomRight));
+
+            return adorners;
+
+            //return base.GetHardSelectAdorners();
+        }
 
         /// <summary>
+        /// 2 Channels implementation
         /// Gets the adorners used with this control during a hard selection (left-click).
         /// Currently used to create an adorner that allows browsing to two channel paths
         /// </summary>

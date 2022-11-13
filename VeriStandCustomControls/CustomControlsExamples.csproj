@@ -158,6 +158,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SingleChannelAdorner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="TwoChannelAdorner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -211,6 +215,9 @@
     <Compile Include="PWMControlModel.cs" />
     <Compile Include="PWMControlViewModel.cs" />
     <Compile Include="Resources\LocalizedStrings.Designer.cs" />
+    <Compile Include="SingleChannelAdorner.xaml.cs">
+      <DependentUpon>SingleChannelAdorner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TwoChannelAdorner.xaml.cs">
       <DependentUpon>TwoChannelAdorner.xaml</DependentUpon>
     </Compile>
