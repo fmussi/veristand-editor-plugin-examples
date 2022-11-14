@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Xml.Linq;
+using System.Windows.Media;
 using NationalInstruments.CBSCommon;
 using NationalInstruments.CommonModel;
 using NationalInstruments.Controls.SourceModel;
@@ -92,6 +93,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Specifies the name of the frequency channel
         /// </summary>
         public const string attitudeIndicatorControlChannelName = "AttitudeIndicatorControlChannel";
+        // FM_CMD
+        public const string attitudeIndicatorControlBackgroundName = "AttitudeIndicatorControlBackground";
 
         //private readonly NumericChannelControlModelImplementation<AttitudeIndicatorControlModel> _channelControlModelImplementation;
 
@@ -103,9 +106,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
         public static readonly PropertySymbol attitudeIndicatorControlChannelSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(attitudeIndicatorControlChannelName, string.Empty);
+
+        // FM_CMD: adding another prop.
+        public static readonly PropertySymbol attitudeIndicatorControlBackgroundSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(attitudeIndicatorControlBackgroundName, new SolidColorBrush());
         // Duplicate end
 
-  
 
         // Xaml generation
         /// <summary>
@@ -511,6 +516,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             get { return ImmediateValueOrDefault<string>(attitudeIndicatorControlChannelSymbol); }
             set { SetOrReplaceImmediateValue(attitudeIndicatorControlChannelSymbol, value); }
         }
+
+        public Brush attitudeIndicatorControlBackground
+        {
+            get { return ImmediateValueOrDefault<Brush>(attitudeIndicatorControlBackgroundSymbol); }
+            set { SetOrReplaceImmediateValue(attitudeIndicatorControlBackgroundSymbol, value); }
+        }
+
         public void SetChannelValue(string channelName, double channelValue)
         {
             // set the collator owner to be different for the different channel value change operations so a value change for one of the controls doesn't

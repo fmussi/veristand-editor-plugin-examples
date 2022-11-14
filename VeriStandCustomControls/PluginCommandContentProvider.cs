@@ -9,6 +9,7 @@ using NationalInstruments.Core;
 using NationalInstruments.DataTypes;
 using NationalInstruments.Design;
 using NationalInstruments.Shell;
+using NationalInstruments.SourceModel;
 
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
@@ -239,6 +240,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         private static void HandleExecuteCommand(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
             var viewModel = selection.OfType<ElementViewModel>().First();
+            var uiModel = (UIModel)viewModel.Model;
+
             var booleanParameter = parameter as ICheckableCommandParameter;
             var choiceParameter = parameter as IChoiceCommandParameter;
             var numericParameter = parameter as IValueCommandParameter;
@@ -248,8 +251,20 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // be transacted so undo redo works.
             using (var transaction = viewModel.Element.TransactionManager.BeginTransaction("update", NationalInstruments.SourceModel.TransactionPurpose.User))
             {
+
                 // update state of the model based on type of parameter.
                 // viewModel.Element.newState = parameter.newValue;
+                var attitudeIndicatorControlModel = uiModel as AttitudeIndicatorControlModel;
+                // loop on different channels
+                if (attitudeIndicatorControlModel != null)
+                {   
+                    if (colorParameter != null)
+                    {
+                        attitudeIndicatorControlModel.attitudeIndicatorControlBackground = (Brush)colorParameter.Value;
+                        //viewModel.Element.
+                    }
+
+                }
                 transaction.Commit();
             }
         }

@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Media;
 using NationalInstruments.Restricted;
 using NationalInstruments.Composition;
 using NationalInstruments.Controls;
@@ -136,6 +137,20 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         /// <param name="identifier">The property to set.</param>
         /// <param name="value">The new value for the property.</param>
+
+        protected override void SetProperty(PropertySymbol identifier, object value)
+        {
+            AttitudeIndicatorControl attitudeControl = ProxiedElement as AttitudeIndicatorControl;
+            switch (identifier.Name)
+            {
+                case AttitudeIndicatorControlModel.attitudeIndicatorControlBackgroundName:
+                    attitudeControl.Background = (Brush)value;
+                    break;
+                default:
+                    base.SetProperty(identifier, value);
+                    break;
+            }
+        }
         //protected override void SetProperty(PropertySymbol identifier, object value)
         //{
         //    bool handled = false;
