@@ -16,6 +16,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ni:AttitudeIndicator RollChanged="AttitudeIndicatorControl_OnRollChanged" Roll="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:AttitudeIndicatorControl}}}" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+        <ni:AttitudeIndicator RollChanged="AttitudeIndicatorControl_OnRollChanged" Roll="{Binding CustomControlValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:AttitudeIndicatorControl}}}" Background="{Binding CustomControlBackground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type customControlsExamples:AttitudeIndicatorControl}}}"/>
     </Grid>
 </UserControl>

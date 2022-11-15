@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Input;
 using NationalInstruments.Controls;
 
@@ -48,6 +49,14 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         }
 
         public static readonly DependencyProperty CustomControlValueProperty = DependencyProperty.Register("CustomControlValue", typeof(double), typeof(AttitudeIndicatorControl), new FrameworkPropertyMetadata(0.0));
+
+        public Brush CustomControlBackground
+        {
+            get { return (Brush)GetValue(CustomControlBackgroundProperty); }
+            set { SetValue(CustomControlBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty CustomControlBackgroundProperty = DependencyProperty.Register("CustomControlBackground", typeof(Brush), typeof(AttitudeIndicatorControl), new FrameworkPropertyMetadata(new SolidColorBrush()));
 
         //private void CustomControl_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
         //{

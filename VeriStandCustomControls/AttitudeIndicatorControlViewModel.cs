@@ -144,7 +144,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             switch (identifier.Name)
             {
                 case AttitudeIndicatorControlModel.attitudeIndicatorControlBackgroundName:
-                    attitudeControl.Background = (Brush)value;
+                    attitudeControl.CustomControlBackground = (Brush)value;
                     break;
                 default:
                     base.SetProperty(identifier, value);
