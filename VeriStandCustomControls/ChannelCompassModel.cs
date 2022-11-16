@@ -30,7 +30,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// The interface implementation defines how the control should appear in the palette.
     /// </summary>
     [Export(typeof(ICustomVeriStandControl))]
-    public class AttitudeIndicatorControlModelExporter : ICustomVeriStandControl
+    public class ChannelCompassModelExporter : ICustomVeriStandControl
     {
         /// <summary>
         /// MergeScript which defines what to drop on the screen from the palette.  Can be used to set default values on the control
@@ -38,19 +38,19 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public string Target =>
             "<pf:MergeScript xmlns:pf=\"http://www.ni.com/PlatformFramework\">" +
                 "<pf:MergeItem>" +
-                    "<AttitudeIndicatorControl xmlns=\"http://www.your-company.com/VeriStandExample\" Width=\"[float]220\" Height=\"[float]175\"/>" +
+                    "<ChannelCompass xmlns=\"http://www.your-company.com/VeriStandExample\" Width=\"[float]220\" Height=\"[float]175\"/>" +
                 "</pf:MergeItem>" +
             "</pf:MergeScript>";
 
         /// <summary>
         /// Name of the control as it will appear in the palette
         /// </summary>
-        public string Name => "AttitudeIndicator (Custom)";
+        public string Name => "Compass (Custom)";
 
         /// <summary>
         /// Path to the image to use in the palette
         /// </summary>
-        public string ImagePath => "/NationalInstruments.Controls.Design;component/Resources/FrontPanel/attitude.png";
+        public string ImagePath => "/NationalInstruments.Controls.Design;component/Resources/FrontPanel/CompassIndicator.png";
         public string PaletteImagePath => "/NationalInstruments.VeriStand.CustomControlsExamples;component/Resources/ADG_32x32.png";
         /// <summary>
         /// Tool tip to display in the palette
@@ -61,17 +61,17 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Unique id for the control. The only requirement is that this doesn't overlap with existing controls or other custom controls.
         /// This is used for serialization and the context help system.
         /// </summary>
-        public string UniqueId => "attitudeIndicatorControl";
+        public string UniqueId => "channelCompass";
 
         /// <summary>
         /// Returns the palette hierarchy for this element. Returning null tells VeriStand to put this in the top level custom controls directory.
         /// </summary>
         public IList<PaletteElementCategory> PaletteHierarchy =>
-            new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", PaletteImagePath, "adgCustomControls", .1) };
+            new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", PaletteImagePath, "adgCustomControls_channelCompass", .1) };
     }
 
     //NumericControlModel, ICommonConfigurationPaneControl
-    public class AttitudeIndicatorControlModel : VisualModel,
+    public class ChannelCompassModel : VisualModel,
 #if MUTATE2020R4
         IDataEngineStateChangeObserver
 #else
@@ -81,34 +81,28 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// The name to use for serialization of this model.  This name must match the name used in the Target xml in the ICustomVeriStandControl interface
         /// </summary>
-        private const string attitudeIndicatorControlName = "AttitudeIndicatorControl";
+        private const string channelCompasslName = "ChannelCompass";
         /// <summary>
         /// String used to put errors from this control in their own bucket so code from this model doesn't interfere with the rest of the error
         /// reporting behavior in VeriStand
         /// </summary>
-        private const string attitudeIndicatorControlModelErrorString = "AttitudeIndicatorControlModelErrors";
+        private const string channelCompassModelErrorString = "ChannelCompassModelErrors";
 
         // Duplicate start for other channels
         /// <summary>
         /// Specifies the name of the frequency channel
         /// </summary>
-        public const string attitudeIndicatorControlChannelName = "AttitudeIndicatorControlChannel";
+        public const string channelCompassChannelName = "ChannelCompassChannel";
         // FM_CMD
-        public const string attitudeIndicatorControlBackgroundName = "AttitudeIndicatorControlBackground";
+        public const string channelCompassBackgroundName = "ChannelCompassBackground";
 
-        //private readonly NumericChannelControlModelImplementation<AttitudeIndicatorControlModel> _channelControlModelImplementation;
-
-        //protected AttitudeIndicatorControlModel()
-        //{
-        //    _channelControlModelImplementation = new NumericChannelControlModelImplementation<AttitudeIndicatorControlModel>(this);
-        //}
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
-        public static readonly PropertySymbol attitudeIndicatorControlChannelSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(attitudeIndicatorControlChannelName, string.Empty);
+        public static readonly PropertySymbol channelCompassChannelSymbol = ExposePropertySymbol<ChannelCompassModel>(channelCompassChannelName, string.Empty);
 
         // FM_CMD: adding another prop.
-        public static readonly PropertySymbol attitudeIndicatorControlBackgroundSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(attitudeIndicatorControlBackgroundName, new SolidColorBrush());
+        public static readonly PropertySymbol channelCompassBackgroundSymbol = ExposePropertySymbol<ChannelCompassModel>(channelCompassBackgroundName, new SolidColorBrush());
         // Duplicate end
 
 
@@ -125,26 +119,26 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         private class AttitudeIndicatorControlXamlHelper : XamlGenerationHelper
         {
-            public override Type ControlType => typeof(AttitudeIndicatorControl);
+            public override Type ControlType => typeof(ChannelCompassView);
         }
         /// <summary>
         /// XML element name, including full namespace, for universal persistence.
         /// </summary>
         public override XName XmlElementName
         {
-            get { return XName.Get(attitudeIndicatorControlName, PluginNamespaceSchema.ParsableNamespaceName); }
+            get { return XName.Get(channelCompasslName, PluginNamespaceSchema.ParsableNamespaceName); }
         }
 
         /// <summary>
         /// Factory method for creating a new AttitudeIndicatorControl
         /// </summary>
         /// <param name="info">Information required to create the model, such as the parser.</param>
-        /// <returns>A constructed and initialized AttitudeIndicatorControlModel instance.</returns>
+        /// <returns>A constructed and initialized ChannelCompassModel instance.</returns>
 
-        [XmlParserFactoryMethod(attitudeIndicatorControlName, PluginNamespaceSchema.ParsableNamespaceName)]
-        public static AttitudeIndicatorControlModel CreateAttitudeIndicatorControl(IElementCreateInfo info)
+        [XmlParserFactoryMethod(channelCompasslName, PluginNamespaceSchema.ParsableNamespaceName)]
+        public static ChannelCompassModel CreateChannelCompasslView(IElementCreateInfo info)
         {
-            var model = new AttitudeIndicatorControlModel();
+            var model = new ChannelCompassModel();
 #if MUTATE2020
             model.Initialize(info);
 #else
@@ -152,36 +146,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 #endif
             return model;
         }
-
-        /// <inheritdoc/>
-        //protected override void OnDeleting()
-        //{
-        //    _channelControlModelImplementation.OnDeleting();
-        //}
-
-        /// <inheritdoc/>
-        //public override string ToString()
-        //{
-        //    IPanelLabel label = this.ToPanelControl().Label;
-        //    return label == null ? base.ToString() : label.Text;
-        //}
-
-        /// <inheritdoc />
-        //public override QueryResult<T> QueryService<T>()
-        //{
-        //    if (typeof(T) == typeof(ISearchable))
-        //    {
-        //        var searchableService = base.QueryService<ISearchable>().FirstOrDefault() ?? new DefaultSearchableService(this);
-        //        _channelControlModelImplementation.UpdateISearchable(searchableService);
-        //        return new QueryResult<T>(searchableService as T);
-        //    }
-        //    var result = QueryResult<T>.FromPair(null, _channelControlModelImplementation);
-        //    if (result.Any())
-        //    {
-        //        return result;
-        //    }
-        //    return base.QueryService<T>();
-        //}
 
         /// <summary>
         /// Gets the type of the specified property.  This must be implemented for any new properties that get added that need to be serialized.
@@ -193,16 +157,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             switch (identifier.Name)
             {
-                case attitudeIndicatorControlChannelName:
+                case channelCompassChannelName:
                     return typeof(string);
                 default:
                     Type type;
                     return base.GetPropertyType(identifier);
-                    //return _channelControlModelImplementation.GetPropertyType(identifier, out type) ? type : base.GetPropertyType(identifier);
-            }
-            //Type type;
-            //return _channelControlModelImplementation.GetPropertyType(identifier, out type) ? type : base.GetPropertyType(identifier);
 
+            }
         }
         /// <summary>
         /// Gets the default value of the specified property.  This must be implemented for any new properties that get added that need to be serialized.
@@ -213,14 +174,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             switch (identifier.Name)
             {
-                case attitudeIndicatorControlChannelName:
+                case channelCompassChannelName:
                     return string.Empty;
                 default:
                     return base.DefaultValue(identifier);
-                    //return _channelControlModelImplementation.GetDefaultValue(identifier, out defaultValue) ? defaultValue : base.DefaultValue(identifier);
             }
-            //object defaultValue;
-            //return _channelControlModelImplementation.GetDefaultValue(identifier, out defaultValue) ? defaultValue : base.DefaultValue(identifier);
         }
 
         #region ICommonConfigurationPaneControl
@@ -243,13 +201,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // which is why we must use BeginInvoke since OnConnectToGateway is not guaranteed to be called by the UI thread
             Host.BeginInvoke(AsyncTaskPriority.WorkerHigh, () =>
             {
-                MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(attitudeIndicatorControlModelErrorString, this);
+                MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(channelCompassModelErrorString, this);
             });
-            if (!string.IsNullOrEmpty(attitudeIndicatorControlChannel))
+            if (!string.IsNullOrEmpty(channelCompassChannel))
             {
                 try
                 {
-                    await Host.GetRunTimeService<ITagService>().RegisterTagAsync(attitudeIndicatorControlChannel, OnAttitudeIndicatorControlChannelValueChange);
+                    await Host.GetRunTimeService<ITagService>().RegisterTagAsync(channelCompassChannel, OnChannelCompasslValueChange);
                 }
                 catch (Exception ex) when (ShouldExceptionBeCaught(ex))
                 {
@@ -263,12 +221,12 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             Host.BeginInvoke(AsyncTaskPriority.WorkerHigh, () =>
             {
                 MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(
-                    attitudeIndicatorControlModelErrorString,
+                    channelCompassModelErrorString,
                     this);
 #if MUTATE2021
                 this.SafeReportError(PwmControlModelErrorString, null, MessageDescriptor.Empty, ex);
 #else
-                this.ReportError(attitudeIndicatorControlModelErrorString, null, MessageDescriptor.Empty, ex);
+                this.ReportError(channelCompassModelErrorString, null, MessageDescriptor.Empty, ex);
 #endif
             });
         }
@@ -296,13 +254,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 AsyncTaskPriority.WorkerHigh,
                 () =>
                     MessageScope?.AllMessages.ClearMessageByCategoryAndReportingElement(
-                        attitudeIndicatorControlModelErrorString,
+                        channelCompassModelErrorString,
                         this));
-            if (!string.IsNullOrEmpty(attitudeIndicatorControlChannel))
+            if (!string.IsNullOrEmpty(channelCompassChannel))
             {
                 try
                 {
-                    await Host.GetRunTimeService<ITagService>().UnregisterTagAsync(attitudeIndicatorControlChannel, OnAttitudeIndicatorControlChannelValueChange);
+                    await Host.GetRunTimeService<ITagService>().UnregisterTagAsync(channelCompassChannel, OnChannelCompasslValueChange);
                 }
                 catch (Exception ex) when (ShouldExceptionBeCaught(ex))
                 {
@@ -339,7 +297,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             ScreenModel owningScreen = ScreenModel.GetScreen(this);
             // Loop on channel names, if multiple
-            HandleChannelChangeAsync(transactionItem, owningScreen, OnAttitudeIndicatorControlChannelValueChange).IgnoreAwait();
+            HandleChannelChangeAsync(transactionItem, owningScreen, OnChannelCompasslValueChange).IgnoreAwait();
         }
 
         /// <summary>
@@ -439,7 +397,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
             if (channel != null && !(channel.RowDim == 1 && channel.ColDim == 1))
             {
-                ReportError(attitudeIndicatorControlModelErrorString, null, MessageDescriptor.Empty, "Cannot Register Vector Channels");
+                ReportError(channelCompassModelErrorString, null, MessageDescriptor.Empty, "Cannot Register Vector Channels");
                 return true;
             }
             return false;
@@ -449,17 +407,17 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Occurs when the model has been updated with a new channel value by the VeriStand gateway.
         /// </summary>
-        public event EventHandler<ChannelValueChangedEventArgs> attitudeIndicatorControlChannelValueChangedEvent;
+        public event EventHandler<ChannelValueChangedEventArgs> channelCompassChannelValueChangedEvent;
 
         /// <summary>
         /// Raises the CustomControlChannelValueChangedEvent. Invoked when the channel value changes.
         /// </summary>
-        protected virtual void OnAttitudeIndicatorControlChannelValueChangedEvent()
+        protected virtual void OnChannelCompasslValueChangedEvent()
         {
-            EventHandler<ChannelValueChangedEventArgs> channelValueChangeSubscribers = attitudeIndicatorControlChannelValueChangedEvent;
+            EventHandler<ChannelValueChangedEventArgs> channelValueChangeSubscribers = channelCompassChannelValueChangedEvent;
             if (channelValueChangeSubscribers != null)
             {
-                channelValueChangeSubscribers(this, new ChannelValueChangedEventArgs(attitudeIndicatorControlChannelValue));
+                channelValueChangeSubscribers(this, new ChannelValueChangedEventArgs(channelCompassChannelValue));
             }
         }
 
@@ -468,9 +426,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// is limit the rate at which things are sent/received from the gateway to avoid flooding the WCF pipe or falling behind in time.  Since this control has two buckets of things to collate against each other (frequency updates,
         /// and duty cycle updates, we need two owners to keep one controls updates from overwriting the others updates in the collator
         /// </summary>
-        private readonly object _attitudeIndicatorControlChannelCollatorOwner = new object();
+        private readonly object _channelCompassChannelCollatorOwner = new object();
 
-        private void OnAttitudeIndicatorControlChannelValueChange(ITagValue value)
+        private void OnChannelCompasslValueChange(ITagValue value)
         {
             double newChannelValue = (double)value.Value;
             using (AcquireReadLock())
@@ -485,7 +443,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                 // add an action to the collator.  the collator will limit the number of actions coming from the gateway and only
                 // process the most recent action. This keeps us from falling behind in time if we can't process the gateway updates as fast as they are received.
                 screenModel.FromGatewayActionCollator.AddAction(
-                    _attitudeIndicatorControlChannelCollatorOwner,
+                    _channelCompassChannelCollatorOwner,
                     () =>
                     {
                         using (AcquireReadLock())
@@ -493,10 +451,10 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                             // The item could get deleted after the action has been dispatched.
                             if (VisualParent != null)
                             {
-                                if (!Equals(attitudeIndicatorControlChannelValue, newChannelValue))
+                                if (!Equals(channelCompassChannelValue, newChannelValue))
                                 {
-                                    attitudeIndicatorControlChannelValue = newChannelValue;
-                                    OnAttitudeIndicatorControlChannelValueChangedEvent();
+                                    channelCompassChannelValue = newChannelValue;
+                                    OnChannelCompasslValueChangedEvent();
                                 }
                             }
                         }
@@ -505,29 +463,29 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         }
 
         /// <summary>
-        /// Gets the attitudeIndicatorControlChannelValue value
+        /// Gets the channelCompassChannelValue value
         /// </summary>
-        public double attitudeIndicatorControlChannelValue { get; protected set; }
+        public double channelCompassChannelValue { get; protected set; }
         /// <summary>
         /// Gets or sets the path to the VeriStand channel associated with this control models duty cycle
         /// </summary>
-        public string attitudeIndicatorControlChannel
+        public string channelCompassChannel
         {
-            get { return ImmediateValueOrDefault<string>(attitudeIndicatorControlChannelSymbol); }
-            set { SetOrReplaceImmediateValue(attitudeIndicatorControlChannelSymbol, value); }
+            get { return ImmediateValueOrDefault<string>(channelCompassChannelSymbol); }
+            set { SetOrReplaceImmediateValue(channelCompassChannelSymbol, value); }
         }
 
-        public Brush attitudeIndicatorControlBackground
+        public Brush channelCompassBackground
         {
-            get { return ImmediateValueOrDefault<Brush>(attitudeIndicatorControlBackgroundSymbol); }
-            set { SetOrReplaceImmediateValue(attitudeIndicatorControlBackgroundSymbol, value); }
+            get { return ImmediateValueOrDefault<Brush>(channelCompassBackgroundSymbol); }
+            set { SetOrReplaceImmediateValue(channelCompassBackgroundSymbol, value); }
         }
 
         public void SetChannelValue(string channelName, double channelValue)
         {
             // set the collator owner to be different for the different channel value change operations so a value change for one of the controls doesn't
             // erase the value change for the other one
-            var collatorOwner = _attitudeIndicatorControlChannelCollatorOwner;
+            var collatorOwner = _channelCompassChannelCollatorOwner;
             if (Host.ActiveRunTimeServiceProvider().Status == RunTimeProviderStatus.Connected)
             {
                 ScreenModel screenModel = ScreenModel.GetScreen(this);
@@ -540,7 +498,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                         {
                             // set the channel value on the gateway, we are passing in empty labda expressions to the success and failure callbacks in this case
                             // if we wanted to report errors to the user we could add some handling code for the failure case
-                            await Host.GetRunTimeService<ITagService>().SetTagValueAsync(attitudeIndicatorControlChannel, TagFactory.CreateTag(channelValue));
+                            await Host.GetRunTimeService<ITagService>().SetTagValueAsync(channelCompassChannel, TagFactory.CreateTag(channelValue));
                         }
                         catch (VeriStandException e)
                         {
@@ -551,7 +509,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 #else
                                 () => this.ReportError(
 #endif
-                                    attitudeIndicatorControlModelErrorString,
+                                    channelCompassModelErrorString,
                                     null,
                                     MessageDescriptor.Empty,
                                     e));

@@ -9,15 +9,15 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     /// <summary>
     /// Interaction logic for AttitudeIndicatorControl.xaml
     /// </summary>
-    public partial class AttitudeIndicatorControl
+    public partial class ChannelCompassView
     {
-        private readonly AttitudeIndicatorControlViewModel _viewModel;
+        private readonly ChannelCompassViewModel _viewModel;
 
         /// <summary>
         /// Constructor for AttitudeIndicatorControl
         /// </summary>
         /// <param name="viewModel">view model associated with this control</param>
-        public AttitudeIndicatorControl(AttitudeIndicatorControlViewModel viewModel)
+        public ChannelCompassView(ChannelCompassViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
@@ -48,7 +48,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             set { SetValue(CustomControlValueProperty, value); }
         }
 
-        public static readonly DependencyProperty CustomControlValueProperty = DependencyProperty.Register("CustomControlValue", typeof(double), typeof(AttitudeIndicatorControl), new FrameworkPropertyMetadata(0.0));
+        public static readonly DependencyProperty CustomControlValueProperty = DependencyProperty.Register("CustomControlValue", typeof(double), typeof(ChannelCompassView), new FrameworkPropertyMetadata(0.0));
 
         public Brush CustomControlBackground
         {
@@ -56,16 +56,16 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             set { SetValue(CustomControlBackgroundProperty, value); }
         }
 
-        public static readonly DependencyProperty CustomControlBackgroundProperty = DependencyProperty.Register("CustomControlBackground", typeof(Brush), typeof(AttitudeIndicatorControl), new FrameworkPropertyMetadata(new SolidColorBrush()));
+        public static readonly DependencyProperty CustomControlBackgroundProperty = DependencyProperty.Register("CustomControlBackground", typeof(Brush), typeof(ChannelCompassView), new FrameworkPropertyMetadata(new SolidColorBrush()));
 
         //private void CustomControl_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
         //{
         //    OnValueChanged(e.NewValue, ModCustomControlModel.modCustomControlChannelName);
         //}
 
-        private void AttitudeIndicatorControl_OnRollChanged(object sender, ValueChangedEventArgs<double> e)
+        private void ChannelCompassView_OnValueChanged(object sender, ValueChangedEventArgs<double> e)
         {
-            OnValueChanged(e.NewValue, AttitudeIndicatorControlModel.attitudeIndicatorControlChannelName);
+            OnValueChanged(e.NewValue, ChannelCompassModel.channelCompassChannelName);
         }
     }
 }

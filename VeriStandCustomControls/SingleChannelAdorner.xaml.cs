@@ -34,7 +34,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             WeakEventManager<ChannelPopup, PropertyChangedEventArgs>.AddHandler(FirstUiSdfPopup, "PropertyChanged", FirstChannelPropertyChanged);
             // add this adorner as an observer of the model
             Model.AddObserver(this);
-            FirstTextControl.Text = ((AttitudeIndicatorControlModel)Model).attitudeIndicatorControlChannel;
+            FirstTextControl.Text = ((ChannelCompassModel)Model).channelCompassChannel;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                         "Set channel",
                         TransactionPurpose.User))
                 {
-                    ((AttitudeIndicatorControlModel)Model).attitudeIndicatorControlChannel = FirstUiSdfPopup.Channel;
+                    ((ChannelCompassModel)Model).channelCompassChannel = FirstUiSdfPopup.Channel;
                     transaction.Commit();
                 }
             }
@@ -112,7 +112,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public void ModelPropertyChanged(Element modelElement, string propertyName, TransactionItem transactionItem)
         {
             var propertyExpressionTransactionItem = transactionItem as PropertyExpressionTransactionItem;
-            if (propertyName == AttitudeIndicatorControlModel.attitudeIndicatorControlChannelName && propertyExpressionTransactionItem != null)
+            if (propertyName == ChannelCompassModel.channelCompassChannelName && propertyExpressionTransactionItem != null)
             {
                 FirstTextControl.Text = propertyExpressionTransactionItem.NewValue as string;
             }

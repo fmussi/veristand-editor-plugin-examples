@@ -63,7 +63,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                         }
                     }
                     break;
-                case "AttitudeIndicatorControlViewModel":
+                case "ChannelCompassViewModel":
                     using (context.AddConfigurationPaneContent())
                     {
                         // These are for the individual expandable sections...can make your own or use ours.
@@ -194,9 +194,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             // probably cast/OfType to your derived view model
             var viewModel = selection.OfType<ElementViewModel>().First();
-            var uiModels = selection.GetSelectedModels<AttitudeIndicatorControlModel>().Select(bgColor => bgColor.attitudeIndicatorControlBackground);
+            //var uiModels = selection.GetSelectedModels<ChannelCompassModel>().Select(bgColor => bgColor.channelCompassBackground);
            
-
             var booleanParameter = parameter as ICheckableCommandParameter;
             var choiceParameter = parameter as IChoiceCommandParameter;
             var numericParameter = parameter as IValueCommandParameter;
@@ -225,12 +224,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
                 // color and others are also value parameters, so we check them first.
                 //colorParameter.Value = SMBrush.FromBrush(Brushes.Red);
-                if (uiModels != null)
-                {
-                    colorParameter.Value = uiModels.First();
-                }
-                else
-                    colorParameter.Value = (Brush)AttitudeIndicatorControlModel.attitudeIndicatorControlBackgroundSymbol.DefaultMetadata.DefaultValue;
+                colorParameter.Value = SMBrush.FromBrush(Brushes.Transparent);
+                //if (uiModels != null)
+                //{
+                //    //colorParameter.Value = uiModels.First();
+                //}
+                //else
+                //    colorParameter.Value = (Brush)ChannelCompassModel.channelCompassChannelSymbol.DefaultMetadata.DefaultValue;
 
             }
             else if (numericParameter != null)
@@ -250,9 +250,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="site">for communicating with user interface APIs</param>
         private static void HandleExecuteCommand(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
-            var viewModel = selection.OfType<ElementViewModel>().First();
-            var uiModel = (UIModel)viewModel.Model;
+            //var viewModel = selection.OfType<ElementViewModel>().First();
+            //var uiModel = (UIModel)viewModel.Model;
+            var compassControl = selection.Where(viewModel => viewModel.Model is ChannelCompassModel).Select(viewModel => (UIModel)viewModel.Model);
 
+                
             var booleanParameter = parameter as ICheckableCommandParameter;
             var choiceParameter = parameter as IChoiceCommandParameter;
             var numericParameter = parameter as IValueCommandParameter;
@@ -260,24 +262,26 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             var colorParameter = parameter as ColorCommandParameter;
             // Update the model based on current state. In general, changes to the model should
             // be transacted so undo redo works.
-            using (var transaction = viewModel.Element.TransactionManager.BeginTransaction("update", NationalInstruments.SourceModel.TransactionPurpose.User))
-            {
 
-                // update state of the model based on type of parameter.
-                // viewModel.Element.newState = parameter.newValue;
-                var attitudeIndicatorControlModel = uiModel as AttitudeIndicatorControlModel;
-                // loop on different channels
-                if (attitudeIndicatorControlModel != null)
-                {   
-                    if (colorParameter != null)
-                    {
-                        attitudeIndicatorControlModel.attitudeIndicatorControlBackground = (Brush)colorParameter.Value;
-                        //viewModel.Element.
-                    }
+            ITransactionManagerExtensions.TransactOnElements(compassControl, "Change Compass Control BackGround", model => ((ChannelCompassModel)model).channelCompassBackground = (Brush)colorParameter.Value);
 
-                }
-                transaction.Commit();
-            }
+            //using (var transaction = uiModel.TransactionManager.BeginTransaction("update", TransactionPurpose.User))
+            //{
+
+            //    // update state of the model based on type of parameter.
+            //    // viewModel.Element.newState = parameter.newValue;
+            //    var channelCompassModel = uiModel as ChannelCompassModel;
+            //    // loop on different channels
+            //    if (channelCompassModel != null)
+            //    {   
+            //        if (colorParameter != null)
+            //        {
+            //            channelCompassModel.channelCompassBackground = (Brush)colorParameter.Value;
+            //        }
+
+            //    }
+            //    transaction.Commit();
+            //}
         }
         #endregion
     }

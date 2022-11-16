@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SourceFile Checksum="D90103700F67CCCCE010DEE027E575E7DD2602A9497A1C540120A8D0393354C6AA052FFECB8BFE713A6F4455B23D949A2F96A4184FD1F6D0B1C2D5AE3CD662F9" Timestamp="1D8F9215686C107" xmlns="http://www.ni.com/PlatformFramework">
+<SourceFile Checksum="2A074F7F29434B5E64F332554DFE131C69C5304A5D60A19F8A29046FCAE3BF57C55019BD79B8F5431155A7517B2DCD282FAD34475A8B57DB428BE063CABE07E3" Timestamp="1D8FA0A761A59CF" xmlns="http://www.ni.com/PlatformFramework">
 	<SourceModelFeatureSet>
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Configuration Based Software Core" Name="http://www.ni.com/ConfigurationBasedSoftware.Core" OldestCompatibleVersion="6.3.0.49152" Version="6.3.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
@@ -19,6 +19,8 @@
 				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="8599b2067bb44c65ae0d91ff6d1c6f55" xmlns="http://www.ni.com/PlatformFramework" />
 			</PWMControl>
 			<Label Height="[float]16" Id="6f77c380abd54148b67b02e339ef1c1c" LabelOwner="[UIModel]5386d83736554744bb6d6c93542cc3eb" Left="[float]156" Text="[string]PWMControl" Top="[float]611" Width="[float]68" xmlns="http://www.ni.com/PanelCommon" />
+			<ChannelCompass ChannelCompassChannel="[string]Targets/Controller/User Channels/User Channel" Height="[float]175" Id="dd17dd84006a45f485cf7e43497e0471" Label="[UIModel]3f13f004da8e4aa78ce90580869d8df2" Left="[float]547" Top="[float]522" Width="[float]220" xmlns="http://www.your-company.com/VeriStandExample" />
+			<Label Height="[float]16" Id="3f13f004da8e4aa78ce90580869d8df2" LabelOwner="[UIModel]dd17dd84006a45f485cf7e43497e0471" Left="[float]547" Text="[string]ChannelCompass" Top="[float]502" Width="[float]91" xmlns="http://www.ni.com/PanelCommon" />
 		</ScreenSurface>
 	</Screen>
 </SourceFile>

@@ -91,7 +91,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Specifies the PropertySymbol for the first registered channel.  Any custom attribute that needs to serialized so that it is saved needs to be a property symbol.
         /// </summary>
-        public static readonly PropertySymbol CustomUserControlChannelSymbol = ExposePropertySymbol<AttitudeIndicatorControlModel>(CustomUserControlChannelName, string.Empty);
+        public static readonly PropertySymbol CustomUserControlChannelSymbol = ExposePropertySymbol<ChannelCompassModel>(CustomUserControlChannelName, string.Empty);
      // Duplicate end
      // Xaml generation
         /// <summary>

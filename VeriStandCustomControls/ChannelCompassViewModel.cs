@@ -9,15 +9,11 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using NationalInstruments.Restricted;
 using NationalInstruments.Composition;
-using NationalInstruments.Controls;
-using NationalInstruments.Controls.Design;
 using NationalInstruments.Controls.Shell;
-using NationalInstruments.Controls.SourceModel;
 using NationalInstruments.Core;
 using NationalInstruments.Design;
 using NationalInstruments.DynamicProperties;
 using NationalInstruments.Hmi.Core.Controls.Models;
-using NationalInstruments.Hmi.Core.Controls.ViewModels;
 using NationalInstruments.Hmi.Core.Screen;
 using NationalInstruments.Shell;
 using NationalInstruments.SourceModel;
@@ -31,7 +27,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
     //  inherit options
     // 
     // NumericControlViewModel, IChannelControlViewValueAccessor, ICommonConfigurationPaneControl
-    public class AttitudeIndicatorControlViewModel : VisualViewModel, IControlContextMenuHelper
+    public class ChannelCompassViewModel : VisualViewModel, IControlContextMenuHelper
     {
         //private readonly NumericChannelControlViewModelImplementation<AttitudeIndicatorControlViewModel,AttitudeIndicatorControlModel> _channelControlViewModelImplementation;
         /// <summary>
@@ -40,34 +36,14 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="model">The modCustomControlModel associated with this view model.</param>
         // set implementation
 
-        public AttitudeIndicatorControlViewModel(AttitudeIndicatorControlModel model) : base(model)
+        public ChannelCompassViewModel(ChannelCompassModel model) : base(model)
         {
             // does the implementation handle value changes?
             //_channelControlViewModelImplementation = new NumericChannelControlViewModelImplementation<AttitudeIndicatorControlViewModel, AttitudeIndicatorControlModel>(this);
             // bind to value change event on model
-            WeakEventManager<AttitudeIndicatorControlModel, ChannelValueChangedEventArgs>.AddHandler(model, "attitudeIndicatorControlChannelValueChangedEvent", AttitudeIndicatorControlValueChangedEventHandler);
+            WeakEventManager<ChannelCompassModel, ChannelValueChangedEventArgs>.AddHandler(model, "channelCompassChannelValueChangedEvent", AttitudeIndicatorControlValueChangedEventHandler);
         }
 
-        /// <summary>
-        /// Called when the view value has changed.
-        /// </summary>
-        /// <param name="newValue">The view's new value.</param>
-        //protected override void OnValueChanged(object newValue)
-        //{
-        //    OnValueChanged(newValue, PropertyChangeSource.Interactive);
-        //}
-        /// <summary>
-        /// Called when the view value has changed.
-        /// </summary>
-        /// <param name="newValue">The view's new value.</param>
-        /// <param name="source">The source of the value change.</param>
-        //private void OnValueChanged(object newValue, PropertyChangeSource source)
-        //{
-        //    _channelControlViewModelImplementation.OnValueChanged(newValue, source);
-        //}
-
-
-        // FM_note: could be disabled if control is not composite
         /// <summary>
         /// Override resize behavior so the control cannot be resized.  This is done because with composite controls it is a lot of work to get all the individual components
         /// to scale reasonably with respect to each other
@@ -82,11 +58,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         private void AttitudeIndicatorControlValueChangedEventHandler(object sender, ChannelValueChangedEventArgs e)
         {
-            var attitudeIndicatorControl = View.Children.FirstOrDefault().AsFrameworkElement as AttitudeIndicatorControl;
-            if (attitudeIndicatorControl != null)
+            var channelCompassView = View.Children.FirstOrDefault().AsFrameworkElement as ChannelCompassView;
+            if (channelCompassView != null)
             {
                 //FM_note: CustomControlValue is defined in view.
-                attitudeIndicatorControl.CustomControlValue = (double)e.ChannelValue;
+                channelCompassView.CustomControlValue = (double)e.ChannelValue;
             }
         }
 
@@ -95,13 +71,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         internal bool SuppressValueChanges { get; set; }
 
-        //protected override FrameworkElement CreateViewForType(Type numericType)
-        //{
-
-        //    var view = new AttitudeIndicatorControl(this);
-        //    WeakEventManager<AttitudeIndicatorControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
-        //    return view;
-        //}
         /// <summary>
         /// Creates the view associated with this view model by initializing a new instance of our custom control class modCustomControl
         /// This is an opportunity to provide callbacks to the view and to hook up event handlers.  In this case we add a value changed event handler so we can
@@ -110,12 +79,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <returns>modCustomControl view</returns>
         public override object CreateView()
         {
-            var view = new AttitudeIndicatorControl(this);
+            var view = new ChannelCompassView(this);
             // bind view event handler to viewModel
-            WeakEventManager<AttitudeIndicatorControl, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
+            WeakEventManager<ChannelCompassView, CustomChannelValueChangedEventArgs>.AddHandler(view, "ValueChanged", SetChannelValue);
             return view;
         }
-
 
         /// <summary>
         /// Called when a property of the model associated with this view model has changed.
@@ -129,7 +97,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             base.ModelPropertyChanged(modelElement, propertyName, transactionItem);
             //_channelControlViewModelImplementation.ModelPropertyChanged(modelElement, propertyName, transactionItem);
-            ((AttitudeIndicatorControlModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
+            ((ChannelCompassModel)Model).PropertyChanged(modelElement, propertyName, transactionItem);
         }
 
         /// <summary>
@@ -140,55 +108,17 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
         protected override void SetProperty(PropertySymbol identifier, object value)
         {
-            AttitudeIndicatorControl attitudeControl = ProxiedElement as AttitudeIndicatorControl;
+            ChannelCompassView chanelCompassView = ProxiedElement as ChannelCompassView;
             switch (identifier.Name)
             {
-                case AttitudeIndicatorControlModel.attitudeIndicatorControlBackgroundName:
-                    attitudeControl.CustomControlBackground = (Brush)value;
+                case ChannelCompassModel.channelCompassBackgroundName:
+                    chanelCompassView.CustomControlBackground = (Brush)value;
                     break;
                 default:
                     base.SetProperty(identifier, value);
                     break;
             }
         }
-        //protected override void SetProperty(PropertySymbol identifier, object value)
-        //{
-        //    bool handled = false;
-        //    handled = _channelControlViewModelImplementation.SetProperty(identifier, value);
-        //    if (!handled)
-        //    {
-        //        base.SetProperty(identifier, value);
-        //    }
-        //}
-        /// <inheritdoc />
-        //public override void Placed(PlacementReleaseEventArgs args)
-        //{
-        //    base.Placed(args);
-        //    _channelControlViewModelImplementation.Placed(args);
-        //}
-
-        /// <summary>
-        /// Gets the adorners used with this control during a hard selection (left-click).
-        /// Currently used to create an adorner that allows browsing to a channel path in a VeriStand SDF.
-        /// </summary>
-        /// <returns>An enumerable collection of hard select adorners.</returns>
-        //public override IEnumerable<Adorner> GetHardSelectAdorners()
-        //{
-        //    Collection<Adorner> adorners = _channelControlViewModelImplementation.GetHardSelectAdorners(base.GetHardSelectAdorners());
-        //    return adorners;
-        //}
-
-        /// <inheritdoc />
-        //public override IEnumerable<Adorner> GetSoftSelectAdorners()
-        //{
-        //    Collection<Adorner> adorners = _channelControlViewModelImplementation.GetSoftSelectAdorners(base.GetSoftSelectAdorners());
-        //    return adorners;
-        //}
-
-        /// <inheritdoc />
-        //public override QueryResult<T> QueryService<T>()
-        //    => QueryResult<T>.FromObject(_channelControlViewModelImplementation)
-        //        .AppendedWith(base.QueryService<T>());
 
         /// <summary>
         ///  Creates configuration pane content for this control. See comments on
@@ -213,23 +143,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
         }
 
-        /// <inheritdoc/>
-        //protected override void OnCreateContextMenu(CreateContextMenuRoutedEventArgs args)
-        //{
-        //    base.OnCreateContextMenu(args);
-        //    _channelControlViewModelImplementation.OnCreateContextMenu(args);
-        //}
-
-        /// <summary>
-        /// Called when the model this instance was watching has gone to the detached state.
-        /// </summary>
-        /// <param name="modelElement">The removed model</param>
-        /// <returns>Return true to have your observer removed from watching this object</returns>
-        //public override bool ModelDetached(Element modelElement)
-        //{
-        //    _channelControlViewModelImplementation.ModelDetached(modelElement);
-        //    return base.ModelDetached(modelElement);
-        //}
 
         // Methods for ConfigurationPane for VisualModel
         private static ChannelPopup _uiSdfBrowsePopup;
@@ -244,8 +157,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public static readonly ISelectionCommand ControlChannelBrowseCommand = new ShellSelectionRelayCommand(LaunchControlChannelBrowser, CanLaunchChannelBrowser)
         {
             LabelTitle = "Custom User Control Channel",
-            LargeImageSource = ResourceHelpers.LoadImage(typeof(AttitudeIndicatorControlViewModel), "Resources/Browse.png"),
-            SmallImageSource = ResourceHelpers.LoadImage(typeof(AttitudeIndicatorControlViewModel), "Resources/Browse_16x16.png"),
+            LargeImageSource = ResourceHelpers.LoadImage(typeof(ChannelCompassViewModel), "Resources/Browse.png"),
+            SmallImageSource = ResourceHelpers.LoadImage(typeof(ChannelCompassViewModel), "Resources/Browse_16x16.png"),
             UniqueId = "NI.ChannelCommands:BrowseForCustomControlChannelCommand",
             UIType = UITypeForCommand.Button
         };
@@ -264,7 +177,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// </summary>
         private static bool CanLaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
-            return selection.All(s => s.Model is AttitudeIndicatorControlModel);
+            return selection.All(s => s.Model is ChannelCompassModel);
         }
 
         private static void LaunchChannelBrowser(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
@@ -281,7 +194,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // Show Popup window with Channels.
             _currentSelection = selection.ToList();
             _uiSdfBrowsePopup.PlacementTarget = (UIElement)parameter.AssociatedVisual;
-            _uiSdfBrowsePopup.Channel = ((AttitudeIndicatorControlModel)_currentSelection.First().Model).attitudeIndicatorControlChannel;
+            _uiSdfBrowsePopup.Channel = ((ChannelCompassModel)_currentSelection.First().Model).channelCompassChannel;
             _uiSdfBrowsePopup.ShowSdfBrowser(host, true, false);
         }
         private static void ChannelNamePropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -294,11 +207,11 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                     // we are setting values on the model so start a new transaction. set the purpose of the transaction to user so that it can be undone
                     using (var transaction = uiModel.TransactionManager.BeginTransaction("Set channel", TransactionPurpose.User))
                     {
-                        var attitudeIndicatorControlModel = uiModel as AttitudeIndicatorControlModel;
+                        var channelCompassModel = uiModel as ChannelCompassModel;
                         // loop on different channels
-                        if (attitudeIndicatorControlModel != null)
+                        if (channelCompassModel != null)
                         {
-                            attitudeIndicatorControlModel.attitudeIndicatorControlChannel = _uiSdfBrowsePopup.Channel;
+                            channelCompassModel.channelCompassChannel = _uiSdfBrowsePopup.Channel;
                         }
                         transaction.Commit();
                     }
@@ -328,8 +241,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             adorners.Add(new ControlAdorner(DesignerNodeHelpers.GetVisualForViewModel(this), toolbar, Placement.BelowBottomRight));
 
             return adorners;
-
-            //return base.GetHardSelectAdorners();
         }
 
         /// <summary>
@@ -349,7 +260,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         //    adorners.Add(new ControlAdorner(DesignerNodeHelpers.GetVisualForViewModel(this), toolbar, Placement.BelowCenter));
         //    return adorners;
         //}
-
 
         /// <summary>
         /// Creates and returns a list of context menu commands for this view model
@@ -392,8 +302,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         private static void SelectChannels(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
             IEnumerable<string> controlChannels = selection.Select(item => item.Model)
-                .OfType<AttitudeIndicatorControlModel>()
-                .Select(model => model.attitudeIndicatorControlChannel)
+                .OfType<ChannelCompassModel>()
+                .Select(model => model.channelCompassChannel)
                 .Where(channel => !string.IsNullOrEmpty(channel))
                 .ToList();
             var systemDefinitionPalette = SystemDefinitionPaletteControl.Activate(site);
@@ -408,98 +318,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="eventArgs">custom event information telling us which channel changed and what its value is</param>
         private void SetChannelValue(object sender, CustomChannelValueChangedEventArgs eventArgs)
         {
-            ((AttitudeIndicatorControlModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
+            ((ChannelCompassModel)Model).SetChannelValue(eventArgs.ChannelName, (double)eventArgs.ChannelValue);
         }
 
-        #region IChannelControlViewValueAccessor
-        public bool CanAddChildren(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CanRemoveChildren(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddChildren(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveChildren(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdatePositions(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void FinishPlacement(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Adorner> GetDragOverAdorners(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Adorner> GetBoundsChangeAdorners(IEnumerable<ReparentingInformation> infos)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        #endregion
-
-        #region ICommonConfigurationPaneControl
-
-        /// <inheritdoc/>
-        public virtual bool HasTextContent => true;
-
-        #endregion
-        /// <summary>
-        /// Gets or sets the current value displayed in the view.
-        /// </summary>
-        //public object ViewValue
-        //{
-        //    get
-        //    {
-        //        return Helper.GetValue();
-        //    }
-        //    set
-        //    {
-        //        Helper.SetValue(value);
-        //    }
-        //}
-
-        public ReparentingStyle ReparentingStyle => throw new NotImplementedException();
-
-        public SMPoint PastePositionOffset => throw new NotImplementedException();
-
-        public bool ShowHighlightRect => throw new NotImplementedException();
-
-        public SMRect SoftSelectionRectangle => throw new NotImplementedException();
-
-        #region ancestorImplementation
-
-        protected override ResourceUri ForegroundUri
-        {
-            get
-            {
-                var directionality = (this.Model as IDirectionalControl).GetValueOrDefault(c => c.Directionality);
-                return new ResourceUri(typeof(AttitudeIndicatorControlViewModel), string.Format(CultureInfo.InvariantCulture, "Resources/FrontPanel/NeutralTimeStamp{0}", directionality));
-            }
-        }
-
-        //protected override NumericControlViewHelper CreateHelper(Type valueType, NumericControlViewModel viewModel, FrameworkElement view)
-        //{
-        //    //return (NumericControlViewHelper)Activator.CreateInstance(typeof())
-        //    return base.CreateHelper(valueType, viewModel, view);
-        //}
-        #endregion
     }
 }
