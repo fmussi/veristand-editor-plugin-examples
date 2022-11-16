@@ -50,8 +50,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <summary>
         /// Path to the image to use in the palette
         /// </summary>
-        public string ImagePath => "/NationalInstruments.VeriStand.CustomControlsExamples;component/Resources/ADG_32x32.png";
-
+        public string ImagePath => "/NationalInstruments.Controls.Design;component/Resources/FrontPanel/attitude.png";
+        public string PaletteImagePath => "/NationalInstruments.VeriStand.CustomControlsExamples;component/Resources/ADG_32x32.png";
         /// <summary>
         /// Tool tip to display in the palette
         /// </summary>
@@ -67,7 +67,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// Returns the palette hierarchy for this element. Returning null tells VeriStand to put this in the top level custom controls directory.
         /// </summary>
         public IList<PaletteElementCategory> PaletteHierarchy =>
-            new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", ImagePath, "adgCustomControls", .1) };
+            new List<PaletteElementCategory>() { new PaletteElementCategory("Custom controls", PaletteImagePath, "adgCustomControls", .1) };
     }
 
     //NumericControlModel, ICommonConfigurationPaneControl

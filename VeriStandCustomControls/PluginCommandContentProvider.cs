@@ -194,11 +194,15 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         {
             // probably cast/OfType to your derived view model
             var viewModel = selection.OfType<ElementViewModel>().First();
+            var uiModels = selection.GetSelectedModels<AttitudeIndicatorControlModel>().Select(bgColor => bgColor.attitudeIndicatorControlBackground);
+           
+
             var booleanParameter = parameter as ICheckableCommandParameter;
             var choiceParameter = parameter as IChoiceCommandParameter;
             var numericParameter = parameter as IValueCommandParameter;
             var textParameter = parameter as ITextCommandParameter;
             var colorParameter = parameter as ColorCommandParameter;
+
             if (booleanParameter != null)
             {
                 booleanParameter.IsChecked = true;
@@ -218,14 +222,21 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
             else if (colorParameter != null)
             {
+
                 // color and others are also value parameters, so we check them first.
-                colorParameter.Value = SMBrush.FromBrush(Brushes.Red);
+                //colorParameter.Value = SMBrush.FromBrush(Brushes.Red);
+                if (uiModels != null)
+                {
+                    colorParameter.Value = uiModels.First();
+                }
+                else
+                    colorParameter.Value = (Brush)AttitudeIndicatorControlModel.attitudeIndicatorControlBackgroundSymbol.DefaultMetadata.DefaultValue;
+
             }
             else if (numericParameter != null)
             {
                 numericParameter.Value = 3.14;
             }
-
             return true; // or false to disable the command
         }
 

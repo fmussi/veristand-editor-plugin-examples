@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SourceFile Checksum="17F09E6EFAB4F864FA7059017C6D972020E9D6983E6BC50DAD10B317FBDBE5266FB23E00D4D17D84D6E9437AC0B92AC8DF4A5FC5ABE30D5C3B5B77560291FFAC" Timestamp="1D8F7762DC38690" xmlns="http://www.ni.com/PlatformFramework">
+<SourceFile Checksum="D90103700F67CCCCE010DEE027E575E7DD2602A9497A1C540120A8D0393354C6AA052FFECB8BFE713A6F4455B23D949A2F96A4184FD1F6D0B1C2D5AE3CD662F9" Timestamp="1D8F9215686C107" xmlns="http://www.ni.com/PlatformFramework">
 	<SourceModelFeatureSet>
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="Configuration Based Software Core" Name="http://www.ni.com/ConfigurationBasedSoftware.Core" OldestCompatibleVersion="6.3.0.49152" Version="6.3.0.49152" />
 		<ParsableNamespace AssemblyFileVersion="9.0.0.50070" FeatureSetName="LabVIEW Controls" Name="http://www.ni.com/Controls.LabVIEW.Design" OldestCompatibleVersion="8.1.0.49152" Version="8.1.0.49152" />
@@ -15,8 +15,6 @@
 			<Label Height="[float]16" Id="ce9108d8d7ed4f58aa9686dd8bfa7e5e" LabelOwner="[UIModel]56fee447d6cb40cab24dfcd775294e3c" Left="[float]93" Text="[string]User Channel" Top="[float]313" Width="[float]70" xmlns="http://www.ni.com/PanelCommon" />
 			<ChannelGauge BaseName="[string]Gauge" Channel="[string]Targets/Controller/User Channels/User Channel" Height="[float]206" Id="d888951eac894f3a88efd7131778ea38" InteractionMode="[NumericPointerInteractionModes]EditRange" Label="[UIModel]4fe680d3deb0401cb00ca45a58195b71" Left="[float]410" Maximum="[double]180" MinHeight="[float]125" MinWidth="[float]125" Minimum="[double]-180" Top="[float]321" ValueType="[Type]Double" Width="[float]206" />
 			<Label Height="[float]16" Id="4fe680d3deb0401cb00ca45a58195b71" LabelOwner="[UIModel]d888951eac894f3a88efd7131778ea38" Left="[float]410" Text="[string]User Channel" Top="[float]301" Width="[float]70" xmlns="http://www.ni.com/PanelCommon" />
-			<AttitudeIndicatorControl AttitudeIndicatorControlChannel="[string]Targets/Controller/User Channels/User Channel" Height="[float]347" Id="19734dd6b1fc4adf8f937dc810b0b9ae" Label="[UIModel]7f1193d0f3df4f988396523846635796" Left="[float]731" Top="[float]261" Width="[float]276" xmlns="http://www.your-company.com/VeriStandExample" />
-			<Label Height="[float]16" Id="7f1193d0f3df4f988396523846635796" LabelOwner="[UIModel]19734dd6b1fc4adf8f937dc810b0b9ae" Left="[float]731" Text="[string]AttitudeIndicatorControl" Top="[float]241" Width="[float]129" xmlns="http://www.ni.com/PanelCommon" />
 			<PWMControl Height="[float]175" Id="5386d83736554744bb6d6c93542cc3eb" Label="[UIModel]6f77c380abd54148b67b02e339ef1c1c" Left="[float]156" Top="[float]631" Width="[float]220" xmlns="http://www.your-company.com/VeriStandExample">
 				<FontSetting FontFamily="Segoe UI" FontSize="9" Id="8599b2067bb44c65ae0d91ff6d1c6f55" xmlns="http://www.ni.com/PlatformFramework" />
 			</PWMControl>
