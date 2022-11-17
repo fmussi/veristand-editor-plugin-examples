@@ -102,7 +102,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         public static readonly PropertySymbol channelCompassChannelSymbol = ExposePropertySymbol<ChannelCompassModel>(channelCompassChannelName, string.Empty);
 
         // FM_CMD: adding another prop.
-        public static readonly PropertySymbol channelCompassBackgroundSymbol = ExposePropertySymbol<ChannelCompassModel>(channelCompassBackgroundName, new SolidColorBrush());
+        //public static readonly PropertySymbol channelCompassBackgroundSymbol = ExposePropertySymbol<ChannelCompassModel>(channelCompassBackgroundName, new SolidColorBrush());
+        public static readonly PropertySymbol channelCompassBackgroundSymbol = ExposePropertySymbol<ChannelCompassModel>(channelCompassBackgroundName, new SMSolidColorBrush(0,0,0,0),SMBrushPropertyExpressionSerializer.StaticInstance);
         // Duplicate end
 
 
