@@ -134,17 +134,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="exCustomUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="KeySwitchControlTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ChannelCompassView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ModCustomControlTemplate.xaml">
       <SubType>Designer</SubType>
@@ -155,10 +147,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Generic.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SingleChannelAdorner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -176,11 +164,6 @@
     <Compile Include="ExamplePreferencePage.xaml.cs">
       <DependentUpon>ExamplePreferencePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="exCustomUserControl.xaml.cs">
-      <DependentUpon>exCustomUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="exCustomUserControlModel.cs" />
-    <Compile Include="exCustomUserControlViewModel.cs" />
     <Compile Include="FaultStateChangeEventArgs.cs" />
     <Compile Include="FaultStateEnum.cs" />
     <Compile Include="KeySwitchControl.cs" />
@@ -188,12 +171,7 @@
     <Compile Include="ModCustomControlTpModel.cs" />
     <Compile Include="KeySwitchControlModel.cs" />
     <Compile Include="KeySwitchControlViewModel.cs" />
-    <Compile Include="ChannelCompassModel.cs" />
     <Compile Include="ModCustomControlTp.cs" />
-    <Compile Include="ChannelCompassViewModel.cs" />
-    <Compile Include="ChannelCompassView.xaml.cs">
-      <DependentUpon>ChannelCompassView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PluginNamespaceSchema.cs" />
     <Compile Include="PluginCommandContentProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -215,9 +193,6 @@
     <Compile Include="PWMControlModel.cs" />
     <Compile Include="PWMControlViewModel.cs" />
     <Compile Include="Resources\LocalizedStrings.Designer.cs" />
-    <Compile Include="SingleChannelAdorner.xaml.cs">
-      <DependentUpon>SingleChannelAdorner.xaml</DependentUpon>
-    </Compile>
     <Compile Include="TwoChannelAdorner.xaml.cs">
       <DependentUpon>TwoChannelAdorner.xaml</DependentUpon>
     </Compile>

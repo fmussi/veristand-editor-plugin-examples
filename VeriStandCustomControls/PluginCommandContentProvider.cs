@@ -63,28 +63,6 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
                         }
                     }
                     break;
-                case "ChannelCompassViewModel":
-                    using (context.AddConfigurationPaneContent())
-                    {
-                        // These are for the individual expandable sections...can make your own or use ours.
-                        using (context.AddGroup(ConfigurationPaneCommands.BehaviorGroupCommand))
-                        {
-                            // Use a command with a UIType, or use/customize the factory yourself
-                            context.Add(CheckBoxCommand);
-                            ////context.Add(CheckBoxCommand, CheckBoxFactory.ForConfigurationPane);
-                            ////context.Add(CheckBoxCommand, ToggleButtonFactory.ForConfigurationPane);
-                            context.Add(TextBoxCommand);
-                            var filters = new FileDialogFilterCollection();
-                            filters.Add(new FileDialogFilter() { Extensions = new[] { "jpg", "png" }, Label = "Image Files" });
-                            context.Add(PathCommand, new PathSelectorFactory() { Filters = filters });
-                            ////context.Add(TextBoxCommand, TextBoxFactory.ForConfigurationPane);
-                            ////context.Add(TextBoxCommand, StaticTextFactory.ForConfigurationPane);
-                            context.Add(NumericCommand, new NumericTextBoxFactory(NITypes.Double));
-                            context.Add(ColorCommand, new ColorBoxFactory { ColorOnly = false, ShowMoreColors = true });
-                            context.AddContentFontEditor(null, true);
-                        }
-                    }
-                    break;
                 default:
                     break;
             }
@@ -219,19 +197,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             }
             else if (colorParameter != null)
             {
-                if (!colorParameter.Executing)
-                {
-                    var background = selection.GetSelectedModels<ChannelCompassModel>().Select(bgColor => bgColor.channelCompassBackground);
-                    // color and others are also value parameters, so we check them first.
-                    //colorParameter.Value = SMBrush.FromBrush(Brushes.Red);
-                    // colorParameter.Value = SMBrush.FromBrush(Brushes.Transparent);
-                    if (background != null)
-                    {
-                        colorParameter.Value = background.First();
-                    }
-                    //else
-                    //    colorParameter.Value = (Brush)ChannelCompassModel.channelCompassChannelSymbol.DefaultMetadata.DefaultValue;
-                }
+                colorParameter.Value = SMBrush.FromBrush(Brushes.Red);
             }
             else if (numericParameter != null)
             {
@@ -250,10 +216,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
         /// <param name="site">for communicating with user interface APIs</param>
         private static void HandleExecuteCommand(ICommandParameter parameter, IEnumerable<IViewModel> selection, ICompositionHost host, DocumentEditSite site)
         {
-            //var viewModel = selection.OfType<ElementViewModel>().First();
-            //var uiModel = (UIModel)viewModel.Model;
-            var compassControlModel = selection.Where(viewModel => viewModel.Model is ChannelCompassModel).Select(viewModel => (UIModel)viewModel.Model);
-            
+            var viewModel = selection.OfType<ElementViewModel>().First();
             var booleanParameter = parameter as ICheckableCommandParameter;
             var choiceParameter = parameter as IChoiceCommandParameter;
             var numericParameter = parameter as IValueCommandParameter;
@@ -262,10 +225,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
 
             // Update the model based on current state. In general, changes to the model should
             // be transacted so undo redo works.
-            if (colorParameter != null)
-            {
-                ITransactionManagerExtensions.TransactOnElements(compassControlModel, "Change Compass Control BackGround", model => ((ChannelCompassModel)model).channelCompassBackground = SMBrush.FromBrush((Brush)colorParameter.Value));
-            }
+
         }
         #endregion
     }
