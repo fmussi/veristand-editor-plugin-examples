@@ -475,9 +475,9 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             set { SetOrReplaceImmediateValue(channelCompassChannelSymbol, value); }
         }
 
-        public Brush channelCompassBackground
+        public SMBrush channelCompassBackground
         {
-            get { return ImmediateValueOrDefault<Brush>(channelCompassBackgroundSymbol); }
+            get { return ImmediateValueOrDefault<SMBrush>(channelCompassBackgroundSymbol); }
             set { SetOrReplaceImmediateValue(channelCompassBackgroundSymbol, value); }
         }
 

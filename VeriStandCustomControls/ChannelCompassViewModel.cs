@@ -112,7 +112,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             switch (identifier.Name)
             {
                 case ChannelCompassModel.channelCompassBackgroundName:
-                    chanelCompassView.CustomControlBackground = (Brush)value;
+                    SMBrush brush = value as SMBrush;
+                    chanelCompassView.CustomControlBackground = brush != null ? brush.ToBrush() : null;
                     break;
                 default:
                     base.SetProperty(identifier, value);
