@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCommandSample", "Cust
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFDataBinding", "WPFDataBinding\WPFDataBinding.csproj", "{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeriStand.CustomTool", "VeriStand.CustomTool\VeriStand.CustomTool.csproj", "{6E519F14-FDAF-4562-A252-6E4D19353399}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,10 +53,6 @@ Global
 		{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E519F14-FDAF-4562-A252-6E4D19353399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E519F14-FDAF-4562-A252-6E4D19353399}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E519F14-FDAF-4562-A252-6E4D19353399}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E519F14-FDAF-4562-A252-6E4D19353399}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

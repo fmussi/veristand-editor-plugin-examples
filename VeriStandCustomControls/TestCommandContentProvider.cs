@@ -11,6 +11,7 @@ using NationalInstruments.DataTypes;
 using NationalInstruments.Design;
 using NationalInstruments.Shell;
 using NationalInstruments.SourceModel;
+using NationalInstruments.VeriStand.ServiceModel;
 
 namespace NationalInstruments.VeriStand.CustomControlsExamples
 {
@@ -38,7 +39,8 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             using (context.AddToolLauncherContent())
             {
                 // The Weight determines where in the list of Tool Launcher items the new item will appear. (A lower value is higher in the list.)
-                context.Add(new ShellCommandInstance(MyCommand) { Weight = 0.9 }, ToolLauncherContentBuilder.ToolLauncherVisualFactoryInstance);          
+                //context.Add(new ShellCommandInstance(MyCommand) { Weight = 0.9 }, ToolLauncherContentBuilder.ToolLauncherVisualFactoryInstance);
+                context.Add(new ShellCommandInstance(VsDebugToolCommand) { Weight = 0.9 }, ToolLauncherContentBuilder.ToolLauncherVisualFactoryInstance);
             }
         }
 
@@ -47,7 +49,7 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             UniqueId = "MyCommandId",
             LabelTitle = "My Command Display Name",
             // Relative path to the accompanying image/icon resource within the assembly
-            SmallImageSource = ResourceHelpers.LoadImage(typeof(TestCommandContentProvider), "Resources/SystemExplorer_16.png")
+            SmallImageSource = ResourceHelpers.LoadImage(typeof(TestCommandContentProvider), "Resources/ViewConsole.png")
         };
 
         private static void ExecuteMyCommand(ICommandParameter parameter, ICompositionHost host, DocumentEditSite site)
@@ -61,5 +63,16 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             // If conditionally disabling the command is not required, then this CanExecute handler can be removed entirely.
             return true;
         }
+
+        public static readonly ICommandEx VsDebugToolCommand = new ShellRelayCommand((p, host, s) => host.LaunchLegacyToolAsync(_vsDebugToolPath, null).IgnoreAwait())
+        {
+            UniqueId = "NI.CustomTools:VsDebugTool",
+            LabelTitle = "Custom Device Debug Tool",
+            SmallImageSource = ResourceHelpers.LoadImage(typeof(TestCommandContentProvider), "Resources/Workspace_16x16.png")
+        };
+
+        //private static readonly string _vsDebugToolPath = "C:\\AzDo\\itmussif-vsdevtools\\Builds\\vsCdLogViewer\\vsCdLogViewer_Main(SysLog).vi";
+        //move back from Project Explorer.exe\\National Instruments\\Workspace\\Tools to point to <Program Files>\\Veristand <year> folder
+        private static readonly string _vsDebugToolPath = "..\\..\\..\\..\\vsCdLogViewer\\vsCdLogViewer_Main(SysLog).vi";
     }
 }
