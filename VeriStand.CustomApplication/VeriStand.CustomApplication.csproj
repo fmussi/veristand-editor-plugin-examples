@@ -24,7 +24,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>5</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,11 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-<<<<<<< HEAD
-    <VeriStandDir>c:\Program Files\National Instruments\VeriStand 2020</VeriStandDir>
-=======
-    <VeriStandDir>c:\Program Files\National Instruments\VeriStand 2024</VeriStandDir>
->>>>>>> us-master
+    <VeriStandDir>c:\Program Files\National Instruments\VeriStand 2021</VeriStandDir>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NationalInstruments.Core">

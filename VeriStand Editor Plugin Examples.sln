@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32106.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomControlsExamples", "VeriStandCustomControls\CustomControlsExamples.csproj", "{7519BA21-FBB9-4DB3-AD5F-B3951A1B7E27}"
 EndProject
@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsingCommandSample", "Using
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomCommandSample", "CustomCommandSample\CustomCommandSample.csproj", "{89837227-26F7-47A6-8D9C-3C96A3B45896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFDataBinding", "WPFDataBinding\WPFDataBinding.csproj", "{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFDataBinding", "WPFDataBinding\WPFDataBinding.csproj", "{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VeriStand.CustomTool", "VeriStand.CustomTool\VeriStand.CustomTool.csproj", "{6E519F14-FDAF-4562-A252-6E4D19353399}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB75475B-0E47-44F0-90E3-D07E4EA0D20F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E519F14-FDAF-4562-A252-6E4D19353399}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E519F14-FDAF-4562-A252-6E4D19353399}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E519F14-FDAF-4562-A252-6E4D19353399}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E519F14-FDAF-4562-A252-6E4D19353399}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

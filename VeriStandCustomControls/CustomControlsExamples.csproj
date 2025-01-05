@@ -30,8 +30,8 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup>
-    <VeriStandDir>c:\Program Files\National Instruments\VeriStand 2020</VeriStandDir>
-    <DefineConstants>MUTATE2020;MUTATE2020R4</DefineConstants>
+    <VeriStandDir>c:\Program Files\National Instruments\VeriStand 2021</VeriStandDir>
+    <DefineConstants>MUTATE2020;MUTATE2020R4;MUTATE2021</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NationalInstruments.Common, Version=19.0.40.49152, Culture=neutral, PublicKeyToken=dc6ad606294fc298, processorArchitecture=MSIL" />
@@ -45,7 +45,7 @@
     </Reference>
     <Reference Include="NationalInstruments.Controls.Industry, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.Industry.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.Industry.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.MocControls">
       <HintPath>$(VeriStandDir)\NationalInstruments.Controls.MocControls.dll</HintPath>
@@ -56,25 +56,25 @@
     </Reference>
     <Reference Include="NationalInstruments.Controls.SkinProviders, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.SkinProviders.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.SkinProviders.Booleans">
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Booleans.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.SkinProviders.Booleans.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.SkinProviders.cache">
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.cache.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.SkinProviders.cache.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.SkinProviders.Graphs">
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Graphs.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.SkinProviders.Graphs.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.SkinProviders.Industry">
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Industry.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.SkinProviders.Industry.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.SkinProviders.MocControls">
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.MocControls.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.SkinProviders.MocControls.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Controls.SkinProviders.Numerics">
-      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2020\NationalInstruments.Controls.SkinProviders.Numerics.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\National Instruments\VeriStand 2021\NationalInstruments.Controls.SkinProviders.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="NationalInstruments.Core">
       <HintPath>$(VeriStandDir)\NationalInstruments.Core.dll</HintPath>
@@ -156,8 +156,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdgChannelNumericTextModel.cs" />
-    <Compile Include="AdgChannelNumericTextViewModel.cs" />
     <Compile Include="CustomApplicationFeatureSet.cs" />
     <Compile Include="CustomChannelValueChangedEventArgs.cs" />
     <Compile Include="CustomControlViewModelProvider.cs" />
@@ -172,8 +170,9 @@
     <Compile Include="KeySwitchControlModel.cs" />
     <Compile Include="KeySwitchControlViewModel.cs" />
     <Compile Include="ModCustomControlTp.cs" />
-    <Compile Include="PluginNamespaceSchema.cs" />
     <Compile Include="PluginCommandContentProvider.cs" />
+    <Compile Include="PluginNamespaceSchema.cs" />
+    <Compile Include="TestCommandContentProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -217,6 +216,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y "$(TargetPath)" "C:\Users\Public\Documents\National Instruments\NI VeriStand 2020\Custom UI Manager Controls\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /y "$(TargetPath)" "C:\Users\Public\Documents\National Instruments\NI VeriStand 2021\Custom UI Manager Controls\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
