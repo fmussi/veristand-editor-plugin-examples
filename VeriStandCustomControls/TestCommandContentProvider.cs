@@ -39,11 +39,13 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             using (context.AddToolLauncherContent())
             {
                 // The Weight determines where in the list of Tool Launcher items the new item will appear. (A lower value is higher in the list.)
+                // Add sample command
                 //context.Add(new ShellCommandInstance(MyCommand) { Weight = 0.9 }, ToolLauncherContentBuilder.ToolLauncherVisualFactoryInstance);
                 context.Add(new ShellCommandInstance(VsDebugToolCommand) { Weight = 0.9 }, ToolLauncherContentBuilder.ToolLauncherVisualFactoryInstance);
             }
         }
-
+#region SampleCommand
+        // sample method for ICommandEx
         private static readonly ICommandEx MyCommand = new ShellRelayCommand(ExecuteMyCommand, CanExecuteMyCommand)
         {
             UniqueId = "MyCommandId",
@@ -52,18 +54,21 @@ namespace NationalInstruments.VeriStand.CustomControlsExamples
             SmallImageSource = ResourceHelpers.LoadImage(typeof(TestCommandContentProvider), "Resources/ViewConsole.png")
         };
 
+        // sample method for Execute
         private static void ExecuteMyCommand(ICommandParameter parameter, ICompositionHost host, DocumentEditSite site)
         {
             MessageBox.Show("This is my command's implementation");
         }
 
+        // sample methof for CanExecute
         private static bool CanExecuteMyCommand(ICommandParameter parameter, ICompositionHost host, DocumentEditSite site)
         {
             // With this implementation, the command is always enabled in the tool launcher.
             // If conditionally disabling the command is not required, then this CanExecute handler can be removed entirely.
             return true;
         }
-
+        #endregion
+ 
         public static readonly ICommandEx VsDebugToolCommand = new ShellRelayCommand((p, host, s) => host.LaunchLegacyToolAsync(_vsDebugToolPath, null).IgnoreAwait())
         {
             UniqueId = "NI.CustomTools:VsDebugTool",
